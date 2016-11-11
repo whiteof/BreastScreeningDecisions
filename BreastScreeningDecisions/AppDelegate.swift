@@ -7,15 +7,51 @@
 //
 
 import UIKit
+import ResearchKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    
+    var containerViewController: IndexViewController? {
+        return window?.rootViewController as? IndexViewController
+    }
+    
+    func removeAllUserData() {
+         let defaults = UserDefaults.standard
+         defaults.removeObject(forKey: "InitialSurvey")
+         defaults.removeObject(forKey: "FollowUpSurvey")
+         defaults.removeObject(forKey: "ResumeSurvey")
+         defaults.synchronize()
+         ORKPasscodeViewController.removePasscodeFromKeychain()
+    }
+    
+    func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
+        //self.removeAllUserData()
+        
+        let standardDefaults = UserDefaults.standard
+        if standardDefaults.object(forKey: "edu.cornell.weill.BreastScreeningDecisions.FirstRun") == nil {
+            ORKPasscodeViewController.removePasscodeFromKeychain()
+            standardDefaults.setValue("edu.cornell.weill.BreastScreeningDecisions.FirstRun", forKey: "edu.cornell.weill.BreastScreeningDecisions.FirstRun")
+        }
+        
+        // Enable page controller
+        let pageController = UIPageControl.appearance()
+        pageController.pageIndicatorTintColor = UIColor.lightGray
+        pageController.currentPageIndicatorTintColor = UIColor.black
+        pageController.backgroundColor = UIColor.white
+        
+        return true
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        //ORKPasscodeViewController.removePasscodeFromKeychain()
+        lockApp()
+        
         return true
     }
 
@@ -27,10 +63,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        if ORKPasscodeViewController.isPasscodeStoredInKeychain() {
+            // Hide content so it doesn't appear in the app switcher.
+            containerViewController?.contentHidden = true
+        }
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        lockApp()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -40,7 +81,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    // MARK: - Passcode stuff
+    
+    func lockApp() {
+        guard ORKPasscodeViewController.isPasscodeStoredInKeychain() && !(containerViewController?.presentedViewController is ORKPasscodeViewController) else { return }
+        window?.makeKeyAndVisible()
+        let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewController(withText: "Welcome back to ResearchKit Sample App", delegate: self) as! ORKPasscodeViewController
+        containerViewController?.present(passcodeViewController, animated: false, completion: nil)
+    }
 
 
 }
 
+extension AppDelegate: ORKPasscodeDelegate {
+    func passcodeViewControllerDidFinish(withSuccess viewController: UIViewController) {
+        containerViewController?.contentHidden = false
+        viewController.dismiss(animated: true, completion: nil)
+    }
+    
+    func passcodeViewControllerDidFailAuthentication(_ viewController: UIViewController) {
+    }
+}
