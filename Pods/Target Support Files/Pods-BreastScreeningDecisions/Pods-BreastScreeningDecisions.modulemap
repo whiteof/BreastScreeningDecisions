@@ -1,0 +1,6 @@
+framework module Pods_BreastScreeningDecisions {
+  umbrella header "Pods-BreastScreeningDecisions-umbrella.h"
+
+  export *
+  module * { export * }
+}
