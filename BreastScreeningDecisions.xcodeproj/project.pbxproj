@@ -23,6 +23,9 @@
 		A8B7F1EC1DD66C1D0022ED0B /* Survey.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1EB1DD66C1D0022ED0B /* Survey.swift */; };
 		A8B7F1EE1DD66C520022ED0B /* ResearchKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1ED1DD66C520022ED0B /* ResearchKitHelper.swift */; };
 		A8B7F1F01DD66CBB0022ED0B /* IndexViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1EF1DD66CBB0022ED0B /* IndexViewController.swift */; };
+		A8B7F1F21DDA56870022ED0B /* IntroViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1F11DDA56870022ED0B /* IntroViewController.swift */; };
+		A8B7F1F41DDA66510022ED0B /* IntroPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1F31DDA66510022ED0B /* IntroPageViewController.swift */; };
+		A8B7F1F61DDA666A0022ED0B /* IntroPageContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1F51DDA666A0022ED0B /* IntroPageContentViewController.swift */; };
 		E067ED3D22F7B70843B3482B /* Pods_BreastScreeningDecisionsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D423DC9023B7B5BDF98C0D0 /* Pods_BreastScreeningDecisionsTests.framework */; };
 		F17F0818B23ABF183C74C342 /* Pods_BreastScreeningDecisionsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6FC0AEBCEAD5CFCB50B2E96 /* Pods_BreastScreeningDecisionsUITests.framework */; };
 /* End PBXBuildFile section */
@@ -71,6 +74,9 @@
 		A8B7F1EB1DD66C1D0022ED0B /* Survey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Survey.swift; sourceTree = "<group>"; };
 		A8B7F1ED1DD66C520022ED0B /* ResearchKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResearchKitHelper.swift; sourceTree = "<group>"; };
 		A8B7F1EF1DD66CBB0022ED0B /* IndexViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexViewController.swift; sourceTree = "<group>"; };
+		A8B7F1F11DDA56870022ED0B /* IntroViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroViewController.swift; sourceTree = "<group>"; };
+		A8B7F1F31DDA66510022ED0B /* IntroPageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroPageViewController.swift; sourceTree = "<group>"; };
+		A8B7F1F51DDA666A0022ED0B /* IntroPageContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntroPageContentViewController.swift; sourceTree = "<group>"; };
 		CE0A669197ED0D62A98F6FD6 /* Pods-BreastScreeningDecisions.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreastScreeningDecisions.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BreastScreeningDecisions/Pods-BreastScreeningDecisions.debug.xcconfig"; sourceTree = "<group>"; };
 		D98BF8082DF2EAF62AA89473 /* Pods-BreastScreeningDecisionsUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreastScreeningDecisionsUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BreastScreeningDecisionsUITests/Pods-BreastScreeningDecisionsUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E13BD47D842DA7877489247D /* Pods-BreastScreeningDecisionsTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreastScreeningDecisionsTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BreastScreeningDecisionsTests/Pods-BreastScreeningDecisionsTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -188,6 +194,9 @@
 			isa = PBXGroup;
 			children = (
 				A8B7F1EF1DD66CBB0022ED0B /* IndexViewController.swift */,
+				A8B7F1F11DDA56870022ED0B /* IntroViewController.swift */,
+				A8B7F1F31DDA66510022ED0B /* IntroPageViewController.swift */,
+				A8B7F1F51DDA666A0022ED0B /* IntroPageContentViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -533,11 +542,14 @@
 				A8B7F1E41DD66B9A0022ED0B /* HealthDataStep.swift in Sources */,
 				A8B7F1E61DD66BBA0022ED0B /* HealthDataStepViewController.swift in Sources */,
 				A8B7F1E21DD66B810022ED0B /* ConsentDocument.swift in Sources */,
+				A8B7F1F41DDA66510022ED0B /* IntroPageViewController.swift in Sources */,
 				A8B7F1EE1DD66C520022ED0B /* ResearchKitHelper.swift in Sources */,
 				A8B7F1EA1DD66BF80022ED0B /* IndexSegue.swift in Sources */,
 				A8B7F1E81DD66BDB0022ED0B /* UILabelExtension.swift in Sources */,
 				A8B7F1A91DD668E30022ED0B /* AppDelegate.swift in Sources */,
+				A8B7F1F21DDA56870022ED0B /* IntroViewController.swift in Sources */,
 				A8B7F1F01DD66CBB0022ED0B /* IndexViewController.swift in Sources */,
+				A8B7F1F61DDA666A0022ED0B /* IntroPageContentViewController.swift in Sources */,
 				A8B7F1E01DD66B020022ED0B /* SurveyTasks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

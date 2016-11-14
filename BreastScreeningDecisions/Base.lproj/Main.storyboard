@@ -6,6 +6,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -29,11 +32,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="137" y="134"/>
         </scene>
-        <!--View Controller-->
+        <!--Intro View Controller-->
         <scene sceneID="nz5-oq-d20">
             <objects>
-                <viewController id="U6h-ar-0BC" sceneMemberID="viewController">
+                <viewController id="U6h-ar-0BC" customClass="IntroViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kQY-QS-qtV"/>
                         <viewControllerLayoutGuide type="bottom" id="cX4-87-2og"/>
@@ -41,12 +45,196 @@
                     <view key="view" contentMode="scaleToFill" id="YjU-aY-4yk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEc-K5-qfb">
+                                <rect key="frame" x="138" y="617" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="8QG-Ls-ruv"/>
+                                    <constraint firstAttribute="width" constant="100" id="NYl-lt-brD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="Enter &gt;"/>
+                                <connections>
+                                    <action selector="joinStudy:" destination="U6h-ar-0BC" eventType="touchUpInside" id="gHZ-DO-6sR"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Breast Screening Decisions" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tGw-tb-mzA">
+                                <rect key="frame" x="16" y="30" width="343" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="oag-kZ-ndh"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="24"/>
+                                <color key="textColor" red="0.41176470588235292" green="0.32549019607843138" blue="0.60784313725490191" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A mammogram decision aid for women ages 40-49" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQg-nA-MaF">
+                                <rect key="frame" x="16" y="60" width="343" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="jEs-Yb-p2e"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="16"/>
+                                <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Figure" translatesAutoresizingMaskIntoConstraints="NO" id="sEz-nv-Rm3">
+                                <rect key="frame" x="132" y="120" width="112" height="140"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="sEz-nv-Rm3" secondAttribute="height" multiplier="4:5" id="EF8-bl-4AI"/>
+                                </constraints>
+                            </imageView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRw-ou-oe4">
+                                <rect key="frame" x="16" y="270" width="343" height="327"/>
+                                <connections>
+                                    <segue destination="Wbt-pp-f7w" kind="embed" id="9Zc-jh-YMt"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="FQg-nA-MaF" firstAttribute="top" secondItem="tGw-tb-mzA" secondAttribute="bottom" id="2K8-is-Ruk"/>
+                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="0.7" id="CCS-Lg-drm"/>
+                            <constraint firstItem="tGw-tb-mzA" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leadingMargin" id="HRN-ZI-eUm"/>
+                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="trailing" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="1.3" id="Hxs-k3-pxQ"/>
+                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="top" secondItem="FQg-nA-MaF" secondAttribute="bottom" constant="10" id="IuJ-q2-7wR"/>
+                            <constraint firstItem="AEc-K5-qfb" firstAttribute="top" secondItem="SRw-ou-oe4" secondAttribute="bottom" constant="20" id="K4l-SF-heM"/>
+                            <constraint firstItem="SRw-ou-oe4" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leadingMargin" id="KxL-i6-qPP"/>
+                            <constraint firstItem="FQg-nA-MaF" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leadingMargin" id="LKX-ah-lba"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FQg-nA-MaF" secondAttribute="trailing" id="R8W-ab-RK5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SRw-ou-oe4" secondAttribute="trailing" id="TDf-GI-x8B"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="tGw-tb-mzA" secondAttribute="trailing" id="dEC-H2-n5l"/>
+                            <constraint firstItem="SRw-ou-oe4" firstAttribute="top" secondItem="sEz-nv-Rm3" secondAttribute="bottom" constant="10" id="fRr-C4-caS"/>
+                            <constraint firstItem="tGw-tb-mzA" firstAttribute="top" secondItem="kQY-QS-qtV" secondAttribute="bottom" constant="10" id="oRK-nG-QPU"/>
+                            <constraint firstItem="AEc-K5-qfb" firstAttribute="centerX" secondItem="YjU-aY-4yk" secondAttribute="centerX" id="qfp-ty-MQe"/>
+                            <constraint firstItem="cX4-87-2og" firstAttribute="top" secondItem="AEc-K5-qfb" secondAttribute="bottom" constant="20" id="uM3-8B-1lT"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="joinStudyButton" destination="AEc-K5-qfb" id="K7d-dd-V2a"/>
+                        <outlet property="viewContainer" destination="SRw-ou-oe4" id="ho4-aE-IKq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fKl-ez-SxW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="809" y="-260"/>
+            <point key="canvasLocation" x="925.60000000000002" y="-198.35082458770617"/>
+        </scene>
+        <!--Intro Page View Controller-->
+        <scene sceneID="Wgy-eK-HA2">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="Wbt-pp-f7w" customClass="IntroPageViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G6N-DV-iSA" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1702" y="-198"/>
+        </scene>
+        <!--Intro Page Content View Controller-->
+        <scene sceneID="8oC-V9-35f">
+            <objects>
+                <viewController storyboardIdentifier="IntroPageOne" id="YWX-Zp-sMY" customClass="IntroPageContentViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="MuH-Cq-kKM"/>
+                        <viewControllerLayoutGuide type="bottom" id="VIQ-v0-Ci6"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ywP-iw-slH">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmP-6t-OfD">
+                                <rect key="frame" x="166" y="28" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLS-O1-CTr">
+                                <rect key="frame" x="166" y="152" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="contentLabel" destination="GLS-O1-CTr" id="sce-OE-4n7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="pSZ-nd-arh" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2494" y="-198"/>
+        </scene>
+        <!--Intro Page Content View Controller-->
+        <scene sceneID="SSn-Yw-4gW">
+            <objects>
+                <viewController storyboardIdentifier="IntroPageTwo" id="cP4-Ri-RAm" customClass="IntroPageContentViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="FS1-mv-mWQ"/>
+                        <viewControllerLayoutGuide type="bottom" id="mca-My-YUZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eCu-Vf-Ki2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ene-kI-ZPY">
+                                <rect key="frame" x="154" y="28" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B27-GT-KJo">
+                                <rect key="frame" x="166" y="130" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="contentLabel" destination="B27-GT-KJo" id="zKS-Tb-tOG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TFz-Vw-bXu" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3210" y="-198"/>
+        </scene>
+        <!--Intro Page Content View Controller-->
+        <scene sceneID="eKL-XK-9k0">
+            <objects>
+                <viewController storyboardIdentifier="IntroPageThree" id="PHF-Mj-VoP" customClass="IntroPageContentViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="u1W-Fp-48y"/>
+                        <viewControllerLayoutGuide type="bottom" id="qC7-wz-0ly"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="GwZ-vL-ne9">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B4D-2k-0Oy">
+                                <rect key="frame" x="180" y="49" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VCv-OJ-aoZ">
+                                <rect key="frame" x="180" y="148" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="contentLabel" destination="VCv-OJ-aoZ" id="V9i-3D-6fF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xzB-Tx-BYT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3935" y="-198"/>
         </scene>
         <!--Item 2-->
         <scene sceneID="56E-0Q-y14">
@@ -65,7 +253,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eJ7-uK-KjC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1902" y="871"/>
+            <point key="canvasLocation" x="1702" y="1193"/>
         </scene>
         <!--Item 1-->
         <scene sceneID="4YA-xu-z8y">
@@ -84,7 +272,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DCL-UK-ZBY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1902" y="216"/>
+            <point key="canvasLocation" x="1702" y="493"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="eOE-VU-F7R">
@@ -102,7 +290,10 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="e22-It-euX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="950" y="545"/>
+            <point key="canvasLocation" x="926" y="493"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Figure" width="225" height="277"/>
+    </resources>
 </document>
