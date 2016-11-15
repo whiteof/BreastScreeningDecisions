@@ -87,7 +87,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func lockApp() {
         guard ORKPasscodeViewController.isPasscodeStoredInKeychain() && !(containerViewController?.presentedViewController is ORKPasscodeViewController) else { return }
         window?.makeKeyAndVisible()
-        let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewController(withText: "Welcome back to ResearchKit Sample App", delegate: self) as! ORKPasscodeViewController
+        let passcodeViewController = ORKPasscodeViewController.passcodeAuthenticationViewController(withText: "Welcome back to Breast Screening Decisions Tool", delegate: self) as! ORKPasscodeViewController
         containerViewController?.present(passcodeViewController, animated: false, completion: nil)
     }
 

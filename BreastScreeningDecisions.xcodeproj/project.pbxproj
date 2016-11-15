@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		16489EB01F19B912CA101E54 /* Pods_BreastScreeningDecisions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1911E738AD99269828D862A4 /* Pods_BreastScreeningDecisions.framework */; };
+		A83C473B1DDB7FD8009D0EF1 /* CommonNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83C473A1DDB7FD8009D0EF1 /* CommonNavigationController.swift */; };
+		A83C47431DDBAFFE009D0EF1 /* YourRiskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */; };
 		A8B7F1A91DD668E30022ED0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1A81DD668E30022ED0B /* AppDelegate.swift */; };
 		A8B7F1AE1DD668E30022ED0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8B7F1AC1DD668E30022ED0B /* Main.storyboard */; };
 		A8B7F1B01DD668E30022ED0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8B7F1AF1DD668E30022ED0B /* Assets.xcassets */; };
@@ -53,6 +55,9 @@
 		4DA7F21A93FEBE8B73240C74 /* Pods-BreastScreeningDecisionsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreastScreeningDecisionsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BreastScreeningDecisionsTests/Pods-BreastScreeningDecisionsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7C0D14096A03EF8A933C7EF9 /* Pods-BreastScreeningDecisionsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreastScreeningDecisionsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BreastScreeningDecisionsUITests/Pods-BreastScreeningDecisionsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A6FC0AEBCEAD5CFCB50B2E96 /* Pods_BreastScreeningDecisionsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BreastScreeningDecisionsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A83C47391DDB7D5D009D0EF1 /* BreastScreeningDecisions.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BreastScreeningDecisions.entitlements; sourceTree = "<group>"; };
+		A83C473A1DDB7FD8009D0EF1 /* CommonNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonNavigationController.swift; sourceTree = "<group>"; };
+		A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourRiskViewController.swift; sourceTree = "<group>"; };
 		A8B7F1A51DD668E30022ED0B /* BreastScreeningDecisions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreastScreeningDecisions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8B7F1A81DD668E30022ED0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8B7F1AD1DD668E30022ED0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -146,6 +151,7 @@
 		A8B7F1A71DD668E30022ED0B /* BreastScreeningDecisions */ = {
 			isa = PBXGroup;
 			children = (
+				A83C47391DDB7D5D009D0EF1 /* BreastScreeningDecisions.entitlements */,
 				A8B7F1D61DD66A4D0022ED0B /* Extension */,
 				A8B7F1D71DD66A570022ED0B /* Controller */,
 				A8B7F1D81DD66A630022ED0B /* Task */,
@@ -197,6 +203,8 @@
 				A8B7F1F11DDA56870022ED0B /* IntroViewController.swift */,
 				A8B7F1F31DDA66510022ED0B /* IntroPageViewController.swift */,
 				A8B7F1F51DDA666A0022ED0B /* IntroPageContentViewController.swift */,
+				A83C473A1DDB7FD8009D0EF1 /* CommonNavigationController.swift */,
+				A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -348,6 +356,11 @@
 						CreatedOnToolsVersion = 8.1;
 						DevelopmentTeam = N7T323633C;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 					A8B7F1B81DD668E30022ED0B = {
 						CreatedOnToolsVersion = 8.1;
@@ -538,6 +551,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A83C473B1DDB7FD8009D0EF1 /* CommonNavigationController.swift in Sources */,
 				A8B7F1EC1DD66C1D0022ED0B /* Survey.swift in Sources */,
 				A8B7F1E41DD66B9A0022ED0B /* HealthDataStep.swift in Sources */,
 				A8B7F1E61DD66BBA0022ED0B /* HealthDataStepViewController.swift in Sources */,
@@ -550,6 +564,7 @@
 				A8B7F1F21DDA56870022ED0B /* IntroViewController.swift in Sources */,
 				A8B7F1F01DD66CBB0022ED0B /* IndexViewController.swift in Sources */,
 				A8B7F1F61DDA666A0022ED0B /* IntroPageContentViewController.swift in Sources */,
+				A83C47431DDBAFFE009D0EF1 /* YourRiskViewController.swift in Sources */,
 				A8B7F1E01DD66B020022ED0B /* SurveyTasks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -703,6 +718,7 @@
 			baseConfigurationReference = CE0A669197ED0D62A98F6FD6 /* Pods-BreastScreeningDecisions.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BreastScreeningDecisions/BreastScreeningDecisions.entitlements;
 				DEVELOPMENT_TEAM = N7T323633C;
 				INFOPLIST_FILE = BreastScreeningDecisions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -717,6 +733,7 @@
 			baseConfigurationReference = F8F3309D0DF0222CDD4CBDDD /* Pods-BreastScreeningDecisions.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = BreastScreeningDecisions/BreastScreeningDecisions.entitlements;
 				DEVELOPMENT_TEAM = N7T323633C;
 				INFOPLIST_FILE = BreastScreeningDecisions/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

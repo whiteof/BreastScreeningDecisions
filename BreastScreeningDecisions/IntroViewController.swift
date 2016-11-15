@@ -22,9 +22,9 @@ class IntroViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         // Update button view
-        self.joinStudyButton.layer.borderWidth = 0.5
-        self.joinStudyButton.layer.borderColor = UIColor(red: 40/255, green: 125/255, blue: 252/255, alpha: 1.0).cgColor
-        self.joinStudyButton.layer.cornerRadius = 6.0
+        //self.joinStudyButton.layer.borderWidth = 0.5
+        //self.joinStudyButton.layer.borderColor = UIColor(red: 40/255, green: 125/255, blue: 252/255, alpha: 1.0).cgColor
+        self.joinStudyButton.layer.cornerRadius = 4.0
         
     }
     
@@ -37,23 +37,19 @@ class IntroViewController: UIViewController {
         let consentDocument = ConsentDocument()
         let consentStep = ORKVisualConsentStep(identifier: "VisualConsentStep", document: consentDocument)
         
-        //let healthDataStep = HealthDataStep(identifier: "Health")
-        
-        let signature = consentDocument.signatures!.first!
-        
-        let reviewConsentStep = ORKConsentReviewStep(identifier: "ConsentReviewStep", signature: signature, in: consentDocument)
+        let reviewConsentStep = ORKConsentReviewStep(identifier: "ConsentReviewStep", signature: nil, in: consentDocument)
         
         reviewConsentStep.text = "Review the consent form."
-        reviewConsentStep.reasonForConsent = "Consent to join the Developer Health Research Study."
+        reviewConsentStep.reasonForConsent = "Consent to use the Breast Screening Decisions Tool."
         
         let passcodeStep = ORKPasscodeStep(identifier: "Passcode")
         passcodeStep.text = "Now you will create a passcode to identify yourself to the app and protect access to information you've entered."
         
         let completionStep = ORKCompletionStep(identifier: "CompletionStep")
         completionStep.title = "Welcome aboard."
-        completionStep.text = "Thank you for joining this study."
+        completionStep.text = "Thank you for using this tool."
         
-        let orderedTask = ORKOrderedTask(identifier: "Join", steps: [consentStep, reviewConsentStep, /*healthDataStep,*/ passcodeStep, completionStep])
+        let orderedTask = ORKOrderedTask(identifier: "Join", steps: [consentStep, reviewConsentStep, passcodeStep, completionStep])
         let taskViewController = ORKTaskViewController(task: orderedTask, taskRun: nil)
         taskViewController.delegate = self
         
