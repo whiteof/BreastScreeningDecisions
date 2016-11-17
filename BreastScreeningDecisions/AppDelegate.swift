@@ -18,18 +18,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return window?.rootViewController as? IndexViewController
     }
     
-    func removeAllUserData() {
-         let defaults = UserDefaults.standard
-         defaults.removeObject(forKey: "InitialSurvey")
-         defaults.removeObject(forKey: "FollowUpSurvey")
-         defaults.removeObject(forKey: "ResumeSurvey")
-         defaults.synchronize()
-         ORKPasscodeViewController.removePasscodeFromKeychain()
-    }
-    
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        
-        //self.removeAllUserData()
+
+        // ApplicationDataModel.sharedInstance.removeUserData()
+        // load saved data
+        ApplicationDataModel.sharedInstance.initialize()
         
         let standardDefaults = UserDefaults.standard
         if standardDefaults.object(forKey: "edu.cornell.weill.BreastScreeningDecisions.FirstRun") == nil {

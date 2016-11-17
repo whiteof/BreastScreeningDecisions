@@ -21,4 +21,14 @@ extension UILabel {
         return tempLabel.frame.height
     }
     
+    func getLabelHeight(byWidth: CGFloat) -> CGFloat {
+        let tempLabel = UILabel(frame: CGRect(x: 0, y: 0, width: byWidth, height: CGFloat.greatestFiniteMagnitude))
+        tempLabel.numberOfLines = 0
+        tempLabel.lineBreakMode = NSLineBreakMode.byWordWrapping
+        tempLabel.font = self.font
+        tempLabel.text = self.text
+        tempLabel.sizeToFit()
+        return tempLabel.frame.height
+    }
+    
 }
