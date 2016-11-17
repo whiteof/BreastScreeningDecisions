@@ -395,7 +395,7 @@ None of these choices is wrong. One of them will be right for you.</string>
         <!--Values-->
         <scene sceneID="TgM-z5-NNJ">
             <objects>
-                <viewController id="q6P-bD-Aal" sceneMemberID="viewController">
+                <viewController id="q6P-bD-Aal" customClass="ValuesViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DFP-dj-gFb"/>
                         <viewControllerLayoutGuide type="bottom" id="Wm9-Ig-guM"/>
@@ -403,11 +403,32 @@ None of these choices is wrong. One of them will be right for you.</string>
                     <view key="view" contentMode="scaleToFill" id="sGF-ug-MoG">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qed-ur-bNA">
+                                <rect key="frame" x="137.5" y="568" width="100" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="0hf-X4-XtA"/>
+                                    <constraint firstAttribute="height" constant="30" id="Tb5-oI-B8e"/>
+                                </constraints>
+                                <state key="normal" title="Reset Data"/>
+                                <connections>
+                                    <action selector="resetApp:" destination="q6P-bD-Aal" eventType="touchUpInside" id="JJ9-Sc-kQC"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="qed-ur-bNA" firstAttribute="centerX" secondItem="sGF-ug-MoG" secondAttribute="centerX" id="uwa-zK-jFE"/>
+                            <constraint firstItem="Wm9-Ig-guM" firstAttribute="top" secondItem="qed-ur-bNA" secondAttribute="bottom" constant="20" id="wuq-Pd-36E"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Values" id="sTq-Hp-HEH"/>
+                    <connections>
+                        <segue destination="WZu-Fv-4cs" kind="unwind" identifier="unwindToIntro" unwindAction="unwindToIntro:" id="Z1o-Ga-JTY"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zT7-aN-8EG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="WZu-Fv-4cs" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2494" y="1917"/>
         </scene>
@@ -545,7 +566,7 @@ None of these choices is wrong. One of them will be right for you.</string>
         <!--Summary-->
         <scene sceneID="QBr-sB-rFE">
             <objects>
-                <viewController id="HWl-3R-vLe" sceneMemberID="viewController">
+                <viewController id="HWl-3R-vLe" customClass="SummaryViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KLs-ru-Vey"/>
                         <viewControllerLayoutGuide type="bottom" id="ZQW-iK-GAO"/>
@@ -553,13 +574,34 @@ None of these choices is wrong. One of them will be right for you.</string>
                     <view key="view" contentMode="scaleToFill" id="GpX-FC-hdb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QzB-sO-bVZ">
+                                <rect key="frame" x="127" y="568" width="120" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="1Qb-P6-RKb"/>
+                                    <constraint firstAttribute="width" constant="120" id="qP5-mG-cHd"/>
+                                </constraints>
+                                <state key="normal" title="Reset Data"/>
+                                <connections>
+                                    <action selector="resetApp:" destination="HWl-3R-vLe" eventType="touchUpInside" id="bGf-Lh-xyx"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ZQW-iK-GAO" firstAttribute="top" secondItem="QzB-sO-bVZ" secondAttribute="bottom" constant="20" id="Zp2-Hu-Yzd"/>
+                            <constraint firstItem="QzB-sO-bVZ" firstAttribute="centerX" secondItem="GpX-FC-hdb" secondAttribute="centerX" id="jNi-VR-xxL"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Summary" id="nev-oi-ytz"/>
+                    <connections>
+                        <segue destination="gHK-El-FJv" kind="unwind" unwindAction="unwindToIntro:" id="q4Y-9N-cG7"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="USE-j5-JYt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="gHK-El-FJv" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2494" y="2608"/>
+            <point key="canvasLocation" x="2493.5999999999999" y="2607.3463268365817"/>
         </scene>
         <!--Screening-->
         <scene sceneID="8XG-Oq-dP4">
