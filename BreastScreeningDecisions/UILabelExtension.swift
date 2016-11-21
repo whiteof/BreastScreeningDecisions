@@ -31,4 +31,14 @@ extension UILabel {
         return tempLabel.frame.height
     }
     
+    static func generateFormattedText(content: [Dictionary<String, UIFont>]) -> NSMutableAttributedString {
+        let returnContent = NSMutableAttributedString()
+        for item in content {
+            let dictKeys = item.keys
+            let formattedText = NSMutableAttributedString(string:dictKeys.first!, attributes:[NSFontAttributeName : item[dictKeys.first!]!])
+            returnContent.append(formattedText)
+        }
+        return returnContent
+    }
+    
 }

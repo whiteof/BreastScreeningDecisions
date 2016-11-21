@@ -8,7 +8,7 @@
 
 import UIKit
 
-class YourRiskTableViewCell: UITableViewCell {
+class CommonTableViewCell: UITableViewCell {
 
     @IBOutlet weak var cellContentView: UIView!
     @IBOutlet weak var cellContentViewHeight: NSLayoutConstraint!

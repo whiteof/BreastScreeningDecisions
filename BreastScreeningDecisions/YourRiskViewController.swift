@@ -20,6 +20,11 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         // set status bar white color
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         
+        // Update button view
+        self.startSurveyButton.layer.cornerRadius = 6.0
+        self.startSurveyButton.backgroundColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
+        self.startSurveyButton.setTitleColor(UIColor.white, for: .normal)
+        
         // remove insent
         self.tableView.tableHeaderView = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: self.tableView.bounds.size.width, height: 0.01))
         
@@ -27,9 +32,6 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         // set button text
-        print("********")
-        print(ApplicationDataModel.sharedInstance.getRiskPercent())
-        print("********")
         if(ApplicationDataModel.sharedInstance.getRiskPercent() > 0) {
             // Enable tab bar
             let tabs = self.tabBarController?.tabBar.items
@@ -63,7 +65,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: "YourRiskCell", for: indexPath) as! YourRiskTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "YourRiskCell", for: indexPath) as! CommonTableViewCell
         cell.cellContentView.translatesAutoresizingMaskIntoConstraints = false
         // remove content
         for view in cell.cellContentView.subviews {

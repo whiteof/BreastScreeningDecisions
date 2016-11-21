@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		16489EB01F19B912CA101E54 /* Pods_BreastScreeningDecisions.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1911E738AD99269828D862A4 /* Pods_BreastScreeningDecisions.framework */; };
-		A82C6B7E1DDE257D009639E0 /* YourRiskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B7D1DDE257D009639E0 /* YourRiskTableViewCell.swift */; };
+		A82C6B7E1DDE257D009639E0 /* CommonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B7D1DDE257D009639E0 /* CommonTableViewCell.swift */; };
 		A82C6B801DDE39CE009639E0 /* ApplicationDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B7F1DDE39CE009639E0 /* ApplicationDataModel.swift */; };
 		A82C6B821DDE558F009639E0 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B811DDE558F009639E0 /* SummaryViewController.swift */; };
 		A82C6B841DDE56C6009639E0 /* ValuesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B831DDE56C6009639E0 /* ValuesViewController.swift */; };
+		A82C6B861DE34C27009639E0 /* ScreeningPageOneViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B851DE34C27009639E0 /* ScreeningPageOneViewController.swift */; };
+		A82C6B8A1DE353CC009639E0 /* ScreeningPageTwoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B891DE353CC009639E0 /* ScreeningPageTwoViewController.swift */; };
+		A82C6B8C1DE353E1009639E0 /* ScreeningPageThreeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B8B1DE353E1009639E0 /* ScreeningPageThreeViewController.swift */; };
+		A82C6B8E1DE353F2009639E0 /* ScreeningPageFourViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B8D1DE353F2009639E0 /* ScreeningPageFourViewController.swift */; };
+		A82C6B901DE35407009639E0 /* ScreeningPageFiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A82C6B8F1DE35407009639E0 /* ScreeningPageFiveViewController.swift */; };
 		A83C473B1DDB7FD8009D0EF1 /* CommonNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83C473A1DDB7FD8009D0EF1 /* CommonNavigationController.swift */; };
 		A83C47431DDBAFFE009D0EF1 /* YourRiskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */; };
+		A89411F81DE38DB2000EAF69 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89411F71DE38DB2000EAF69 /* CALayer.swift */; };
 		A8B7F1A91DD668E30022ED0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1A81DD668E30022ED0B /* AppDelegate.swift */; };
 		A8B7F1AE1DD668E30022ED0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8B7F1AC1DD668E30022ED0B /* Main.storyboard */; };
 		A8B7F1B01DD668E30022ED0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8B7F1AF1DD668E30022ED0B /* Assets.xcassets */; };
@@ -59,13 +65,19 @@
 		4DA7F21A93FEBE8B73240C74 /* Pods-BreastScreeningDecisionsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreastScreeningDecisionsTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BreastScreeningDecisionsTests/Pods-BreastScreeningDecisionsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7C0D14096A03EF8A933C7EF9 /* Pods-BreastScreeningDecisionsUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BreastScreeningDecisionsUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BreastScreeningDecisionsUITests/Pods-BreastScreeningDecisionsUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A6FC0AEBCEAD5CFCB50B2E96 /* Pods_BreastScreeningDecisionsUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BreastScreeningDecisionsUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A82C6B7D1DDE257D009639E0 /* YourRiskTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourRiskTableViewCell.swift; sourceTree = "<group>"; };
+		A82C6B7D1DDE257D009639E0 /* CommonTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonTableViewCell.swift; sourceTree = "<group>"; };
 		A82C6B7F1DDE39CE009639E0 /* ApplicationDataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApplicationDataModel.swift; sourceTree = "<group>"; };
 		A82C6B811DDE558F009639E0 /* SummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		A82C6B831DDE56C6009639E0 /* ValuesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValuesViewController.swift; sourceTree = "<group>"; };
+		A82C6B851DE34C27009639E0 /* ScreeningPageOneViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreeningPageOneViewController.swift; sourceTree = "<group>"; };
+		A82C6B891DE353CC009639E0 /* ScreeningPageTwoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreeningPageTwoViewController.swift; sourceTree = "<group>"; };
+		A82C6B8B1DE353E1009639E0 /* ScreeningPageThreeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreeningPageThreeViewController.swift; sourceTree = "<group>"; };
+		A82C6B8D1DE353F2009639E0 /* ScreeningPageFourViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreeningPageFourViewController.swift; sourceTree = "<group>"; };
+		A82C6B8F1DE35407009639E0 /* ScreeningPageFiveViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScreeningPageFiveViewController.swift; sourceTree = "<group>"; };
 		A83C47391DDB7D5D009D0EF1 /* BreastScreeningDecisions.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BreastScreeningDecisions.entitlements; sourceTree = "<group>"; };
 		A83C473A1DDB7FD8009D0EF1 /* CommonNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonNavigationController.swift; sourceTree = "<group>"; };
 		A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourRiskViewController.swift; sourceTree = "<group>"; };
+		A89411F71DE38DB2000EAF69 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		A8B7F1A51DD668E30022ED0B /* BreastScreeningDecisions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreastScreeningDecisions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8B7F1A81DD668E30022ED0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8B7F1AD1DD668E30022ED0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -200,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				A8B7F1E71DD66BDB0022ED0B /* UILabelExtension.swift */,
+				A89411F71DE38DB2000EAF69 /* CALayer.swift */,
 			);
 			name = Extension;
 			sourceTree = "<group>";
@@ -213,6 +226,11 @@
 				A8B7F1F51DDA666A0022ED0B /* IntroPageContentViewController.swift */,
 				A83C473A1DDB7FD8009D0EF1 /* CommonNavigationController.swift */,
 				A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */,
+				A82C6B851DE34C27009639E0 /* ScreeningPageOneViewController.swift */,
+				A82C6B891DE353CC009639E0 /* ScreeningPageTwoViewController.swift */,
+				A82C6B8B1DE353E1009639E0 /* ScreeningPageThreeViewController.swift */,
+				A82C6B8D1DE353F2009639E0 /* ScreeningPageFourViewController.swift */,
+				A82C6B8F1DE35407009639E0 /* ScreeningPageFiveViewController.swift */,
 				A82C6B831DDE56C6009639E0 /* ValuesViewController.swift */,
 				A82C6B811DDE558F009639E0 /* SummaryViewController.swift */,
 			);
@@ -264,7 +282,7 @@
 		A8B7F1DD1DD66A9C0022ED0B /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				A82C6B7D1DDE257D009639E0 /* YourRiskTableViewCell.swift */,
+				A82C6B7D1DDE257D009639E0 /* CommonTableViewCell.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -564,22 +582,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				A83C473B1DDB7FD8009D0EF1 /* CommonNavigationController.swift in Sources */,
-				A82C6B7E1DDE257D009639E0 /* YourRiskTableViewCell.swift in Sources */,
+				A82C6B8C1DE353E1009639E0 /* ScreeningPageThreeViewController.swift in Sources */,
+				A82C6B7E1DDE257D009639E0 /* CommonTableViewCell.swift in Sources */,
 				A8B7F1EC1DD66C1D0022ED0B /* Survey.swift in Sources */,
+				A82C6B901DE35407009639E0 /* ScreeningPageFiveViewController.swift in Sources */,
 				A8B7F1E41DD66B9A0022ED0B /* HealthDataStep.swift in Sources */,
 				A8B7F1E61DD66BBA0022ED0B /* HealthDataStepViewController.swift in Sources */,
 				A8B7F1E21DD66B810022ED0B /* ConsentDocument.swift in Sources */,
 				A8B7F1F41DDA66510022ED0B /* IntroPageViewController.swift in Sources */,
+				A89411F81DE38DB2000EAF69 /* CALayer.swift in Sources */,
 				A82C6B841DDE56C6009639E0 /* ValuesViewController.swift in Sources */,
 				A8B7F1EE1DD66C520022ED0B /* ResearchKitHelper.swift in Sources */,
 				A8B7F1EA1DD66BF80022ED0B /* IndexSegue.swift in Sources */,
 				A8B7F1E81DD66BDB0022ED0B /* UILabelExtension.swift in Sources */,
 				A8B7F1A91DD668E30022ED0B /* AppDelegate.swift in Sources */,
 				A8B7F1F21DDA56870022ED0B /* IntroViewController.swift in Sources */,
+				A82C6B861DE34C27009639E0 /* ScreeningPageOneViewController.swift in Sources */,
+				A82C6B8A1DE353CC009639E0 /* ScreeningPageTwoViewController.swift in Sources */,
 				A8B7F1F01DD66CBB0022ED0B /* IndexViewController.swift in Sources */,
 				A8B7F1F61DDA666A0022ED0B /* IntroPageContentViewController.swift in Sources */,
 				A82C6B801DDE39CE009639E0 /* ApplicationDataModel.swift in Sources */,
 				A83C47431DDBAFFE009D0EF1 /* YourRiskViewController.swift in Sources */,
+				A82C6B8E1DE353F2009639E0 /* ScreeningPageFourViewController.swift in Sources */,
 				A8B7F1E01DD66B020022ED0B /* SurveyTasks.swift in Sources */,
 				A82C6B821DDE558F009639E0 /* SummaryViewController.swift in Sources */,
 			);
