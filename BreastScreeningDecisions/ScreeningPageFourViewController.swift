@@ -120,6 +120,17 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
         returnView.addSubview(label1)
         currentY = currentY + label1.frame.height + 10.0
         
+        // add label2
+        let label2 = UILabel()
+        label2.textAlignment = NSTextAlignment.left
+        label2.numberOfLines = 0
+        label2.text = "If 1,000 women your age at low to average risk of breast cancer have mammograms:"
+        label2.font = UIFont(name:"HelveticaNeue-Light", size: 14.0)
+        label2.frame = CGRect(x: 0.0, y: currentY, width: chartWidth, height: label2.getLabelHeight(byWidth: chartWidth))
+        label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+        returnView.addSubview(label2)
+        currentY = currentY + label2.frame.height + 10.0
+        
         let figureWidth = CGFloat(chartWidth/50.0-1.0)
         let figureHeight = CGFloat(figureWidth*15.0/9.0)
         let chartHeight = CGFloat((figureHeight+1.0)*20.0)
@@ -127,7 +138,7 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
         for j in 0...19 {
             for i in 0...49 {
                 var imageName = "Chart Figure"
-                var imageAlpha: CGFloat = 0.5
+                var imageAlpha: CGFloat = 0.3
                 if j == 19 && i < number {
                     imageName = "Chart Figure Active"
                     imageAlpha = 1.0
@@ -142,79 +153,53 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
             }
         }
         currentY = currentY + chartHeight + 10.0
+/*
+        // add text over
+        let headerLabel = UILabel()
+        headerLabel.text = "24 women will die of breast cancer"
+        headerLabel.font = UIFont(name: "Georgia", size: 24.0)
+        headerLabel.textAlignment = NSTextAlignment.center
+        headerLabel.numberOfLines = 0
+        headerLabel.textColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
+        headerLabel.frame = CGRect(x: 0.0, y: currentY, width: chartWidth, height: label2.getLabelHeight(byWidth: chartWidth))
+        headerLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
+        headerLabel.layer.shadowOpacity = 0.2
+        headerLabel.layer.shadowRadius = 4
+*/
         
-        // create disclaimer
-        // add label2
-        var currentLeftY = currentY
-        let label2 = UILabel()
-        label2.textAlignment = NSTextAlignment.left
-        label2.numberOfLines = 0
-        label2.text = "900 will have a normal mammogram"
-        label2.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label2.frame = CGRect(x: 0, y: currentLeftY, width: (chartWidth/2-10.0), height: label2.getLabelHeight(byWidth: (chartWidth/2-10.0))+10.0)
-        label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        label2.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 1.0), thickness: 0.5)
-        returnView.addSubview(label2)
-        currentLeftY = currentLeftY + label2.frame.height + 5.0
-        // add label4
-        let label4 = UILabel()
-        label4.textAlignment = NSTextAlignment.left
-        label4.numberOfLines = 0
-        label4.text = "899 do not have breast cancer "
-        label4.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label4.frame = CGRect(x: 10.0, y: currentLeftY, width: (chartWidth/2-20.0), height: label4.getLabelHeight(byWidth: (chartWidth/2-20.0)))
-        label4.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        returnView.addSubview(label4)
-        currentLeftY = currentLeftY + label4.frame.height + 5.0
-        // add label5
-        let label5 = UILabel()
-        label5.textAlignment = NSTextAlignment.left
-        label5.numberOfLines = 0
-        label5.text = "1 has breast cancer missed by screening (false negative)"
-        label5.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label5.frame = CGRect(x: 10.0, y: currentLeftY, width: (chartWidth/2-20.0), height: label5.getLabelHeight(byWidth: (chartWidth/2-20.0)))
-        label5.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        returnView.addSubview(label5)
-        currentLeftY = currentLeftY + label5.frame.height + 10.0
+        // add button
+        var button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every year starting at age 40")
+        var buttonView = button.view
+        buttonView.frame = CGRect(x: 0.0, y: currentY, width: (chartWidth/2)-10.0, height: button.height+10.0)
+        buttonView.layer.addBorder(edge: .right, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        buttonView.layer.addBorder(edge: .bottom, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        returnView.addSubview(buttonView)
+
+        // add button
+        button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every year starting at age 50")
+        buttonView = button.view
+        buttonView.frame = CGRect(x: (chartWidth/2)+10, y: currentY, width: (chartWidth/2)-10.0, height: button.height+10.0)
+        buttonView.layer.addBorder(edge: .right, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        buttonView.layer.addBorder(edge: .bottom, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        returnView.addSubview(buttonView)
+        currentY = currentY + buttonView.frame.height + 10.0
+
+        // add button
+        button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every other year starting at age 40")
+        buttonView = button.view
+        buttonView.frame = CGRect(x: 0.0, y: currentY, width: (chartWidth/2)-10.0, height: button.height+10.0)
+        buttonView.layer.addBorder(edge: .right, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        buttonView.layer.addBorder(edge: .bottom, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        returnView.addSubview(buttonView)
         
-        // add label3
-        var currentRightY = currentY
-        let label3 = UILabel()
-        label3.textAlignment = NSTextAlignment.left
-        label3.numberOfLines = 0
-        label3.text = "100 will have an abnormal mammogram"
-        label3.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label3.frame = CGRect(x: (chartWidth/2+10.0), y: currentRightY, width: (chartWidth/2-10.0), height: label3.getLabelHeight(byWidth: (chartWidth/2-10.0))+10.0)
-        label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        label3.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 1.0), thickness: 0.5)
-        returnView.addSubview(label3)
-        currentRightY = currentRightY + label3.frame.height + 5.0
-        // add label6
-        let label6 = UILabel()
-        label6.textAlignment = NSTextAlignment.left
-        label6.numberOfLines = 0
-        label6.text = "98 do not have breast cancer (false positive)"
-        label6.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label6.frame = CGRect(x: (chartWidth/2+20.0), y: currentRightY, width: (chartWidth/2-10.0), height: label6.getLabelHeight(byWidth: (chartWidth/2-20.0))+10.0)
-        label6.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        returnView.addSubview(label6)
-        currentRightY = currentRightY + label6.frame.height + 5.0
-        // add label7
-        let label7 = UILabel()
-        label7.textAlignment = NSTextAlignment.left
-        label7.numberOfLines = 0
-        label7.text = "2 have breast cancer caught by screening"
-        label7.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label7.frame = CGRect(x: (chartWidth/2+20.0), y: currentRightY, width: (chartWidth/2-10.0), height: label7.getLabelHeight(byWidth: (chartWidth/2-20.0))+10.0)
-        label7.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        returnView.addSubview(label7)
-        currentRightY = currentRightY + label6.frame.height + 5.0
-        // set currentY
-        if(currentLeftY > currentRightY) {
-            currentY = currentLeftY + 10.0
-        }else {
-            currentY = currentRightY + 10.0
-        }
+        // add button
+        button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every other year starting at age 50")
+        buttonView = button.view
+        buttonView.frame = CGRect(x: (chartWidth/2)+10, y: currentY, width: (chartWidth/2)-10.0, height: button.height+10.0)
+        buttonView.layer.addBorder(edge: .right, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        buttonView.layer.addBorder(edge: .bottom, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        returnView.addSubview(buttonView)
+        currentY = currentY + buttonView.frame.height + 10.0
         
         let parentConstraintWidth = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: chartWidth)
         let parentConstraintHeight = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: currentY)
@@ -274,6 +259,37 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
         NSLayoutConstraint.activate([parentConstraintWidth, parentConstraintHeight])
         
         return returnView
+    }
+    
+    func buildButton(width: CGFloat, title: String) -> (view: UIView, height: CGFloat) {
+        let returnView = UIView()
+ 
+        // image
+        let origImage = UIImage(named: "Screening Button")
+        let tintedImage = origImage?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        let image = UIImageView(image: tintedImage)
+        image.tintColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1.0)
+        image.frame = CGRect(x: 0.0, y: 0.0, width: 40.0, height: 40.0)
+        returnView.addSubview(image)
+        
+        // titile
+        let label = UILabel()
+        label.textAlignment = NSTextAlignment.left
+        label.numberOfLines = 0
+        label.text = title
+        label.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
+        label.frame = CGRect(x: 50.0, y: 0.0, width: width-50.0, height: label.getLabelHeight(byWidth: width-50.0))
+        label.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+        returnView.addSubview(label)
+        
+        var height:CGFloat = 0.0
+        if(image.frame.height > label.frame.height) {
+            height = image.frame.height
+        }else {
+            height = label.frame.height
+        }
+        
+        return (returnView, height)
     }
     
 }

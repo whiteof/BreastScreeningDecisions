@@ -202,7 +202,7 @@ class ScreeningPageThreeViewController: UIViewController, UITableViewDelegate, U
         label6.numberOfLines = 0
         label6.text = "98 do not have breast cancer (false positive)"
         label6.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label6.frame = CGRect(x: (chartWidth/2+20.0), y: currentRightY, width: (chartWidth/2-10.0), height: label6.getLabelHeight(byWidth: (chartWidth/2-20.0))+10.0)
+        label6.frame = CGRect(x: (chartWidth/2+20.0), y: currentRightY, width: (chartWidth/2-20.0), height: label6.getLabelHeight(byWidth: (chartWidth/2-20.0)))
         label6.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label6)
         currentRightY = currentRightY + label6.frame.height + 5.0
@@ -212,7 +212,7 @@ class ScreeningPageThreeViewController: UIViewController, UITableViewDelegate, U
         label7.numberOfLines = 0
         label7.text = "2 have breast cancer caught by screening"
         label7.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label7.frame = CGRect(x: (chartWidth/2+20.0), y: currentRightY, width: (chartWidth/2-10.0), height: label7.getLabelHeight(byWidth: (chartWidth/2-20.0))+10.0)
+        label7.frame = CGRect(x: (chartWidth/2+20.0), y: currentRightY, width: (chartWidth/2-20.0), height: label7.getLabelHeight(byWidth: (chartWidth/2-20.0)))
         label7.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label7)
         currentRightY = currentRightY + label6.frame.height + 5.0

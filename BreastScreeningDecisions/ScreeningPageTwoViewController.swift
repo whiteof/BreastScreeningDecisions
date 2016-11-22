@@ -200,10 +200,10 @@ class ScreeningPageTwoViewController: UIViewController, UITableViewDelegate, UIT
             ["A false-positive result occurs when a mammogram is abnormal but there is no cancer. An abnormal mammogram usually requires additional imaging (diagnostic mammogram, ultrasound or MRI) and possibly a breast biopsy. If an abnormal mammogram is not cancer, this additional testing may seem unnecessary, inconvenient and physically uncomfortable.": UIFont(name:"HelveticaNeue-Light", size: 16.0)!]
             ]
         )
-        label2.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label2.getLabelHeight(byWidth: frameWidth))
+        label2.frame = CGRect(x: 40.0, y: currentY, width: frameWidth-40.0, height: label2.getLabelHeight(byWidth: frameWidth-40.0))
         label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label2)
-        currentY = currentY + label2.frame.height + 10.0
+        currentY = currentY + label2.frame.height + 5.0
         // add label3
         let label3 = UILabel()
         label3.textAlignment = NSTextAlignment.left
@@ -213,10 +213,10 @@ class ScreeningPageTwoViewController: UIViewController, UITableViewDelegate, UIT
             ["Screening mammograms often find slow-growing breast cancers and non-invasive breast cancers. These cancers have a very small chance of causing death, so treating them - with surgery, chemotherapy and radiation - may seem unnecessary. However, it is very difficult to predict whether a cancer will be life-threatening, so almost all cancers that are found will be treated.": UIFont(name:"HelveticaNeue-Light", size: 16.0)!]
             ]
         )
-        label3.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label3.getLabelHeight(byWidth: frameWidth))
+        label3.frame = CGRect(x: 40.0, y: currentY, width: frameWidth-40.0, height: label3.getLabelHeight(byWidth: frameWidth-40.0))
         label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label3)
-        currentY = currentY + label3.frame.height + 10.0
+        currentY = currentY + label3.frame.height + 5.0
         // add label4
         let label4 = UILabel()
         label4.textAlignment = NSTextAlignment.left
@@ -226,28 +226,28 @@ class ScreeningPageTwoViewController: UIViewController, UITableViewDelegate, UIT
             ["A false-negative result occurs when a mammogram is normal but a woman truly has breast cancer. Mammograms are not perfect. Some breast cancers will be missed by screening.": UIFont(name:"HelveticaNeue-Light", size: 16.0)!]
             ]
         )
-        label4.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label4.getLabelHeight(byWidth: frameWidth))
+        label4.frame = CGRect(x: 40.0, y: currentY, width: frameWidth-40.0, height: label4.getLabelHeight(byWidth: frameWidth-40.0))
         label4.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label4)
-        currentY = currentY + label4.frame.height + 10.0
+        currentY = currentY + label4.frame.height + 5.0
         // add label5
         let label5 = UILabel()
         label5.textAlignment = NSTextAlignment.left
         label5.numberOfLines = 0
-        label4.attributedText = UILabel.generateFormattedText(content: [
+        label5.attributedText = UILabel.generateFormattedText(content: [
             ["Radiation exposure. ": UIFont(name:"HelveticaNeue-Bold", size: 16.0)!],
             ["Mammograms use radiation, but the risk of harm from screening mammograms is extremely low.": UIFont(name:"HelveticaNeue-Light", size: 16.0)!]
             ]
         )
-        label5.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label5.getLabelHeight(byWidth: frameWidth))
+        label5.frame = CGRect(x: 40.0, y: currentY, width: frameWidth-40.0, height: label5.getLabelHeight(byWidth: frameWidth-40.0))
         label5.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label5)
-        currentY = currentY + label5.frame.height + 10.0
+        currentY = currentY + label5.frame.height + 20.0
         // add label6
         let label6 = UILabel()
         label6.textAlignment = NSTextAlignment.left
         label6.numberOfLines = 0
-        label6.text = " It's hard to know who will benefit from mammograms and who will experience harm. What we can tell you is how mammograms perform in women like you and how starting screening at different ages may affect a woman's chance of dying from breast cancer."
+        label6.text = "It's hard to know who will benefit from mammograms and who will experience harm. What we can tell you is how mammograms perform in women like you and how starting screening at different ages may affect a woman's chance of dying from breast cancer."
         label6.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
         label6.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label6.getLabelHeight(byWidth: frameWidth))
         label6.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
