@@ -13,6 +13,18 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var nextButton: UIButton!
     
+    var header1: UILabel!
+    var header2: UILabel!
+    var values: [Int:Int]!
+    var buttons = [
+        1: UIView(),
+        2: UIView(),
+        3: UIView(),
+        4: UIView()
+    ]
+    var figures: [Int:UIImageView] = [:]
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,6 +41,14 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
         
         self.tableView.estimatedRowHeight = self.tableView.rowHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
+        
+        // set values
+        self.values = [
+            1: 22,
+            2: 23,
+            3: 24,
+            4: 25
+        ]
         
     }
     
@@ -54,13 +74,15 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "ScreeningPageFourCell", for: indexPath) as! CommonTableViewCell
         cell.cellContentView.translatesAutoresizingMaskIntoConstraints = false
+        
         // remove content
         for view in cell.cellContentView.subviews {
             view.removeFromSuperview()
         }
+        
         if(indexPath.row == 0) {
             // BUILD CHART
-            let chart = self.buildHeader(number: 24, chartWidth: (cell.cellContentView.frame.width-40.0))
+            let chart = self.buildHeader(number: self.values[1]!, chartWidth: (cell.cellContentView.frame.width-40.0))
             // get chart height
             var chartHeight:CGFloat = 0.0
             for constraint in chart.constraints {
@@ -134,11 +156,12 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
         let figureWidth = CGFloat(chartWidth/50.0-1.0)
         let figureHeight = CGFloat(figureWidth*15.0/9.0)
         let chartHeight = CGFloat((figureHeight+1.0)*20.0)
+        var headerY = currentY + (figureHeight*5)
         
         for j in 0...19 {
             for i in 0...49 {
                 var imageName = "Chart Figure"
-                var imageAlpha: CGFloat = 0.3
+                var imageAlpha: CGFloat = 0.2
                 if j == 19 && i < number {
                     imageName = "Chart Figure Active"
                     imageAlpha = 1.0
@@ -149,55 +172,97 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
                 let y = (figureHeight+1.0)*CGFloat(j)
                 imageView.frame = CGRect(x: x, y: (currentY+y), width: figureWidth, height: figureHeight)
                 imageView.alpha = imageAlpha
+                if j == 19 {
+                    self.figures[i+1] = imageView
+                }
                 returnView.addSubview(imageView)
             }
         }
         currentY = currentY + chartHeight + 10.0
-/*
+
+        // add label3
+        let label3 = UILabel()
+        label3.textAlignment = NSTextAlignment.left
+        label3.numberOfLines = 0
+        label3.text = "Press on the different screening schedules below to learn the benefit of screening:"
+        label3.font = UIFont(name:"HelveticaNeue-Light", size: 14.0)
+        label3.frame = CGRect(x: 0.0, y: currentY, width: chartWidth, height: label3.getLabelHeight(byWidth: chartWidth))
+        label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+        returnView.addSubview(label3)
+        currentY = currentY + label3.frame.height + 10.0
+        
         // add text over
-        let headerLabel = UILabel()
-        headerLabel.text = "24 women will die of breast cancer"
-        headerLabel.font = UIFont(name: "Georgia", size: 24.0)
+        var headerLabel = UILabel()
         headerLabel.textAlignment = NSTextAlignment.center
         headerLabel.numberOfLines = 0
+        headerLabel.text = "\(self.values[1]!) women will die of breast cancer"
+        headerLabel.font = UIFont(name: "HelveticaNeue", size: 20.0)
         headerLabel.textColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
-        headerLabel.frame = CGRect(x: 0.0, y: currentY, width: chartWidth, height: label2.getLabelHeight(byWidth: chartWidth))
+        headerLabel.frame = CGRect(x: 20.0, y: headerY, width: chartWidth-40.0, height: headerLabel.getLabelHeight(byWidth: chartWidth-40.0))
         headerLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
         headerLabel.layer.shadowOpacity = 0.2
         headerLabel.layer.shadowRadius = 4
-*/
+        self.header1 = headerLabel
+        returnView.addSubview(headerLabel)
+        headerY = headerY + headerLabel.frame.height + 10.0
+
+        headerLabel = UILabel()
+        headerLabel.textAlignment = NSTextAlignment.center
+        headerLabel.numberOfLines = 0
+        headerLabel.text = "\(1000-self.values[1]!) women will die of other causes"
+        headerLabel.font = UIFont(name: "HelveticaNeue", size: 20.0)
+        headerLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+        headerLabel.frame = CGRect(x: 20.0, y: headerY, width: chartWidth-40.0, height: headerLabel.getLabelHeight(byWidth: chartWidth-40.0))
+        headerLabel.layer.shadowOffset = CGSize(width: 0, height: 0)
+        headerLabel.layer.shadowOpacity = 0.2
+        headerLabel.layer.shadowRadius = 4
+        self.header2 = headerLabel
+        returnView.addSubview(headerLabel)
+        
         
         // add button
-        var button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every year starting at age 40")
+        var button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every year starting at age 40", tagNum: 1)
         var buttonView = button.view
         buttonView.frame = CGRect(x: 0.0, y: currentY, width: (chartWidth/2)-10.0, height: button.height+10.0)
         buttonView.layer.addBorder(edge: .right, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
         buttonView.layer.addBorder(edge: .bottom, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        for view in buttonView.subviews {
+            if let image = view as? UIImageView {
+                image.tintColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
+            }
+            if let label = view as? UILabel {
+                label.textColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
+            }
+        }
+        self.buttons[1] = buttonView
         returnView.addSubview(buttonView)
 
         // add button
-        button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every year starting at age 50")
+        button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every year starting at age 50", tagNum: 2)
         buttonView = button.view
         buttonView.frame = CGRect(x: (chartWidth/2)+10, y: currentY, width: (chartWidth/2)-10.0, height: button.height+10.0)
         buttonView.layer.addBorder(edge: .right, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
         buttonView.layer.addBorder(edge: .bottom, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        self.buttons[2] = buttonView
         returnView.addSubview(buttonView)
         currentY = currentY + buttonView.frame.height + 10.0
 
         // add button
-        button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every other year starting at age 40")
+        button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every other year starting at age 40", tagNum: 3)
         buttonView = button.view
         buttonView.frame = CGRect(x: 0.0, y: currentY, width: (chartWidth/2)-10.0, height: button.height+10.0)
         buttonView.layer.addBorder(edge: .right, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
         buttonView.layer.addBorder(edge: .bottom, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        self.buttons[3] = buttonView
         returnView.addSubview(buttonView)
         
         // add button
-        button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every other year starting at age 50")
+        button = self.buildButton(width: (chartWidth/2)-20.0, title: "Every other year starting at age 50", tagNum: 4)
         buttonView = button.view
         buttonView.frame = CGRect(x: (chartWidth/2)+10, y: currentY, width: (chartWidth/2)-10.0, height: button.height+10.0)
         buttonView.layer.addBorder(edge: .right, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
         buttonView.layer.addBorder(edge: .bottom, color: UIColor(red: 225.0/255.0, green: 225.0/255.0, blue: 225.0/255.0, alpha: 1.0), thickness: 0.5)
+        self.buttons[4] = buttonView
         returnView.addSubview(buttonView)
         currentY = currentY + buttonView.frame.height + 10.0
         
@@ -217,7 +282,7 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
         label1.textAlignment = NSTextAlignment.left
         label1.numberOfLines = 0
         label1.text = "While screening mammograms can't prevent breast cancer, they can reduce your chance of dying from breast cancer. The benefit of screening depends on when you start and how often you have a screening mammogram."
-        label1.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+        label1.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
         label1.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label1.getLabelHeight(byWidth: frameWidth))
         label1.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label1)
@@ -261,7 +326,7 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
         return returnView
     }
     
-    func buildButton(width: CGFloat, title: String) -> (view: UIView, height: CGFloat) {
+    func buildButton(width: CGFloat, title: String, tagNum: Int) -> (view: UIView, height: CGFloat) {
         let returnView = UIView()
  
         // image
@@ -289,7 +354,53 @@ class ScreeningPageFourViewController: UIViewController, UITableViewDelegate, UI
             height = label.frame.height
         }
         
+        // set tag
+        returnView.tag = tagNum
+        
+        // add action
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(ScreeningPageFourViewController.changeValuesAction(_:)))
+        returnView.addGestureRecognizer(gesture)
+        
         return (returnView, height)
+    }
+    
+    func changeValuesAction(_ sender:UITapGestureRecognizer){
+        let tagNum = sender.view?.tag
+        // update values
+        let value = self.values[tagNum!]!
+        self.header1.text = "\(value) women will die of breast cancer"
+        self.header2.text = "\(1000-value) women will die of other causes"
+        // set all buttons to default
+        for button in self.buttons {
+            for view in button.value.subviews {
+                if let image = view as? UIImageView {
+                    image.tintColor = UIColor(red: 221/255, green: 221/255, blue: 221/255, alpha: 1.0)
+                }
+                if let label = view as? UILabel {
+                    label.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                }
+            }
+        }
+        // update button view
+        let buttonView = sender.view!
+        for view in buttonView.subviews {
+            if let image = view as? UIImageView {
+                image.tintColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
+            }
+            if let label = view as? UILabel {
+                label.textColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
+            }
+        }
+        // update chart
+        for imageView in self.figures {
+            imageView.value.image = UIImage(named: "Chart Figure")
+            imageView.value.alpha = 0.2
+        }
+        for i in 1...value {
+            let imageView = self.figures[i]!
+            imageView.image = UIImage(named: "Chart Figure Active")
+            imageView.alpha = 1.0
+        }
     }
     
 }
