@@ -312,4 +312,7 @@ class ScreeningPageFiveViewController: UIViewController, UITableViewDelegate, UI
         return (returnView, currentY)
     }
     
+    @IBAction func goToValuesAction(_ sender: Any) {
+        performSegue(withIdentifier: "unwindToValues", sender: nil)
+    }
 }

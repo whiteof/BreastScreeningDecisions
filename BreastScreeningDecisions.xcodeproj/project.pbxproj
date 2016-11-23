@@ -20,6 +20,7 @@
 		A83C473B1DDB7FD8009D0EF1 /* CommonNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83C473A1DDB7FD8009D0EF1 /* CommonNavigationController.swift */; };
 		A83C47431DDBAFFE009D0EF1 /* YourRiskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */; };
 		A89411F81DE38DB2000EAF69 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89411F71DE38DB2000EAF69 /* CALayer.swift */; };
+		A89411FA1DE61003000EAF69 /* ValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89411F91DE61003000EAF69 /* ValuesTableViewCell.swift */; };
 		A8B7F1A91DD668E30022ED0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1A81DD668E30022ED0B /* AppDelegate.swift */; };
 		A8B7F1AE1DD668E30022ED0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8B7F1AC1DD668E30022ED0B /* Main.storyboard */; };
 		A8B7F1B01DD668E30022ED0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8B7F1AF1DD668E30022ED0B /* Assets.xcassets */; };
@@ -78,6 +79,7 @@
 		A83C473A1DDB7FD8009D0EF1 /* CommonNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonNavigationController.swift; sourceTree = "<group>"; };
 		A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourRiskViewController.swift; sourceTree = "<group>"; };
 		A89411F71DE38DB2000EAF69 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
+		A89411F91DE61003000EAF69 /* ValuesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValuesTableViewCell.swift; sourceTree = "<group>"; };
 		A8B7F1A51DD668E30022ED0B /* BreastScreeningDecisions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreastScreeningDecisions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8B7F1A81DD668E30022ED0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8B7F1AD1DD668E30022ED0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -283,6 +285,7 @@
 			isa = PBXGroup;
 			children = (
 				A82C6B7D1DDE257D009639E0 /* CommonTableViewCell.swift */,
+				A89411F91DE61003000EAF69 /* ValuesTableViewCell.swift */,
 			);
 			name = Components;
 			sourceTree = "<group>";
@@ -596,6 +599,7 @@
 				A8B7F1EA1DD66BF80022ED0B /* IndexSegue.swift in Sources */,
 				A8B7F1E81DD66BDB0022ED0B /* UILabelExtension.swift in Sources */,
 				A8B7F1A91DD668E30022ED0B /* AppDelegate.swift in Sources */,
+				A89411FA1DE61003000EAF69 /* ValuesTableViewCell.swift in Sources */,
 				A8B7F1F21DDA56870022ED0B /* IntroViewController.swift in Sources */,
 				A82C6B861DE34C27009639E0 /* ScreeningPageOneViewController.swift in Sources */,
 				A82C6B8A1DE353CC009639E0 /* ScreeningPageTwoViewController.swift in Sources */,
