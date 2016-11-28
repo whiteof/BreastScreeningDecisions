@@ -89,6 +89,41 @@ class ApplicationDataModel {
         return self.valuesSurveyTaskResult
     }
     
+    func getValuesSurveyData() -> [Float] {
+        var returnData:[Float] = []
+        
+        if(self.getValuesSurveyCompleted()) {
+            let taskResult = self.getValuesTaskResult()
+            let objResearchKitHelper = ResearchKitHelper()
+            var answer: Int!
+            // step 1
+            answer = objResearchKitHelper.getFormattedScaleAnswer(taskResult: taskResult, stepIdentifier: "step1")
+            returnData.append(Float(answer)/10.0)
+            // step 2
+            answer = objResearchKitHelper.getFormattedScaleAnswer(taskResult: taskResult, stepIdentifier: "step2")
+            returnData.append(Float(answer)/10.0)
+            // step 3
+            answer = objResearchKitHelper.getFormattedScaleAnswer(taskResult: taskResult, stepIdentifier: "step3")
+            returnData.append(Float(answer)/10.0)
+            // step 4
+            answer = objResearchKitHelper.getFormattedScaleAnswer(taskResult: taskResult, stepIdentifier: "step4")
+            returnData.append(Float(answer)/10.0)
+            // step 5
+            answer = objResearchKitHelper.getFormattedScaleAnswer(taskResult: taskResult, stepIdentifier: "step5")
+            returnData.append(Float(answer)/10.0)
+            // step 6
+            answer = objResearchKitHelper.getFormattedScaleAnswer(taskResult: taskResult, stepIdentifier: "step6")
+            returnData.append(Float(answer)/10.0)
+            // step 7
+            answer = objResearchKitHelper.getFormattedScaleAnswer(taskResult: taskResult, stepIdentifier: "step7")
+            returnData.append(Float(answer)/10.0)
+            // step 8
+            answer = objResearchKitHelper.getFormattedScaleAnswer(taskResult: taskResult, stepIdentifier: "step8")
+            returnData.append(Float(answer)/10.0)
+        }
+        return returnData
+    }
+    
     func getRiskPercent() -> Int {
         return self.riskPercent
     }

@@ -40,9 +40,26 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             let valuesTab = tabs![2]
             valuesTab.isEnabled = true
             // set button title
-            self.startSurveyButton.setTitle("Reset Selections", for: UIControlState.normal)
+            self.startSurveyButton.setTitle("Next", for: UIControlState.normal)
+            // change button width
+            for constraint in self.startSurveyButton.constraints {
+                if(constraint.firstAttribute == NSLayoutAttribute.width) {
+                    constraint.constant = 100.0
+                }
+            }
         }else {
             self.startSurveyButton.setTitle("Access My Risk", for: UIControlState.normal)
+            // change button width
+            for constraint in self.startSurveyButton.constraints {
+                if(constraint.firstAttribute == NSLayoutAttribute.width) {
+                    constraint.constant = 160.0
+                }
+            }
+        }
+        if(ApplicationDataModel.sharedInstance.getValuesSurveyCompleted()) {
+            let tabs = self.tabBarController?.tabBar.items
+            let summaryTab = tabs![3]
+            summaryTab.isEnabled = true
         }
     }
 
@@ -263,7 +280,17 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             label5.frame = CGRect(x: 0, y: currentY, width: frameWidth-20.0, height: label5.getLabelHeight(byWidth: frameWidth))
             label5.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
             returnView.addSubview(label5)
-            currentY = currentY + label5.frame.height - 10.0
+            currentY = currentY + label5.frame.height + 20.0
+            // add reset values button
+            let buttonX = (frameWidth / 2) - 70.0
+            let resetButton = UIButton.init(frame: CGRect.init(x: buttonX, y: currentY, width: 140.0, height: 30))
+            resetButton.setTitle("Reset Selections", for: .normal)
+            resetButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
+            resetButton.setTitleColor(UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0), for: .normal)
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(YourRiskViewController.resetValuesAction(_:)))
+            resetButton.addGestureRecognizer(gesture)
+            returnView.addSubview(resetButton)
+            currentY = currentY + resetButton.frame.height - 20.0
         }else {
             // SURVEY NOT COMPLETED
             // add label1
@@ -307,6 +334,10 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func startSurvey(_ sender: Any) {
+        performSegue(withIdentifier: "unwindToScreening", sender: nil)
+    }
+    
+    func resetValuesAction(_ sender:UITapGestureRecognizer){
         // change status bar colors to default
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
         let taskViewController = ORKTaskViewController(task: SurveyTasks.yourRiskSurveyTask, taskRun: nil)

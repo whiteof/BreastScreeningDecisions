@@ -73,7 +73,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A mammogram decision aid for women ages 40-49" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FQg-nA-MaF">
-                                <rect key="frame" x="16" y="80" width="343" height="50"/>
+                                <rect key="frame" x="36" y="80" width="303" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="jEs-Yb-p2e"/>
                                 </constraints>
@@ -88,7 +88,8 @@
                                 </constraints>
                             </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRw-ou-oe4">
-                                <rect key="frame" x="16" y="290.5" width="343" height="306.5"/>
+                                <rect key="frame" x="0.0" y="290.5" width="375" height="306.5"/>
+                                <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <segue destination="Wbt-pp-f7w" kind="embed" id="9Zc-jh-YMt"/>
                                 </connections>
@@ -111,10 +112,10 @@
                             <constraint firstItem="sEz-nv-Rm3" firstAttribute="trailing" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="1.3" id="Hxs-k3-pxQ"/>
                             <constraint firstItem="sEz-nv-Rm3" firstAttribute="top" secondItem="FQg-nA-MaF" secondAttribute="bottom" constant="10" id="IuJ-q2-7wR"/>
                             <constraint firstItem="AEc-K5-qfb" firstAttribute="top" secondItem="SRw-ou-oe4" secondAttribute="bottom" constant="20" id="K4l-SF-heM"/>
-                            <constraint firstItem="SRw-ou-oe4" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leadingMargin" id="KxL-i6-qPP"/>
-                            <constraint firstItem="FQg-nA-MaF" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leadingMargin" id="LKX-ah-lba"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="FQg-nA-MaF" secondAttribute="trailing" id="R8W-ab-RK5"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="SRw-ou-oe4" secondAttribute="trailing" id="TDf-GI-x8B"/>
+                            <constraint firstItem="SRw-ou-oe4" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leading" id="KxL-i6-qPP"/>
+                            <constraint firstItem="FQg-nA-MaF" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leadingMargin" constant="20" id="LKX-ah-lba"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="FQg-nA-MaF" secondAttribute="trailing" constant="20" id="R8W-ab-RK5"/>
+                            <constraint firstAttribute="trailing" secondItem="SRw-ou-oe4" secondAttribute="trailing" id="TDf-GI-x8B"/>
                             <constraint firstItem="00c-ho-I0V" firstAttribute="top" secondItem="tGw-tb-mzA" secondAttribute="bottom" id="Uki-ts-TP0"/>
                             <constraint firstAttribute="trailing" secondItem="tGw-tb-mzA" secondAttribute="trailing" id="dEC-H2-n5l"/>
                             <constraint firstItem="SRw-ou-oe4" firstAttribute="top" secondItem="sEz-nv-Rm3" secondAttribute="bottom" constant="10" id="fRr-C4-caS"/>
@@ -163,33 +164,32 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vmP-6t-OfD">
-                                                <rect key="frame" x="8" y="0.0" width="359" height="70"/>
+                                                <rect key="frame" x="8" y="20" width="359" height="70"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="70" id="n8Z-xu-3yh"/>
                                                 </constraints>
                                                 <string key="text">For women in their 40's,
 mammogram decisions are not
 as simple as they used to be</string>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" red="0.72549019607843135" green="0.11372549019607843" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GLS-O1-CTr">
-                                                <rect key="frame" x="8" y="80" width="359" height="88.5"/>
+                                                <rect key="frame" x="28" y="100" width="319" height="106.5"/>
                                                 <string key="text">National guidelines recommend that every woman in her 40's make an individual decision about when to start and how often to have mammograms. Not all medical groups agree with this, adding to the confusion many women feel about the mammogram decision.</string>
                                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
                                                 <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="GLS-O1-CTr" firstAttribute="top" secondItem="vmP-6t-OfD" secondAttribute="bottom" constant="10" id="9ua-SN-ilh"/>
                                             <constraint firstItem="vmP-6t-OfD" firstAttribute="leading" secondItem="d8a-fU-qe2" secondAttribute="leadingMargin" id="CLZ-pd-GfA"/>
-                                            <constraint firstItem="GLS-O1-CTr" firstAttribute="leading" secondItem="d8a-fU-qe2" secondAttribute="leadingMargin" id="Zls-V4-Oom"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="GLS-O1-CTr" secondAttribute="trailing" id="dk0-d2-OJp"/>
+                                            <constraint firstItem="GLS-O1-CTr" firstAttribute="leading" secondItem="d8a-fU-qe2" secondAttribute="leadingMargin" constant="20" id="Zls-V4-Oom"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="GLS-O1-CTr" secondAttribute="trailing" constant="20" id="dk0-d2-OJp"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="vmP-6t-OfD" secondAttribute="trailing" id="hkV-Ab-p7a"/>
-                                            <constraint firstItem="vmP-6t-OfD" firstAttribute="top" secondItem="d8a-fU-qe2" secondAttribute="top" id="sQe-kj-mdF"/>
+                                            <constraint firstItem="vmP-6t-OfD" firstAttribute="top" secondItem="d8a-fU-qe2" secondAttribute="top" constant="20" id="sQe-kj-mdF"/>
                                             <constraint firstAttribute="height" constant="647" id="wgx-dJ-HMM"/>
                                         </constraints>
                                     </view>
@@ -202,7 +202,6 @@ as simple as they used to be</string>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="42g-zW-AgU" secondAttribute="trailing" id="Hkv-ch-i1m"/>
                             <constraint firstAttribute="trailing" secondItem="d8a-fU-qe2" secondAttribute="trailing" id="PGA-3s-vGB"/>
@@ -240,7 +239,7 @@ as simple as they used to be</string>
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WNR-ny-dwD">
-                                                <rect key="frame" x="8" y="40" width="359" height="106.5"/>
+                                                <rect key="frame" x="28" y="60" width="319" height="106.5"/>
                                                 <string key="text">You may want to start mammograms in your 40's or wait until you are 50.
 You may want mammograms every year or you may want them every other year.
 None of these choices is wrong. One of them will be right for you.</string>
@@ -249,22 +248,21 @@ None of these choices is wrong. One of them will be right for you.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What will you do?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lk7-a2-Yv3">
-                                                <rect key="frame" x="8" y="0.0" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="20" width="359" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="sgD-eg-9ID"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" red="0.72549019609999998" green="0.1137254902" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="WNR-ny-dwD" firstAttribute="leading" secondItem="wNO-53-5tc" secondAttribute="leadingMargin" id="HeS-8h-X4P"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="WNR-ny-dwD" secondAttribute="trailing" id="JeA-Pz-e8J"/>
+                                            <constraint firstItem="WNR-ny-dwD" firstAttribute="leading" secondItem="wNO-53-5tc" secondAttribute="leadingMargin" constant="20" id="HeS-8h-X4P"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="WNR-ny-dwD" secondAttribute="trailing" constant="20" id="JeA-Pz-e8J"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="Lk7-a2-Yv3" secondAttribute="trailing" id="K2V-Ta-gTh"/>
                                             <constraint firstItem="WNR-ny-dwD" firstAttribute="top" secondItem="Lk7-a2-Yv3" secondAttribute="bottom" constant="10" id="W4V-ON-8nr"/>
-                                            <constraint firstItem="Lk7-a2-Yv3" firstAttribute="top" secondItem="wNO-53-5tc" secondAttribute="top" id="bhV-h3-0to"/>
+                                            <constraint firstItem="Lk7-a2-Yv3" firstAttribute="top" secondItem="wNO-53-5tc" secondAttribute="top" constant="20" id="bhV-h3-0to"/>
                                             <constraint firstItem="Lk7-a2-Yv3" firstAttribute="leading" secondItem="wNO-53-5tc" secondAttribute="leadingMargin" id="m8S-ZJ-2Hs"/>
                                             <constraint firstAttribute="height" constant="647" id="wVV-Be-kuN"/>
                                         </constraints>
@@ -278,7 +276,6 @@ None of these choices is wrong. One of them will be right for you.</string>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="mca-My-YUZ" firstAttribute="top" secondItem="Uk3-W3-kNV" secondAttribute="bottom" id="3aL-42-IIZ"/>
                             <constraint firstItem="wNO-53-5tc" firstAttribute="leading" secondItem="eCu-Vf-Ki2" secondAttribute="leading" id="EPe-bF-dfX"/>
@@ -316,7 +313,7 @@ None of these choices is wrong. One of them will be right for you.</string>
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dox-48-gUK">
-                                                <rect key="frame" x="8" y="40" width="359" height="106.5"/>
+                                                <rect key="frame" x="28" y="60" width="319" height="106.5"/>
                                                 <string key="text">- Assess your personal risk of breast cancer
 - See the benefits and harms of screening mammograms for women like you
 - Explore your personal values about breast cancer screening
@@ -326,24 +323,23 @@ None of these choices is wrong. One of them will be right for you.</string>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This tool will help you to:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xAv-am-VsP">
-                                                <rect key="frame" x="8" y="0.0" width="359" height="30"/>
+                                                <rect key="frame" x="8" y="20" width="359" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="Rti-BJ-vfe"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <color key="textColor" red="0.72549019609999998" green="0.1137254902" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailingMargin" secondItem="xAv-am-VsP" secondAttribute="trailing" id="2ir-kQ-bqE"/>
                                             <constraint firstAttribute="height" constant="647" id="9wm-22-Jxw"/>
                                             <constraint firstItem="xAv-am-VsP" firstAttribute="leading" secondItem="ZLN-8v-zKr" secondAttribute="leadingMargin" id="FWm-Ff-c29"/>
                                             <constraint firstItem="Dox-48-gUK" firstAttribute="top" secondItem="xAv-am-VsP" secondAttribute="bottom" constant="10" id="Rdx-Uk-NHQ"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="Dox-48-gUK" secondAttribute="trailing" id="oZ4-0g-88F"/>
-                                            <constraint firstItem="xAv-am-VsP" firstAttribute="top" secondItem="ZLN-8v-zKr" secondAttribute="top" id="y6S-Gd-D7M"/>
-                                            <constraint firstItem="Dox-48-gUK" firstAttribute="leading" secondItem="ZLN-8v-zKr" secondAttribute="leadingMargin" id="yWq-5k-Uuo"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="Dox-48-gUK" secondAttribute="trailing" constant="20" id="oZ4-0g-88F"/>
+                                            <constraint firstItem="xAv-am-VsP" firstAttribute="top" secondItem="ZLN-8v-zKr" secondAttribute="top" constant="20" id="y6S-Gd-D7M"/>
+                                            <constraint firstItem="Dox-48-gUK" firstAttribute="leading" secondItem="ZLN-8v-zKr" secondAttribute="leadingMargin" constant="20" id="yWq-5k-Uuo"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -355,7 +351,6 @@ None of these choices is wrong. One of them will be right for you.</string>
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Beo-3p-meY" firstAttribute="top" secondItem="u1W-Fp-48y" secondAttribute="bottom" id="SG0-4V-J68"/>
                             <constraint firstAttribute="trailing" secondItem="Beo-3p-meY" secondAttribute="trailing" id="VCo-zi-paV"/>
@@ -625,10 +620,10 @@ None of these choices is wrong. One of them will be right for you.</string>
                                 <rect key="frame" x="0.0" y="568" width="375" height="50"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0VM-1n-rET">
-                                        <rect key="frame" x="97.5" y="7.5" width="180" height="35"/>
+                                        <rect key="frame" x="107.5" y="7.5" width="160" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="35" id="d61-km-Flt"/>
-                                            <constraint firstAttribute="width" constant="180" id="rh2-Co-xxE"/>
+                                            <constraint firstAttribute="width" constant="160" id="rh2-Co-xxE"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Access My Risk"/>
@@ -697,51 +692,13 @@ None of these choices is wrong. One of them will be right for you.</string>
                     <connections>
                         <outlet property="startSurveyButton" destination="0VM-1n-rET" id="vl2-aB-6NN"/>
                         <outlet property="tableView" destination="dK3-Ml-2Ec" id="LKR-Y3-3vt"/>
+                        <segue destination="cZh-Ek-A2Z" kind="unwind" identifier="unwindToScreening" unwindAction="unwindToScreening:" id="GMn-2J-nJK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fAi-BL-HZB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="cZh-Ek-A2Z" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2493.5999999999999" y="492.50374812593708"/>
-        </scene>
-        <!--Summary-->
-        <scene sceneID="QBr-sB-rFE">
-            <objects>
-                <viewController id="HWl-3R-vLe" customClass="SummaryViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="KLs-ru-Vey"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZQW-iK-GAO"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="GpX-FC-hdb">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QzB-sO-bVZ">
-                                <rect key="frame" x="127" y="568" width="120" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="1Qb-P6-RKb"/>
-                                    <constraint firstAttribute="width" constant="120" id="qP5-mG-cHd"/>
-                                </constraints>
-                                <state key="normal" title="Reset Data"/>
-                                <connections>
-                                    <action selector="resetApp:" destination="HWl-3R-vLe" eventType="touchUpInside" id="bGf-Lh-xyx"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="ZQW-iK-GAO" firstAttribute="top" secondItem="QzB-sO-bVZ" secondAttribute="bottom" constant="20" id="Zp2-Hu-Yzd"/>
-                            <constraint firstItem="QzB-sO-bVZ" firstAttribute="centerX" secondItem="GpX-FC-hdb" secondAttribute="centerX" id="jNi-VR-xxL"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Summary" id="nev-oi-ytz"/>
-                    <connections>
-                        <segue destination="gHK-El-FJv" kind="unwind" identifier="unwindToIntro" unwindAction="unwindToIntro:" id="q4Y-9N-cG7"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="USE-j5-JYt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="gHK-El-FJv" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="2493.5999999999999" y="2607.3463268365817"/>
         </scene>
         <!--Screening-->
         <scene sceneID="8XG-Oq-dP4">
@@ -774,7 +731,7 @@ None of these choices is wrong. One of them will be right for you.</string>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="HWl-3R-vLe" kind="relationship" relationship="rootViewController" id="R4j-ep-caU"/>
+                        <segue destination="bzJ-2F-twj" kind="relationship" relationship="rootViewController" id="gkM-Nz-9wY"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gVS-AA-vOg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1083,7 +1040,7 @@ None of these choices is wrong. One of them will be right for you.</string>
             </objects>
             <point key="canvasLocation" x="5493.6000000000004" y="1208.5457271364319"/>
         </scene>
-        <!--Values View Controller-->
+        <!--Values-->
         <scene sceneID="osx-ae-pAx">
             <objects>
                 <viewController id="lGO-oC-dM5" customClass="ValuesViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController">
@@ -1107,6 +1064,7 @@ None of these choices is wrong. One of them will be right for you.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                         <state key="normal" title="Next"/>
                                         <connections>
+                                            <action selector="buttonAction:" destination="lGO-oC-dM5" eventType="touchUpInside" id="gdC-ES-lle"/>
                                             <action selector="startSurvey:" destination="nyP-Sa-FKu" eventType="touchUpInside" id="IqX-da-cY3"/>
                                         </connections>
                                     </button>
@@ -1121,10 +1079,11 @@ None of these choices is wrong. One of them will be right for you.</string>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="137" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ylt-U2-jC5">
                                 <rect key="frame" x="0.0" y="64" width="375" height="504"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="separatorColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ValuesCell" rowHeight="140" id="J3f-tb-tEu" customClass="ValuesTableViewCell" customModule="BreastScreeningDecisions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="375" height="140"/>
+                                        <rect key="frame" x="0.0" y="55" width="375" height="141"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J3f-tb-tEu" id="EjY-Th-zEj">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="139"/>
@@ -1161,13 +1120,13 @@ None of these choices is wrong. One of them will be right for you.</string>
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstItem="BaG-9i-ZdY" firstAttribute="leading" secondItem="vnP-p8-sfd" secondAttribute="leading" constant="20" id="BxU-e7-ePE"/>
+                                                        <constraint firstAttribute="height" constant="139.5" id="DbJ-CQ-NGu"/>
                                                         <constraint firstItem="Wsd-Ly-seo" firstAttribute="leading" secondItem="vnP-p8-sfd" secondAttribute="leading" constant="20" id="G0d-xX-Ti0"/>
                                                         <constraint firstItem="syW-XX-0SQ" firstAttribute="leading" secondItem="vnP-p8-sfd" secondAttribute="centerX" id="GhU-cw-PI9"/>
                                                         <constraint firstAttribute="trailing" secondItem="Wsd-Ly-seo" secondAttribute="trailing" constant="20" id="Huc-Pw-q9Y"/>
                                                         <constraint firstAttribute="trailing" secondItem="syW-XX-0SQ" secondAttribute="trailing" constant="20" id="QBM-7e-HwZ"/>
                                                         <constraint firstItem="bjO-oL-F6W" firstAttribute="top" secondItem="Wsd-Ly-seo" secondAttribute="bottom" constant="5" id="WMx-KT-AY5"/>
                                                         <constraint firstItem="bjO-oL-F6W" firstAttribute="trailing" secondItem="vnP-p8-sfd" secondAttribute="centerX" id="aHu-hN-Ebh"/>
-                                                        <constraint firstAttribute="height" constant="139.5" id="fFi-vn-aef"/>
                                                         <constraint firstItem="bjO-oL-F6W" firstAttribute="leading" secondItem="vnP-p8-sfd" secondAttribute="leading" constant="20" id="gRR-oi-gh4"/>
                                                         <constraint firstAttribute="trailing" secondItem="BaG-9i-ZdY" secondAttribute="trailing" constant="20" id="sVl-9t-644"/>
                                                         <constraint firstItem="BaG-9i-ZdY" firstAttribute="top" secondItem="vnP-p8-sfd" secondAttribute="top" constant="10" id="vQ1-jx-RQG"/>
@@ -1185,7 +1144,7 @@ None of these choices is wrong. One of them will be right for you.</string>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="cellContentView" destination="vnP-p8-sfd" id="ARN-2M-TBY"/>
-                                            <outlet property="cellContentViewHeight" destination="fFi-vn-aef" id="hHa-hJ-VTO"/>
+                                            <outlet property="cellContentViewHeight" destination="DbJ-CQ-NGu" id="bgx-1S-yJ7"/>
                                             <outlet property="progressView" destination="Wsd-Ly-seo" id="Pem-IM-mR5"/>
                                             <outlet property="title" destination="BaG-9i-ZdY" id="tQL-rJ-EJq"/>
                                         </connections>
@@ -1208,15 +1167,149 @@ None of these choices is wrong. One of them will be right for you.</string>
                             <constraint firstAttribute="trailing" secondItem="LDA-Jv-kzK" secondAttribute="trailing" id="wPD-DD-NbP"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="IRA-FQ-sFv"/>
+                    <navigationItem key="navigationItem" title="Values" id="IRA-FQ-sFv"/>
                     <connections>
                         <outlet property="nextButton" destination="AWb-nr-pmL" id="BMg-fa-mdg"/>
                         <outlet property="tableView" destination="ylt-U2-jC5" id="p3E-iq-bep"/>
+                        <segue destination="aSC-oT-zuX" kind="unwind" identifier="unwindToSummary" unwindAction="unwindToSummary:" id="3Ib-xj-ohK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vbF-q3-CWb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="aSC-oT-zuX" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2493.5999999999999" y="1917.3913043478262"/>
+        </scene>
+        <!--Summary-->
+        <scene sceneID="YTQ-kX-0OA">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="bzJ-2F-twj" customClass="SummaryViewController" customModule="BreastScreeningDecisions" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="7S6-YI-Z05"/>
+                        <viewControllerLayoutGuide type="bottom" id="pFE-Nj-VXv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UtB-zV-eY0" customClass="Subspecialty">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CjF-uN-L2v">
+                                <rect key="frame" x="0.0" y="568" width="375" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1zJ-XY-3X4">
+                                        <rect key="frame" x="87.5" y="8" width="200" height="35"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="35" id="SVs-g6-g48"/>
+                                            <constraint firstAttribute="width" constant="200" id="bU1-RU-7Or"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                        <state key="normal" title="Start from the Beginning">
+                                            <color key="titleColor" red="0.72549019607843135" green="0.11372549019607843" blue="0.41960784313725491" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="resetAppAction:" destination="bzJ-2F-twj" eventType="touchUpInside" id="SNU-ox-oaP"/>
+                                            <action selector="startSurvey:" destination="nyP-Sa-FKu" eventType="touchUpInside" id="HkH-KS-cFf"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="1zJ-XY-3X4" firstAttribute="centerY" secondItem="CjF-uN-L2v" secondAttribute="centerY" id="2KZ-2V-tbJ"/>
+                                    <constraint firstItem="1zJ-XY-3X4" firstAttribute="centerX" secondItem="CjF-uN-L2v" secondAttribute="centerX" id="dIE-yb-0am"/>
+                                    <constraint firstAttribute="height" constant="50" id="lkj-3t-Oes"/>
+                                </constraints>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="140" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="WSM-0I-Wva">
+                                <rect key="frame" x="0.0" y="64" width="375" height="504"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SummaryCell" rowHeight="140" id="lQz-hf-XEW" customClass="SummaryTableViewCell" customModule="BreastScreeningDecisions" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="56" width="375" height="140"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lQz-hf-XEW" id="24I-dV-qJ6">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6bt-Gi-ie7">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NdZ-0B-dny">
+                                                            <rect key="frame" x="20" y="20" width="335" height="35"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="35" id="GW5-X5-Be4"/>
+                                                            </constraints>
+                                                            <nil key="textColor"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="emailAddress" returnKeyType="done"/>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="bzJ-2F-twj" id="xlx-2x-ASO"/>
+                                                            </connections>
+                                                        </textField>
+                                                        <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WxQ-F0-mWt">
+                                                            <rect key="frame" x="20" y="65" width="80" height="30"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="30" id="lyD-98-l8x"/>
+                                                                <constraint firstAttribute="width" constant="80" id="oQG-Ic-3TM"/>
+                                                            </constraints>
+                                                            <state key="normal" title="Send"/>
+                                                            <connections>
+                                                                <action selector="sendEmailAction:" destination="bzJ-2F-twj" eventType="touchUpInside" id="sb0-Dm-dh4"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstItem="NdZ-0B-dny" firstAttribute="top" secondItem="6bt-Gi-ie7" secondAttribute="top" constant="20" id="Dgt-4M-GmB"/>
+                                                        <constraint firstAttribute="height" constant="139.5" id="G9c-Sh-Jlm"/>
+                                                        <constraint firstItem="WxQ-F0-mWt" firstAttribute="leading" secondItem="6bt-Gi-ie7" secondAttribute="leading" constant="20" id="RpS-AN-YpK"/>
+                                                        <constraint firstAttribute="trailing" secondItem="NdZ-0B-dny" secondAttribute="trailing" constant="20" id="dKL-bc-ECv"/>
+                                                        <constraint firstItem="WxQ-F0-mWt" firstAttribute="top" secondItem="NdZ-0B-dny" secondAttribute="bottom" constant="10" id="r9D-34-gda"/>
+                                                        <constraint firstItem="NdZ-0B-dny" firstAttribute="leading" secondItem="6bt-Gi-ie7" secondAttribute="leading" constant="20" id="yhT-nd-ips"/>
+                                                    </constraints>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="6bt-Gi-ie7" firstAttribute="leading" secondItem="24I-dV-qJ6" secondAttribute="leading" id="GjB-N6-ME6"/>
+                                                <constraint firstAttribute="trailing" secondItem="6bt-Gi-ie7" secondAttribute="trailing" id="XUF-nR-ZbY"/>
+                                                <constraint firstAttribute="bottom" secondItem="6bt-Gi-ie7" secondAttribute="bottom" id="alK-5Z-cyL"/>
+                                                <constraint firstItem="6bt-Gi-ie7" firstAttribute="top" secondItem="24I-dV-qJ6" secondAttribute="top" id="n6a-cx-Uq1"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="cellContentView" destination="6bt-Gi-ie7" id="zYc-iy-kZL"/>
+                                            <outlet property="cellContentViewHeight" destination="G9c-Sh-Jlm" id="y7x-F9-ucm"/>
+                                            <outlet property="emailField" destination="NdZ-0B-dny" id="OCv-lE-pfq"/>
+                                            <outlet property="emailTopInsent" destination="Dgt-4M-GmB" id="rSf-Ta-4Ud"/>
+                                            <outlet property="sendButton" destination="WxQ-F0-mWt" id="qO2-dc-fdI"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="bzJ-2F-twj" id="CNj-11-NEz"/>
+                                    <outlet property="delegate" destination="bzJ-2F-twj" id="rNm-np-Mel"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="WSM-0I-Wva" firstAttribute="leading" secondItem="UtB-zV-eY0" secondAttribute="leading" id="6DA-0m-z3b"/>
+                            <constraint firstAttribute="trailing" secondItem="WSM-0I-Wva" secondAttribute="trailing" id="77T-OU-DRZ"/>
+                            <constraint firstItem="pFE-Nj-VXv" firstAttribute="top" secondItem="CjF-uN-L2v" secondAttribute="bottom" id="AdH-fr-vfR"/>
+                            <constraint firstItem="WSM-0I-Wva" firstAttribute="top" secondItem="7S6-YI-Z05" secondAttribute="bottom" id="Ftl-Ot-sWS"/>
+                            <constraint firstItem="CjF-uN-L2v" firstAttribute="leading" secondItem="UtB-zV-eY0" secondAttribute="leading" id="JKJ-2c-jup"/>
+                            <constraint firstAttribute="trailing" secondItem="CjF-uN-L2v" secondAttribute="trailing" id="WNU-Pr-rnK"/>
+                            <constraint firstItem="CjF-uN-L2v" firstAttribute="top" secondItem="WSM-0I-Wva" secondAttribute="bottom" id="ppX-8v-aYD"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="Summary" id="aNn-sl-NEP"/>
+                    <connections>
+                        <outlet property="nextButton" destination="1zJ-XY-3X4" id="HKg-pw-L3M"/>
+                        <outlet property="tableView" destination="WSM-0I-Wva" id="biN-Ql-MOa"/>
+                        <segue destination="hb7-zq-7A3" kind="unwind" unwindAction="unwindToIntro:" id="aOe-Ba-qFi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UdI-8l-b7A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="hb7-zq-7A3" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2493.5999999999999" y="2607.3463268365817"/>
         </scene>
     </scenes>
     <resources>

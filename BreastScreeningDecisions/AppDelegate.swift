@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        // ApplicationDataModel.sharedInstance.removeUserData()
+        //ApplicationDataModel.sharedInstance.removeUserData()
         // load saved data
         ApplicationDataModel.sharedInstance.initialize()
         
