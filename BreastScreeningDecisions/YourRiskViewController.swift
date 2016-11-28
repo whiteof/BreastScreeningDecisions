@@ -334,7 +334,15 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     @IBAction func startSurvey(_ sender: Any) {
-        performSegue(withIdentifier: "unwindToScreening", sender: nil)
+        if(ApplicationDataModel.sharedInstance.getYourRiskSurveyCompleted()) {
+            performSegue(withIdentifier: "unwindToScreening", sender: nil)
+        }else {
+            UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
+            let taskViewController = ORKTaskViewController(task: SurveyTasks.yourRiskSurveyTask, taskRun: nil)
+            taskViewController.delegate = self
+            present(taskViewController, animated: true, completion: nil)
+        }
+        
     }
     
     func resetValuesAction(_ sender:UITapGestureRecognizer){
