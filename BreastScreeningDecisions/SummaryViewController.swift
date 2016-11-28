@@ -26,6 +26,7 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.tableView.estimatedRowHeight = self.tableView.rowHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SummaryViewController.handleTap(_:))))
     }
     
     override func didReceiveMemoryWarning() {
@@ -218,7 +219,7 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
         self.view.endEditing(true)
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    func handleTap(_ sender:UITapGestureRecognizer){
         self.view.endEditing(true)
     }
     
