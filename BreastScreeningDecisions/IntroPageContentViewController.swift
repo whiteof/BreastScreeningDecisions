@@ -10,6 +10,7 @@ import UIKit
 
 class IntroPageContentViewController: UIViewController {
     
+    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
     
     @IBOutlet weak var parentViewHeightConst: NSLayoutConstraint!
@@ -24,7 +25,7 @@ class IntroPageContentViewController: UIViewController {
                 _ = true
             }
             DispatchQueue.main.async {
-                self.parentViewHeightConst.constant = self.contentLabel.getLabelHeightByWidth() + 80
+                self.parentViewHeightConst.constant = self.headerLabel.getLabelHeightByWidth() + self.contentLabel.getLabelHeightByWidth() +  50.0
             }
         }
     }

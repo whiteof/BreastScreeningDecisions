@@ -27,6 +27,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         
         // remove insent
         self.tableView.tableHeaderView = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: self.tableView.bounds.size.width, height: 0.01))
+        self.tableView.tableFooterView = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: self.tableView.bounds.size.width, height: 0.01))
         
         self.tableView.estimatedRowHeight = self.tableView.rowHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
@@ -68,6 +69,10 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        self.tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -83,6 +88,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "YourRiskCell", for: indexPath) as! CommonTableViewCell
+        
         cell.cellContentView.translatesAutoresizingMaskIntoConstraints = false
         // remove content
         for view in cell.cellContentView.subviews {
@@ -119,10 +125,21 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
                     infoHeight = constraint.constant
                 }
             }
-            // set container height by content
-            cell.cellContentViewHeight.constant = infoHeight
             // add content
             cell.cellContentView.addSubview(info)
+            // add reset values button
+            let buttonX = (cell.cellContentView.frame.width / 2) - 70.0
+            var buttonY = infoHeight + 10.0
+            let resetButton = UIButton.init(frame: CGRect.init(x: buttonX, y: buttonY, width: 140.0, height: 30))
+            resetButton.setTitle("Reset Selections", for: .normal)
+            resetButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
+            resetButton.setTitleColor(UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0), for: .normal)
+            let gesture = UITapGestureRecognizer(target: self, action: #selector(YourRiskViewController.resetValuesAction(_:)))
+            resetButton.addGestureRecognizer(gesture)
+            cell.cellContentView.addSubview(resetButton)
+            buttonY = buttonY + resetButton.frame.height
+            // set container height by content
+            cell.cellContentViewHeight.constant = buttonY
             // set chart relational constraints
             let constraintCenterX = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0)
             let constraintCenterY = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0)
@@ -186,24 +203,33 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         
         // create disclaimer
         if percent > 0 {
-            // add label1
             currentY = currentY + 10.0
+            // add icon1
+            let icon1 = UIImageView(image: UIImage(named: "Chart Figure"))
+            icon1.frame = CGRect(x: 0, y: currentY+3.0, width: 9.0, height: 15.0)
+            icon1.alpha = 0.5
+            returnView.addSubview(icon1)
+            // add label1
             let label1 = UILabel()
             label1.textAlignment = NSTextAlignment.left
             label1.numberOfLines = 0
             label1.text = "In the next 5 years, 992 will not get breast cancer"
             label1.font = UIFont(name:"HelveticaNeue-Light", size: 14.0)
-            label1.frame = CGRect(x: 0, y: currentY, width: chartWidth, height: label1.getLabelHeight(byWidth: chartWidth))
+            label1.frame = CGRect(x: 20.0, y: currentY, width: chartWidth-20.0, height: label1.getLabelHeight(byWidth: chartWidth-20.0))
             label1.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
             returnView.addSubview(label1)
             currentY = currentY + label1.frame.height + 7.0
+            // add icon2
+            let icon2 = UIImageView(image: UIImage(named: "Chart Figure Active"))
+            icon2.frame = CGRect(x: 0, y: currentY+3.0, width: 9.0, height: 15.0)
+            returnView.addSubview(icon2)
             // add label2
             let label2 = UILabel()
             label2.textAlignment = NSTextAlignment.left
             label2.numberOfLines = 0
             label2.text = "In the next 5 years, 8 will get breast cancer"
             label2.font = UIFont(name:"HelveticaNeue-Light", size: 14.0)
-            label2.frame = CGRect(x: 0, y: currentY, width: chartWidth, height: label2.getLabelHeight(byWidth: chartWidth))
+            label2.frame = CGRect(x: 20.0, y: currentY, width: chartWidth-20.0, height: label2.getLabelHeight(byWidth: chartWidth-20.0))
             label2.textColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
             returnView.addSubview(label2)
             currentY = currentY + label2.frame.height
@@ -247,7 +273,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             label2.numberOfLines = 0
             label2.text = "Based on your responses, your chance of developing breast cancer in the next 5 years is 0.8%. That means that out of 1000 women like you, 8 of them will develop breast cancer in the next 5 years."
             label2.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
-            label2.frame = CGRect(x: 0, y: currentY, width: frameWidth-20.0, height: label2.getLabelHeight(byWidth: frameWidth))
+            label2.frame = CGRect(x: 0, y: currentY, width: frameWidth, height: label2.getLabelHeight(byWidth: frameWidth))
             label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
             returnView.addSubview(label2)
             currentY = currentY + label2.frame.height + 10.0
@@ -267,7 +293,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             label4.numberOfLines = 0
             label4.text = "There are other factors such as breast feeding, alcohol intake, body weight, and physical activity that may affect your breast cancer risk. Just how much they affect that risk is not certain."
             label4.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
-            label4.frame = CGRect(x: 0, y: currentY, width: frameWidth-20.0, height: label4.getLabelHeight(byWidth: frameWidth))
+            label4.frame = CGRect(x: 0, y: currentY, width: frameWidth, height: label4.getLabelHeight(byWidth: frameWidth))
             label4.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
             returnView.addSubview(label4)
             currentY = currentY + label4.frame.height + 10.0
@@ -277,20 +303,10 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             label5.numberOfLines = 0
             label5.text = "Now that you know your breast cancer risk, let's talk about mammograms."
             label5.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
-            label5.frame = CGRect(x: 0, y: currentY, width: frameWidth-20.0, height: label5.getLabelHeight(byWidth: frameWidth))
+            label5.frame = CGRect(x: 0, y: currentY, width: frameWidth, height: label5.getLabelHeight(byWidth: frameWidth))
             label5.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
             returnView.addSubview(label5)
             currentY = currentY + label5.frame.height + 20.0
-            // add reset values button
-            let buttonX = (frameWidth / 2) - 70.0
-            let resetButton = UIButton.init(frame: CGRect.init(x: buttonX, y: currentY, width: 140.0, height: 30))
-            resetButton.setTitle("Reset Selections", for: .normal)
-            resetButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
-            resetButton.setTitleColor(UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0), for: .normal)
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(YourRiskViewController.resetValuesAction(_:)))
-            resetButton.addGestureRecognizer(gesture)
-            returnView.addSubview(resetButton)
-            currentY = currentY + resetButton.frame.height - 20.0
         }else {
             // SURVEY NOT COMPLETED
             // add label1

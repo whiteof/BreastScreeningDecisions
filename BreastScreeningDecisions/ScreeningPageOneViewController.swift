@@ -37,6 +37,10 @@ class ScreeningPageOneViewController: UIViewController, UITableViewDelegate, UIT
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        self.tableView.reloadData()
+    }    
+    
 
     // MARK: - Table view data source
     

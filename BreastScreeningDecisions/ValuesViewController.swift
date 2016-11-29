@@ -70,6 +70,10 @@ class ValuesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        self.tableView.reloadData()
+    }
+    
     // MARK: - Table view data source
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -127,6 +131,10 @@ class ValuesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             NSLayoutConstraint.activate([constraintCenterX, constraintCenterY])
         }else {
             if(self.values.count == 0) {
+                // hide static content
+                for view in cell.cellContentView.subviews {
+                    view.isHidden = true
+                }
                 // set cell color
                 cell.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1.0)
                 // build footer

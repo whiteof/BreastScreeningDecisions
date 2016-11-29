@@ -36,6 +36,9 @@ class ScreeningPageFiveViewController: UIViewController, UITableViewDelegate, UI
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        self.tableView.reloadData()
+    }
     
     // MARK: - Table view data source
     
@@ -155,7 +158,7 @@ class ScreeningPageFiveViewController: UIViewController, UITableViewDelegate, UI
         label4.layer.addBorder(edge: .top, color: UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 1.0), thickness: 0.5)
         label4.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label4)
-        currentY = currentY + label3.frame.height + 20
+        currentY = currentY + label4.frame.height + 20
         
         
         let parentConstraintWidth = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: frameWidth)

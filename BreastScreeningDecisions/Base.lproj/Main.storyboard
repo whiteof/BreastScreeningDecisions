@@ -82,13 +82,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Figure" translatesAutoresizingMaskIntoConstraints="NO" id="sEz-nv-Rm3">
-                                <rect key="frame" x="131.5" y="140" width="112.5" height="140.5"/>
+                                <rect key="frame" x="75" y="140" width="187.5" height="234.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="sEz-nv-Rm3" secondAttribute="height" multiplier="4:5" id="EF8-bl-4AI"/>
                                 </constraints>
                             </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRw-ou-oe4">
-                                <rect key="frame" x="0.0" y="290.5" width="375" height="306.5"/>
+                                <rect key="frame" x="0.0" y="384.5" width="375" height="212.5"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <segue destination="Wbt-pp-f7w" kind="embed" id="9Zc-jh-YMt"/>
@@ -107,9 +107,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="00c-ho-I0V" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leadingMargin" id="7CM-WM-khQ"/>
-                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="0.7" id="CCS-Lg-drm"/>
+                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="0.4" id="CCS-Lg-drm"/>
                             <constraint firstItem="tGw-tb-mzA" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leading" id="HRN-ZI-eUm"/>
-                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="trailing" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="1.3" id="Hxs-k3-pxQ"/>
+                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="trailing" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="1.4" id="Hxs-k3-pxQ"/>
                             <constraint firstItem="sEz-nv-Rm3" firstAttribute="top" secondItem="FQg-nA-MaF" secondAttribute="bottom" constant="10" id="IuJ-q2-7wR"/>
                             <constraint firstItem="AEc-K5-qfb" firstAttribute="top" secondItem="SRw-ou-oe4" secondAttribute="bottom" constant="20" id="K4l-SF-heM"/>
                             <constraint firstItem="SRw-ou-oe4" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leading" id="KxL-i6-qPP"/>
@@ -213,6 +213,7 @@ as simple as they used to be</string>
                     </view>
                     <connections>
                         <outlet property="contentLabel" destination="GLS-O1-CTr" id="sce-OE-4n7"/>
+                        <outlet property="headerLabel" destination="vmP-6t-OfD" id="UlW-Q4-HBI"/>
                         <outlet property="parentViewHeightConst" destination="wgx-dJ-HMM" id="UoZ-g4-fkl"/>
                     </connections>
                 </viewController>
@@ -287,6 +288,7 @@ None of these choices is wrong. One of them will be right for you.</string>
                     </view>
                     <connections>
                         <outlet property="contentLabel" destination="WNR-ny-dwD" id="2qD-wf-msl"/>
+                        <outlet property="headerLabel" destination="Lk7-a2-Yv3" id="uCU-Eq-fAB"/>
                         <outlet property="parentViewHeightConst" destination="wVV-Be-kuN" id="hhh-9M-rA4"/>
                     </connections>
                 </viewController>
@@ -362,6 +364,7 @@ None of these choices is wrong. One of them will be right for you.</string>
                     </view>
                     <connections>
                         <outlet property="contentLabel" destination="Dox-48-gUK" id="lB4-ep-fsE"/>
+                        <outlet property="headerLabel" destination="xAv-am-VsP" id="KeP-e4-ciq"/>
                         <outlet property="parentViewHeightConst" destination="9wm-22-Jxw" id="ff9-Bw-OVG"/>
                     </connections>
                 </viewController>
@@ -1083,35 +1086,35 @@ None of these choices is wrong. One of them will be right for you.</string>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ValuesCell" rowHeight="140" id="J3f-tb-tEu" customClass="ValuesTableViewCell" customModule="BreastScreeningDecisions" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55" width="375" height="141"/>
+                                        <rect key="frame" x="0.0" y="56" width="375" height="140"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J3f-tb-tEu" id="EjY-Th-zEj">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="J3f-tb-tEu" id="EjY-Th-zEj">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="139"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vnP-p8-sfd">
+                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vnP-p8-sfd">
                                                     <rect key="frame" x="0.0" y="0.0" width="375" height="140"/>
                                                     <subviews>
-                                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Wsd-Ly-seo">
+                                                        <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" ambiguous="YES" misplaced="YES" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Wsd-Ly-seo">
                                                             <rect key="frame" x="20" y="32" width="335" height="10"/>
                                                             <color key="tintColor" red="0.72549019609999998" green="0.1137254902" blue="0.41960784309999999" alpha="1" colorSpace="calibratedRGB"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="10" id="WxK-if-gbo"/>
                                                             </constraints>
                                                         </progressView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strongly Disagree" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjO-oL-F6W">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Strongly Disagree" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bjO-oL-F6W">
                                                             <rect key="frame" x="20" y="47" width="167.5" height="14.5"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                                             <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strongly Agree" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syW-XX-0SQ">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Strongly Agree" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="syW-XX-0SQ">
                                                             <rect key="frame" x="187.5" y="47" width="167.5" height="15"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
                                                             <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaG-9i-ZdY">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BaG-9i-ZdY">
                                                             <rect key="frame" x="20" y="10" width="335" height="17"/>
                                                             <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
                                                             <color key="textColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
@@ -1303,7 +1306,7 @@ None of these choices is wrong. One of them will be right for you.</string>
                     <connections>
                         <outlet property="nextButton" destination="1zJ-XY-3X4" id="HKg-pw-L3M"/>
                         <outlet property="tableView" destination="WSM-0I-Wva" id="biN-Ql-MOa"/>
-                        <segue destination="hb7-zq-7A3" kind="unwind" unwindAction="unwindToIntro:" id="aOe-Ba-qFi"/>
+                        <segue destination="hb7-zq-7A3" kind="unwind" identifier="unwindToIntro" unwindAction="unwindToIntro:" id="aOe-Ba-qFi"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UdI-8l-b7A" userLabel="First Responder" sceneMemberID="firstResponder"/>

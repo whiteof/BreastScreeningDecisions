@@ -37,6 +37,9 @@ class ScreeningPageThreeViewController: UIViewController, UITableViewDelegate, U
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidLayoutSubviews() {
+        self.tableView.reloadData()
+    }
     
     // MARK: - Table view data source
     
@@ -163,23 +166,33 @@ class ScreeningPageThreeViewController: UIViewController, UITableViewDelegate, U
         label2.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 1.0), thickness: 0.5)
         returnView.addSubview(label2)
         currentLeftY = currentLeftY + label2.frame.height + 5.0
+        // add icon
+        var icon = UIImageView(image: UIImage(named: "Chart Figure"))
+        icon.frame = CGRect(x: 0, y: currentLeftY+3.0, width: 9.0, height: 15.0)
+        icon.alpha = 0.5
+        returnView.addSubview(icon)
         // add label4
         let label4 = UILabel()
         label4.textAlignment = NSTextAlignment.left
         label4.numberOfLines = 0
         label4.text = "899 do not have breast cancer "
         label4.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label4.frame = CGRect(x: 10.0, y: currentLeftY, width: (chartWidth/2-20.0), height: label4.getLabelHeight(byWidth: (chartWidth/2-20.0)))
+        label4.frame = CGRect(x: 20.0, y: currentLeftY, width: (chartWidth/2-30.0), height: label4.getLabelHeight(byWidth: (chartWidth/2-30.0)))
         label4.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label4)
         currentLeftY = currentLeftY + label4.frame.height + 5.0
+        // add icon
+        icon = UIImageView(image: UIImage(named: "Chart Figure Active"))
+        icon.frame = CGRect(x: 0, y: currentLeftY+3.0, width: 9.0, height: 15.0)
+        icon.alpha = 1.0
+        returnView.addSubview(icon)
         // add label5
         let label5 = UILabel()
         label5.textAlignment = NSTextAlignment.left
         label5.numberOfLines = 0
         label5.text = "1 has breast cancer missed by screening (false negative)"
         label5.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label5.frame = CGRect(x: 10.0, y: currentLeftY, width: (chartWidth/2-20.0), height: label5.getLabelHeight(byWidth: (chartWidth/2-20.0)))
+        label5.frame = CGRect(x: 20.0, y: currentLeftY, width: (chartWidth/2-30.0), height: label5.getLabelHeight(byWidth: (chartWidth/2-30.0)))
         label5.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label5)
         currentLeftY = currentLeftY + label5.frame.height + 10.0
@@ -192,27 +205,37 @@ class ScreeningPageThreeViewController: UIViewController, UITableViewDelegate, U
         label3.text = "100 will have an abnormal mammogram"
         label3.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
         label3.frame = CGRect(x: (chartWidth/2+10.0), y: currentRightY, width: (chartWidth/2-10.0), height: label3.getLabelHeight(byWidth: (chartWidth/2-10.0))+10.0)
-        label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+        label3.textColor = UIColor(red: 0/255, green: 0/255, blue: 0/255, alpha: 1.0)
         label3.layer.addBorder(edge: UIRectEdge.bottom, color: UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 1.0), thickness: 0.5)
         returnView.addSubview(label3)
         currentRightY = currentRightY + label3.frame.height + 5.0
+        // add icon
+        icon = UIImageView(image: UIImage(named: "Chart Figure"))
+        icon.frame = CGRect(x: (chartWidth/2+10.0), y: currentRightY+3.0, width: 9.0, height: 15.0)
+        icon.alpha = 1.0
+        returnView.addSubview(icon)
         // add label6
         let label6 = UILabel()
         label6.textAlignment = NSTextAlignment.left
         label6.numberOfLines = 0
         label6.text = "98 do not have breast cancer (false positive)"
         label6.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label6.frame = CGRect(x: (chartWidth/2+20.0), y: currentRightY, width: (chartWidth/2-20.0), height: label6.getLabelHeight(byWidth: (chartWidth/2-20.0)))
+        label6.frame = CGRect(x: (chartWidth/2+30.0), y: currentRightY, width: (chartWidth/2-30.0), height: label6.getLabelHeight(byWidth: (chartWidth/2-30.0)))
         label6.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label6)
         currentRightY = currentRightY + label6.frame.height + 5.0
+        // add icon
+        icon = UIImageView(image: UIImage(named: "Chart Figure Active"))
+        icon.frame = CGRect(x: (chartWidth/2+10.0), y: currentRightY+3.0, width: 9.0, height: 15.0)
+        icon.alpha = 1.0
+        returnView.addSubview(icon)
         // add label7
         let label7 = UILabel()
         label7.textAlignment = NSTextAlignment.left
         label7.numberOfLines = 0
         label7.text = "2 have breast cancer caught by screening"
         label7.font = UIFont(name:"HelveticaNeue-Light", size: 12.0)
-        label7.frame = CGRect(x: (chartWidth/2+20.0), y: currentRightY, width: (chartWidth/2-20.0), height: label7.getLabelHeight(byWidth: (chartWidth/2-20.0)))
+        label7.frame = CGRect(x: (chartWidth/2+30.0), y: currentRightY, width: (chartWidth/2-30.0), height: label7.getLabelHeight(byWidth: (chartWidth/2-30.0)))
         label7.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label7)
         currentRightY = currentRightY + label6.frame.height + 5.0
