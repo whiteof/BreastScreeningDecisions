@@ -232,6 +232,7 @@ extension SummaryViewController: ORKPasscodeDelegate {
     func passcodeViewControllerDidFinish(withSuccess viewController: UIViewController) {
         ApplicationDataModel.sharedInstance.removeUserData()
         ORKPasscodeViewController.removePasscodeFromKeychain()
+        UIApplication.shared.statusBarStyle = UIStatusBarStyle.default
         performSegue(withIdentifier: "unwindToIntro", sender: self)
     }
     func passcodeViewControllerDidFailAuthentication(_ viewController: UIViewController) {
