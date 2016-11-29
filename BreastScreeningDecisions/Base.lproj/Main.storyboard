@@ -82,13 +82,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Figure" translatesAutoresizingMaskIntoConstraints="NO" id="sEz-nv-Rm3">
-                                <rect key="frame" x="75" y="140" width="187.5" height="234.5"/>
+                                <rect key="frame" x="84.5" y="140" width="168.5" height="211.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="sEz-nv-Rm3" secondAttribute="height" multiplier="4:5" id="EF8-bl-4AI"/>
                                 </constraints>
                             </imageView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRw-ou-oe4">
-                                <rect key="frame" x="0.0" y="384.5" width="375" height="212.5"/>
+                                <rect key="frame" x="0.0" y="361.5" width="375" height="235.5"/>
                                 <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803915" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <segue destination="Wbt-pp-f7w" kind="embed" id="9Zc-jh-YMt"/>
@@ -107,9 +107,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="00c-ho-I0V" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leadingMargin" id="7CM-WM-khQ"/>
-                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="0.4" id="CCS-Lg-drm"/>
+                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="0.45" id="CCS-Lg-drm"/>
                             <constraint firstItem="tGw-tb-mzA" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leading" id="HRN-ZI-eUm"/>
-                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="trailing" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="1.4" id="Hxs-k3-pxQ"/>
+                            <constraint firstItem="sEz-nv-Rm3" firstAttribute="trailing" secondItem="YjU-aY-4yk" secondAttribute="centerX" multiplier="1.35" id="Hxs-k3-pxQ"/>
                             <constraint firstItem="sEz-nv-Rm3" firstAttribute="top" secondItem="FQg-nA-MaF" secondAttribute="bottom" constant="10" id="IuJ-q2-7wR"/>
                             <constraint firstItem="AEc-K5-qfb" firstAttribute="top" secondItem="SRw-ou-oe4" secondAttribute="bottom" constant="20" id="K4l-SF-heM"/>
                             <constraint firstItem="SRw-ou-oe4" firstAttribute="leading" secondItem="YjU-aY-4yk" secondAttribute="leading" id="KxL-i6-qPP"/>

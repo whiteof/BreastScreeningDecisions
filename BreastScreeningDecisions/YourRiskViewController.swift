@@ -33,7 +33,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
         // set button text
-        if(ApplicationDataModel.sharedInstance.getRiskPercent() > 0) {
+        if(ApplicationDataModel.sharedInstance.getYourRiskSurveyCompleted()) {
             // Enable tab bar
             let tabs = self.tabBarController?.tabBar.items
             let screeningTab = tabs![1]
@@ -127,19 +127,24 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             }
             // add content
             cell.cellContentView.addSubview(info)
-            // add reset values button
-            let buttonX = (cell.cellContentView.frame.width / 2) - 70.0
-            var buttonY = infoHeight + 10.0
-            let resetButton = UIButton.init(frame: CGRect.init(x: buttonX, y: buttonY, width: 140.0, height: 30))
-            resetButton.setTitle("Reset Selections", for: .normal)
-            resetButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
-            resetButton.setTitleColor(UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0), for: .normal)
-            let gesture = UITapGestureRecognizer(target: self, action: #selector(YourRiskViewController.resetValuesAction(_:)))
-            resetButton.addGestureRecognizer(gesture)
-            cell.cellContentView.addSubview(resetButton)
-            buttonY = buttonY + resetButton.frame.height
-            // set container height by content
-            cell.cellContentViewHeight.constant = buttonY
+            if(ApplicationDataModel.sharedInstance.getYourRiskSurveyCompleted()) {
+                // add reset values button
+                let buttonX = (cell.cellContentView.frame.width / 2) - 70.0
+                var buttonY = infoHeight + 10.0
+                let resetButton = UIButton.init(frame: CGRect.init(x: buttonX, y: buttonY, width: 140.0, height: 30))
+                resetButton.setTitle("Reset Selections", for: .normal)
+                resetButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
+                resetButton.setTitleColor(UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0), for: .normal)
+                let gesture = UITapGestureRecognizer(target: self, action: #selector(YourRiskViewController.resetValuesAction(_:)))
+                resetButton.addGestureRecognizer(gesture)
+                cell.cellContentView.addSubview(resetButton)
+                buttonY = buttonY + resetButton.frame.height
+                // set container height by content
+                cell.cellContentViewHeight.constant = buttonY
+            }else {
+                // set container height by content
+                cell.cellContentViewHeight.constant = infoHeight
+            }
             // set chart relational constraints
             let constraintCenterX = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0)
             let constraintCenterY = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0)
