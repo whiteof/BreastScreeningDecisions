@@ -50,8 +50,6 @@ class ApplicationDataModel {
         let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
         self.userDefaults.set(encodedData, forKey: "YourRiskTaskResult")
         self.userDefaults.synchronize()
-        // sync with server
-        //SyncHelper.sharedInstance.submitUserData()
     }
     
     func getYourRiskSurveyCompleted() -> Bool {

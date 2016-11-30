@@ -14,6 +14,8 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startSurveyButton: UIButton!
     
+    var syncRunning = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,7 +98,12 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         }
         if(indexPath.row == 0) {
             // BUILD CHART
-            let chart = self.buildChart(percent: ApplicationDataModel.sharedInstance.getRiskPercent(), chartWidth: cell.cellContentView.frame.width)
+            var chart: UIView!
+            if(self.syncRunning) {
+                chart = self.buildLoader(frameWidth: cell.cellContentView.frame.width)
+            }else {
+                chart = self.buildChart(percent: ApplicationDataModel.sharedInstance.getRiskPercent(), chartWidth: cell.cellContentView.frame.width)
+            }
             // get chart height
             var chartHeight:CGFloat = 0.0
             for constraint in chart.constraints {
@@ -113,42 +120,46 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             let constraintCenterY = NSLayoutConstraint(item: chart, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0)
             NSLayoutConstraint.activate([constraintCenterX, constraintCenterY])
         }else {
-            // BUILD TEXT CONTENT
             // set cell color
             cell.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1.0)
-            // build view
-            let info = self.buildInfo(frameWidth: cell.cellContentView.frame.width, riskPercent: ApplicationDataModel.sharedInstance.getRiskPercent())
-            // get view height
-            var infoHeight:CGFloat = 0.0
-            for constraint in info.constraints {
-                if(constraint.firstAttribute == NSLayoutAttribute.height) {
-                    infoHeight = constraint.constant
+            if(!self.syncRunning) {
+                // BUILD TEXT CONTENT
+                // build view
+                let info = self.buildInfo(frameWidth: cell.cellContentView.frame.width, riskPercent: ApplicationDataModel.sharedInstance.getRiskPercent())
+                // get view height
+                var infoHeight:CGFloat = 0.0
+                for constraint in info.constraints {
+                    if(constraint.firstAttribute == NSLayoutAttribute.height) {
+                        infoHeight = constraint.constant
+                    }
                 }
-            }
-            // add content
-            cell.cellContentView.addSubview(info)
-            if(ApplicationDataModel.sharedInstance.getYourRiskSurveyCompleted()) {
-                // add reset values button
-                let buttonX = (cell.cellContentView.frame.width / 2) - 70.0
-                var buttonY = infoHeight + 10.0
-                let resetButton = UIButton.init(frame: CGRect.init(x: buttonX, y: buttonY, width: 140.0, height: 30))
-                resetButton.setTitle("Reset Selections", for: .normal)
-                resetButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
-                resetButton.setTitleColor(UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0), for: .normal)
-                let gesture = UITapGestureRecognizer(target: self, action: #selector(YourRiskViewController.resetValuesAction(_:)))
-                resetButton.addGestureRecognizer(gesture)
-                cell.cellContentView.addSubview(resetButton)
-                buttonY = buttonY + resetButton.frame.height
-                // set container height by content
-                cell.cellContentViewHeight.constant = buttonY
+                // add content
+                cell.cellContentView.addSubview(info)
+                if(ApplicationDataModel.sharedInstance.getYourRiskSurveyCompleted()) {
+                    // add reset values button
+                    let buttonX = (cell.cellContentView.frame.width / 2) - 70.0
+                    var buttonY = infoHeight + 10.0
+                    let resetButton = UIButton.init(frame: CGRect.init(x: buttonX, y: buttonY, width: 140.0, height: 30))
+                    resetButton.setTitle("Reset Selections", for: .normal)
+                    resetButton.titleLabel?.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
+                    resetButton.setTitleColor(UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0), for: .normal)
+                    let gesture = UITapGestureRecognizer(target: self, action: #selector(YourRiskViewController.resetValuesAction(_:)))
+                    resetButton.addGestureRecognizer(gesture)
+                    cell.cellContentView.addSubview(resetButton)
+                    buttonY = buttonY + resetButton.frame.height
+                    // set container height by content
+                    cell.cellContentViewHeight.constant = buttonY
+                }else {
+                    // set container height by content
+                    cell.cellContentViewHeight.constant = infoHeight
+                }
+                // set chart relational constraints
+                let constraintCenterX = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0)
+                let constraintCenterY = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0)
+                NSLayoutConstraint.activate([constraintCenterX, constraintCenterY])
             }else {
-                // set container height by content
-                cell.cellContentViewHeight.constant = infoHeight
+                cell.cellContentViewHeight.constant = 10.0
             }
-            // set chart relational constraints
-            let constraintCenterX = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0)
-            let constraintCenterY = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0)
-            NSLayoutConstraint.activate([constraintCenterX, constraintCenterY])
         }
         
         return cell
@@ -256,6 +267,27 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         
         return returnView
     }
+    
+    func buildLoader(frameWidth: CGFloat) -> UIView {
+        
+        // Draw chart
+        let returnView = UIView()
+        let frameHeight: CGFloat = 100.0
+        
+        returnView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let loader = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
+        loader.center = returnView.center
+        loader.startAnimating()
+        returnView.addSubview(loader)
+        
+        let parentConstraintWidth = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: frameWidth)
+        let parentConstraintHeight = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: frameHeight)
+        NSLayoutConstraint.activate([parentConstraintWidth, parentConstraintHeight])
+        
+        return returnView
+    }
+    
     
     func buildInfo(frameWidth: CGFloat, riskPercent: Int) -> UIView {
         let returnView = UIView()
@@ -382,20 +414,70 @@ extension YourRiskViewController: ORKTaskViewControllerDelegate {
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         switch reason {
         case .completed:
-            // Enable tab bar
-            let tabs = self.tabBarController?.tabBar.items
-            let screeningTab = tabs![1]
-            screeningTab.isEnabled = true
-            let valuesTab = tabs![2]
-            valuesTab.isEnabled = true
+            taskViewController.dismiss(animated: true, completion: nil)
             
             ApplicationDataModel.sharedInstance.setYourRiskSurveyTaskResult(data: taskViewController.result)
+            // update UI
+            self.syncRunning = true
+            self.tableView.reloadData()
+            self.startSurveyButton.isHidden = true
+            
+            // send request
+            let urlStr = "http://140.251.10.20/get-risk/index.cfm"
+            let bodyDict = [
+                "age":40,
+                "ageFirstMenstrualPeriod":"7-11",
+                "ageFirstLiveBirth":"<20",
+                "anyChildren":"YES",
+                "anyfirstDegreeRelativesBreastCancerUnder50":"",
+                "everDiagnosedBRCA1BRCA2":"NO",
+                "everDiagnosedBreastCancer":"NO",
+                "everDiagnosedDCISLCIS":"NO",
+                "everHadBreastBiopsy":"NO",
+                "everHadHyperplasia":"NO",
+                "everHadRadiationTherapy":"NO",
+                "firstDegreeRelativesBreastCancer":"0",
+                "firstDegreeRelativesOvarian":"NO",
+                "howManyBreastBiopsy":"",
+                "race":"WHITE",
+                "raceAPI":"",
+                "raceProcessed":"WHITE",
+                "ageFirstLiveBirthProcessed":"<20",
+                "howManyBreastBiopsyProcessed":"NA"
+                ] as [String : Any]
+            // convert dict to json str
+            var jsonData: Data = Data()
+            do {
+                jsonData = try JSONSerialization.data(withJSONObject: bodyDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            } catch {
+                print("Faild json serialization.")
+            }
+            let bodyStr = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
+            print(bodyStr as! String)
+            // send request
+            SyncHelper.sharedInstance.sendSyncPostJsonRequest(url: urlStr, body: bodyStr as! String, completion: {(result) -> Void in
+                if(result.responseCode == 200) {
+                    self.syncRunning = false
+                    self.tableView.reloadData()
+                    self.startSurveyButton.isHidden = false
+                    // Enable tab bar
+                    let tabs = self.tabBarController?.tabBar.items
+                    let screeningTab = tabs![1]
+                    screeningTab.isEnabled = true
+                    let valuesTab = tabs![2]
+                    valuesTab.isEnabled = true
+                }else {
+                    print(result.responseString)
+                }
+            })
+            
             ApplicationDataModel.sharedInstance.setRiskPercent(data: 8)
-            self.startSurveyButton.setTitle("Reset Selections", for: UIControlState.normal)
+            self.startSurveyButton.setTitle("Next", for: UIControlState.normal)
             self.tableView.reloadData()
         default:
             print("Not completed!")
+            taskViewController.dismiss(animated: true, completion: nil)
         }
-        taskViewController.dismiss(animated: true, completion: nil)
+        
     }
 }

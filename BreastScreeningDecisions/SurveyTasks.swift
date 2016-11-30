@@ -43,7 +43,7 @@ class SurveyTasks {
         step.formItems = [item]
         steps += [step]
         
-        
+        /*
         textChoices = [
             NSLocalizedString("7-11", comment: ""),
             NSLocalizedString("12-13", comment: ""),
@@ -233,7 +233,7 @@ class SurveyTasks {
         item = ORKFormItem(identifier: "item12", text: "", answerFormat: format)
         step.formItems = [item]
         steps += [step]
-        
+        */
         return ORKOrderedTask(identifier: "followUpSurveyTask", steps: steps)
     }()
     
