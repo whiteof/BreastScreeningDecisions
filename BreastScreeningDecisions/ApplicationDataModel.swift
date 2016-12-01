@@ -16,8 +16,19 @@ class ApplicationDataModel {
     let userDefaults = UserDefaults.standard
     
     private var yourRiskSurveyTaskResult: ORKTaskResult!
+    private var yourRiskSurveyResponse: [String:Float]!
     private var valuesSurveyTaskResult: ORKTaskResult!
-    private var riskPercent: Int = 0
+    
+    private func convertJsonResponseToDictionary(text: String) -> [String: Float]? {
+        if let data = text.data(using: .utf8) {
+            do {
+                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Float]
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
     
     func initialize() {
         var userDefaultsData = Data()
@@ -36,10 +47,11 @@ class ApplicationDataModel {
             taskResult = NSKeyedUnarchiver.unarchiveObject(with: userDefaultsData) as! ORKTaskResult
             self.valuesSurveyTaskResult = taskResult
         }
-        // set Risk Percent
-        userDefaultsValue = self.userDefaults.object(forKey: "RiskPercent")
+        // set Your Risk Response
+        userDefaultsValue = self.userDefaults.object(forKey: "YourRiskSurveyResponse")
         if(userDefaultsValue != nil) {
-            self.riskPercent = userDefaultsValue as! Int
+            let jsonStr = userDefaultsValue as! String
+            self.yourRiskSurveyResponse = self.convertJsonResponseToDictionary(text: jsonStr)
         }
     }
     
@@ -50,6 +62,14 @@ class ApplicationDataModel {
         let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
         self.userDefaults.set(encodedData, forKey: "YourRiskTaskResult")
         self.userDefaults.synchronize()
+        print("***************")
+        print(data)
+        print("***************")
+        
+    }
+    
+    func getYourRiskTaskResult() -> ORKTaskResult {
+        return self.yourRiskSurveyTaskResult
     }
     
     func getYourRiskSurveyCompleted() -> Bool {
@@ -60,10 +80,26 @@ class ApplicationDataModel {
         return returnValue
     }
     
-    func getYourRiskTaskResult() -> ORKTaskResult {
-        return self.yourRiskSurveyTaskResult
+    func setYourRiskSurveyResponse(data: String) {
+        // set task result
+        self.yourRiskSurveyResponse = self.convertJsonResponseToDictionary(text: data)
+        // save to UserDefaults
+        self.userDefaults.set(data, forKey: "YourRiskSurveyResponse")
+        self.userDefaults.synchronize()
     }
     
+    func getYourRiskSurveyResponse() -> [String:Float] {
+        return self.yourRiskSurveyResponse
+    }
+
+    func isYourRiskSurveyResponseReceived() -> Bool {
+        var returnValue = false
+        if(self.yourRiskSurveyResponse != nil) {
+            returnValue = true
+        }
+        return returnValue
+    }
+
     func setValuesSurveyTaskResult(data: ORKTaskResult) {
         // set task result
         self.valuesSurveyTaskResult = data
@@ -122,23 +158,11 @@ class ApplicationDataModel {
         return returnData
     }
     
-    func getRiskPercent() -> Int {
-        return self.riskPercent
-    }
-    
-    func setRiskPercent(data: Int) {
-        // set task result
-        self.riskPercent = data
-        // save to UserDefaults
-        self.userDefaults.set(data, forKey: "RiskPercent")
-        self.userDefaults.synchronize()
-    }
-    
     func removeUserData() {
         // reset values
         self.yourRiskSurveyTaskResult = nil
+        self.yourRiskSurveyResponse = nil
         self.valuesSurveyTaskResult = nil
-        self.riskPercent = 0
         // remove passcode
         ORKPasscodeViewController.removePasscodeFromKeychain()
         // remove from user defaults

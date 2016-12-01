@@ -234,7 +234,7 @@ class SurveyTasks {
         step.formItems = [item]
         steps += [step]
         */
-        return ORKOrderedTask(identifier: "followUpSurveyTask", steps: steps)
+        return ORKOrderedTask(identifier: "yourRiskSurveyTask", steps: steps)
     }()
     
     static let valuesSurveyTask: ORKOrderedTask = {

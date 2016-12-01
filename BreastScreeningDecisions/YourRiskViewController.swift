@@ -14,7 +14,82 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var startSurveyButton: UIButton!
     
-    var syncRunning = false
+    var isSyncProcessRunning = false
+    
+    func runSyncTimer() {
+        Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(runSyncProcess), userInfo: nil, repeats: false)
+    }
+    
+    @objc func runSyncProcess() {
+        DispatchQueue.global(qos: .background).async {
+            
+            // mark as running
+            self.isSyncProcessRunning = true
+            
+            // send request
+            let urlStr = "http://140.251.10.2012/get-risk/index.cfm"
+            let bodyDict = [
+                "age":40,
+                "ageFirstMenstrualPeriod":"7-11",
+                "ageFirstLiveBirth":"<20",
+                "anyChildren":"YES",
+                "anyfirstDegreeRelativesBreastCancerUnder50":"",
+                "everDiagnosedBRCA1BRCA2":"NO",
+                "everDiagnosedBreastCancer":"NO",
+                "everDiagnosedDCISLCIS":"NO",
+                "everHadBreastBiopsy":"NO",
+                "everHadHyperplasia":"NO",
+                "everHadRadiationTherapy":"NO",
+                "firstDegreeRelativesBreastCancer":"0",
+                "firstDegreeRelativesOvarian":"NO",
+                "howManyBreastBiopsy":"",
+                "race":"WHITE",
+                "raceAPI":"",
+                "raceProcessed":"WHITE",
+                "ageFirstLiveBirthProcessed":"<20",
+                "howManyBreastBiopsyProcessed":"NA"
+                ] as [String : Any]
+            // convert dict to json str
+            var jsonData: Data = Data()
+            do {
+                jsonData = try JSONSerialization.data(withJSONObject: bodyDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+            } catch {
+                print("Faild json serialization.")
+            }
+            let bodyStr = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
+            // send request
+            SyncHelper.sharedInstance.sendPostJsonRequest(url: urlStr, body: bodyStr as! String, completion: {(result) -> Void in
+                if(result.responseCode == 200) {
+                    self.isSyncProcessRunning = false
+                    ApplicationDataModel.sharedInstance.setYourRiskSurveyResponse(data: result.responseString)
+                    SyncHelper.sharedInstance.setNeedToSendRequest(data: false)
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                        let indexPath = IndexPath(row: 0, section: 0)
+                        self.tableView.scrollToRow(at: indexPath, at: .top, animated: false)
+                        self.startSurveyButton.isHidden = false
+                        // Enable tab bar
+                        let tabs = self.tabBarController?.tabBar.items
+                        let screeningTab = tabs![1]
+                        screeningTab.isEnabled = true
+                        let valuesTab = tabs![2]
+                        valuesTab.isEnabled = true
+                        self.startSurveyButton.setTitle("Next", for: UIControlState.normal)
+                        // change button width
+                        for constraint in self.startSurveyButton.constraints {
+                            if(constraint.firstAttribute == NSLayoutAttribute.width) {
+                                constraint.constant = 100.0
+                            }
+                        }
+                        self.tableView.reloadData()
+                    }
+                }else {
+                    self.runSyncTimer()
+                    print(result.responseCode)
+                }
+            })
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,11 +106,11 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         self.tableView.tableHeaderView = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: self.tableView.bounds.size.width, height: 0.01))
         self.tableView.tableFooterView = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: self.tableView.bounds.size.width, height: 0.01))
         
+        // dynamic table height
         self.tableView.estimatedRowHeight = self.tableView.rowHeight
         self.tableView.rowHeight = UITableViewAutomaticDimension
         
-        // set button text
-        if(ApplicationDataModel.sharedInstance.getYourRiskSurveyCompleted()) {
+        if(ApplicationDataModel.sharedInstance.isYourRiskSurveyResponseReceived()) {
             // Enable tab bar
             let tabs = self.tabBarController?.tabBar.items
             let screeningTab = tabs![1]
@@ -51,11 +126,30 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
                 }
             }
         }else {
-            self.startSurveyButton.setTitle("Access My Risk", for: UIControlState.normal)
-            // change button width
-            for constraint in self.startSurveyButton.constraints {
-                if(constraint.firstAttribute == NSLayoutAttribute.width) {
-                    constraint.constant = 160.0
+            
+            if(!ApplicationDataModel.sharedInstance.getValuesSurveyCompleted()) {
+                print(ApplicationDataModel.sharedInstance.getValuesSurveyCompleted())
+                
+                self.startSurveyButton.setTitle("Access My Risk", for: UIControlState.normal)
+                // change button width
+                for constraint in self.startSurveyButton.constraints {
+                    if(constraint.firstAttribute == NSLayoutAttribute.width) {
+                        constraint.constant = 160.0
+                    }
+                }
+            }else {
+                
+                self.startSurveyButton.isEnabled = false
+                // set button title
+                self.startSurveyButton.setTitle("Next", for: UIControlState.normal)
+                // change button width
+                for constraint in self.startSurveyButton.constraints {
+                    if(constraint.firstAttribute == NSLayoutAttribute.width) {
+                        constraint.constant = 100.0
+                    }
+                }
+                if(SyncHelper.sharedInstance.getNeedToSendRequest()) {
+                    self.runSyncProcess()
                 }
             }
         }
@@ -99,10 +193,19 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         if(indexPath.row == 0) {
             // BUILD CHART
             var chart: UIView!
-            if(self.syncRunning) {
+            if(self.isSyncProcessRunning) {
+                cell.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1.0)
                 chart = self.buildLoader(frameWidth: cell.cellContentView.frame.width)
             }else {
-                chart = self.buildChart(percent: ApplicationDataModel.sharedInstance.getRiskPercent(), chartWidth: cell.cellContentView.frame.width)
+                // set cell background color
+                cell.backgroundColor = UIColor.white
+                // check if response successfully received
+                if(ApplicationDataModel.sharedInstance.isYourRiskSurveyResponseReceived()) {
+                    let riskResponse = ApplicationDataModel.sharedInstance.getYourRiskSurveyResponse()
+                    chart = self.buildChart(percent: Int(riskResponse["avgrisk5yearperc"]!*10), chartWidth: cell.cellContentView.frame.width)
+                }else {
+                    chart = self.buildChart(percent: 0, chartWidth: cell.cellContentView.frame.width)
+                }
             }
             // get chart height
             var chartHeight:CGFloat = 0.0
@@ -122,10 +225,16 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         }else {
             // set cell color
             cell.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1.0)
-            if(!self.syncRunning) {
+            if(!self.isSyncProcessRunning) {
                 // BUILD TEXT CONTENT
                 // build view
-                let info = self.buildInfo(frameWidth: cell.cellContentView.frame.width, riskPercent: ApplicationDataModel.sharedInstance.getRiskPercent())
+                var info: UIView!
+                if(ApplicationDataModel.sharedInstance.isYourRiskSurveyResponseReceived()) {
+                    let riskResponse = ApplicationDataModel.sharedInstance.getYourRiskSurveyResponse()
+                    info = self.buildFooter(frameWidth: cell.cellContentView.frame.width, riskPercent: Int(riskResponse["avgrisk5yearperc"]!*10))
+                }else {
+                    info = self.buildFooter(frameWidth: cell.cellContentView.frame.width, riskPercent: 0)
+                }
                 // get view height
                 var infoHeight:CGFloat = 0.0
                 for constraint in info.constraints {
@@ -201,8 +310,13 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         // create title
         let headerLabel = UILabel()
         if(percent == 0) {
-            headerLabel.text = "Your Decisions"
-            headerLabel.font = UIFont(name: "Georgia", size: 30.0)
+            if(!ApplicationDataModel.sharedInstance.getValuesSurveyCompleted()) {
+                headerLabel.text = "Your Decisions"
+                headerLabel.font = UIFont(name: "Georgia", size: 30.0)
+            }else {
+                headerLabel.text = "?"
+                headerLabel.font = UIFont(name: "Georgia", size: 60.0)
+            }
         }else {
             headerLabel.text = "You are at low to average risk of breast cancer"
             headerLabel.font = UIFont(name: "Georgia", size: 24.0)
@@ -273,11 +387,10 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         // Draw chart
         let returnView = UIView()
         let frameHeight: CGFloat = 100.0
-        
         returnView.translatesAutoresizingMaskIntoConstraints = false
         
-        let loader = UIActivityIndicatorView.init(activityIndicatorStyle: .gray)
-        loader.center = returnView.center
+        let loader = UIActivityIndicatorView.init(frame: CGRect(x: frameWidth/2-20.0, y: frameHeight/2-20.0, width: 40.0, height: 40.0))
+        loader.activityIndicatorViewStyle = .gray
         loader.startAnimating()
         returnView.addSubview(loader)
         
@@ -285,11 +398,12 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         let parentConstraintHeight = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: frameHeight)
         NSLayoutConstraint.activate([parentConstraintWidth, parentConstraintHeight])
         
+        
         return returnView
     }
     
     
-    func buildInfo(frameWidth: CGFloat, riskPercent: Int) -> UIView {
+    func buildFooter(frameWidth: CGFloat, riskPercent: Int) -> UIView {
         let returnView = UIView()
         var currentY: CGFloat = 0.0
         if(riskPercent > 0) {
@@ -345,38 +459,53 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             returnView.addSubview(label5)
             currentY = currentY + label5.frame.height + 20.0
         }else {
-            // SURVEY NOT COMPLETED
-            // add label1
-            let label1 = UILabel()
-            label1.textAlignment = NSTextAlignment.left
-            label1.numberOfLines = 0
-            label1.text = "When should you start and how often should you have mammograms to screen for breast cancer?"
-            label1.font = UIFont(name:"HelveticaNeue-Regular", size: 18.0)
-            label1.frame = CGRect(x: 0, y: currentY, width: frameWidth, height: label1.getLabelHeight(byWidth: frameWidth))
-            label1.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-            returnView.addSubview(label1)
-            currentY = currentY + label1.frame.height + 10.0
-            // add label2
-            let label2 = UILabel()
-            label2.textAlignment = NSTextAlignment.left
-            label2.numberOfLines = 0
-            label2.text = "- Should you start in your 40's or wait until you are 50?\n- Should you have a mammogram every year or every other year?"
-            label2.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
-            label2.frame = CGRect(x: 20, y: currentY, width: frameWidth-20.0, height: label2.getLabelHeight(byWidth: frameWidth))
-            label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-            returnView.addSubview(label2)
-            currentY = currentY + label2.frame.height + 10.0
-            // add label3
-            let label3 = UILabel()
-            label1.tag = 1
-            label3.textAlignment = NSTextAlignment.left
-            label3.numberOfLines = 0
-            label3.text = "The first step in making these decisions is understanding your risk of breast cancer. Press \"Assess My Risk\" to continue."
-            label3.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
-            label3.frame = CGRect(x: 0, y: currentY, width: frameWidth, height: label3.getLabelHeight(byWidth: frameWidth))
-            label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-            returnView.addSubview(label3)
-            currentY = currentY + label3.frame.height - 10.0
+            if(!ApplicationDataModel.sharedInstance.getValuesSurveyCompleted()) {
+                // SURVEY NOT COMPLETED
+                // add label1
+                let label1 = UILabel()
+                label1.textAlignment = NSTextAlignment.left
+                label1.numberOfLines = 0
+                label1.text = "When should you start and how often should you have mammograms to screen for breast cancer?"
+                label1.font = UIFont(name:"HelveticaNeue-Regular", size: 18.0)
+                label1.frame = CGRect(x: 0, y: currentY, width: frameWidth, height: label1.getLabelHeight(byWidth: frameWidth))
+                label1.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                returnView.addSubview(label1)
+                currentY = currentY + label1.frame.height + 10.0
+                // add label2
+                let label2 = UILabel()
+                label2.textAlignment = NSTextAlignment.left
+                label2.numberOfLines = 0
+                label2.text = "- Should you start in your 40's or wait until you are 50?\n- Should you have a mammogram every year or every other year?"
+                label2.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
+                label2.frame = CGRect(x: 20, y: currentY, width: frameWidth-20.0, height: label2.getLabelHeight(byWidth: frameWidth))
+                label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                returnView.addSubview(label2)
+                currentY = currentY + label2.frame.height + 10.0
+                // add label3
+                let label3 = UILabel()
+                label1.tag = 1
+                label3.textAlignment = NSTextAlignment.left
+                label3.numberOfLines = 0
+                label3.text = "The first step in making these decisions is understanding your risk of breast cancer. Press \"Assess My Risk\" to continue."
+                label3.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
+                label3.frame = CGRect(x: 0, y: currentY, width: frameWidth, height: label3.getLabelHeight(byWidth: frameWidth))
+                label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                returnView.addSubview(label3)
+                currentY = currentY + label3.frame.height - 10.0
+            }else {
+                // RESPONCE HAS NOT BEEN RECEIVED
+                currentY = currentY + 40.0
+                let label1 = UILabel()
+                label1.textAlignment = NSTextAlignment.center
+                label1.numberOfLines = 0
+                label1.text = "Thanks for completing the survey! Unfortunately, we have not received your results because of internet connection error. Please, try check late."
+                label1.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
+                label1.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label1.getLabelHeight(byWidth: frameWidth))
+                label1.textColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1.0)
+                returnView.addSubview(label1)
+                currentY = currentY + label1.frame.height
+            }
+
         }
         
         let parentConstraintWidth = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: frameWidth)
@@ -410,70 +539,33 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
 
 extension YourRiskViewController: ORKTaskViewControllerDelegate {
     public func taskViewController(_ taskViewController: ORKTaskViewController, didFinishWith reason: ORKTaskViewControllerFinishReason, error: Error?) {
+        print("****************************")
+        print(taskViewController.result)
+        print("****************************")
         // Set status bar color to white
         UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
         switch reason {
         case .completed:
-            taskViewController.dismiss(animated: true, completion: nil)
-            
+            // save result
             ApplicationDataModel.sharedInstance.setYourRiskSurveyTaskResult(data: taskViewController.result)
+            
+            // set need to send request
+            SyncHelper.sharedInstance.setNeedToSendRequest(data: true)
             // update UI
-            self.syncRunning = true
+            self.isSyncProcessRunning = true
             self.tableView.reloadData()
             self.startSurveyButton.isHidden = true
-            
-            // send request
-            let urlStr = "http://140.251.10.20/get-risk/index.cfm"
-            let bodyDict = [
-                "age":40,
-                "ageFirstMenstrualPeriod":"7-11",
-                "ageFirstLiveBirth":"<20",
-                "anyChildren":"YES",
-                "anyfirstDegreeRelativesBreastCancerUnder50":"",
-                "everDiagnosedBRCA1BRCA2":"NO",
-                "everDiagnosedBreastCancer":"NO",
-                "everDiagnosedDCISLCIS":"NO",
-                "everHadBreastBiopsy":"NO",
-                "everHadHyperplasia":"NO",
-                "everHadRadiationTherapy":"NO",
-                "firstDegreeRelativesBreastCancer":"0",
-                "firstDegreeRelativesOvarian":"NO",
-                "howManyBreastBiopsy":"",
-                "race":"WHITE",
-                "raceAPI":"",
-                "raceProcessed":"WHITE",
-                "ageFirstLiveBirthProcessed":"<20",
-                "howManyBreastBiopsyProcessed":"NA"
-                ] as [String : Any]
-            // convert dict to json str
-            var jsonData: Data = Data()
-            do {
-                jsonData = try JSONSerialization.data(withJSONObject: bodyDict, options: JSONSerialization.WritingOptions.prettyPrinted)
-            } catch {
-                print("Faild json serialization.")
+            if(ApplicationDataModel.sharedInstance.getYourRiskSurveyCompleted()) {
+                // Disable tab bars
+                let tabs = self.tabBarController?.tabBar.items
+                let screeningTab = tabs![1]
+                screeningTab.isEnabled = false
             }
-            let bodyStr = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
-            print(bodyStr as! String)
-            // send request
-            SyncHelper.sharedInstance.sendSyncPostJsonRequest(url: urlStr, body: bodyStr as! String, completion: {(result) -> Void in
-                if(result.responseCode == 200) {
-                    self.syncRunning = false
-                    self.tableView.reloadData()
-                    self.startSurveyButton.isHidden = false
-                    // Enable tab bar
-                    let tabs = self.tabBarController?.tabBar.items
-                    let screeningTab = tabs![1]
-                    screeningTab.isEnabled = true
-                    let valuesTab = tabs![2]
-                    valuesTab.isEnabled = true
-                }else {
-                    print(result.responseString)
-                }
+            // UI
+            taskViewController.dismiss(animated: true, completion: {() -> Void in
+                self.runSyncProcess()
             })
             
-            ApplicationDataModel.sharedInstance.setRiskPercent(data: 8)
-            self.startSurveyButton.setTitle("Next", for: UIControlState.normal)
-            self.tableView.reloadData()
         default:
             print("Not completed!")
             taskViewController.dismiss(animated: true, completion: nil)
