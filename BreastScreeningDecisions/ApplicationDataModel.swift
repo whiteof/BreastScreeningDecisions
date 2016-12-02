@@ -20,9 +20,16 @@ class ApplicationDataModel {
     private var valuesSurveyTaskResult: ORKTaskResult!
     
     private func convertJsonResponseToDictionary(text: String) -> [String: Float]? {
-        if let data = text.data(using: .utf8) {
+        var dict: [String:String]!
+        var returnDict = [String:Float]()
+        let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        if let data = trimmedText.data(using: .utf8) {
             do {
-                return try JSONSerialization.jsonObject(with: data, options: []) as? [String: Float]
+                dict = try JSONSerialization.jsonObject(with: data, options: []) as? [String: String]
+                for (index, element) in dict {
+                    returnDict[index] = Float(element)
+                }
+                return returnDict
             } catch {
                 print(error.localizedDescription)
             }
@@ -61,11 +68,7 @@ class ApplicationDataModel {
         // save to UserDefaults
         let encodedData = NSKeyedArchiver.archivedData(withRootObject: data)
         self.userDefaults.set(encodedData, forKey: "YourRiskTaskResult")
-        self.userDefaults.synchronize()
-        print("***************")
-        print(data)
-        print("***************")
-        
+        self.userDefaults.synchronize()        
     }
     
     func getYourRiskTaskResult() -> ORKTaskResult {
@@ -85,6 +88,14 @@ class ApplicationDataModel {
         self.yourRiskSurveyResponse = self.convertJsonResponseToDictionary(text: data)
         // save to UserDefaults
         self.userDefaults.set(data, forKey: "YourRiskSurveyResponse")
+        self.userDefaults.synchronize()
+    }
+    
+    func resetYourRiskSurveyResponse() {
+        // rest task result
+        self.yourRiskSurveyResponse = nil
+        // reset to UserDefaults
+        self.userDefaults.removeObject(forKey: "YourRiskSurveyResponse")
         self.userDefaults.synchronize()
     }
     
@@ -167,8 +178,8 @@ class ApplicationDataModel {
         ORKPasscodeViewController.removePasscodeFromKeychain()
         // remove from user defaults
         self.userDefaults.removeObject(forKey: "YourRiskTaskResult")
+        self.userDefaults.removeObject(forKey: "YourRiskSurveyResponse")
         self.userDefaults.removeObject(forKey: "ValuesTaskResult")
-        self.userDefaults.removeObject(forKey: "RiskPercent")
         self.userDefaults.synchronize()
         // remove tasks to run
         //SyncHelper.sharedInstance.removeTasksToRun()

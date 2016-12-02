@@ -20,11 +20,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, willFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-        ApplicationDataModel.sharedInstance.removeUserData()
+        //ApplicationDataModel.sharedInstance.removeUserData()
         // load saved data
         ApplicationDataModel.sharedInstance.initialize()
-        // start server sync process if there are jobs in a queue
-        SyncHelper.sharedInstance.initialize()        
         
         let standardDefaults = UserDefaults.standard
         if standardDefaults.object(forKey: "edu.cornell.weill.BreastScreeningDecisions.FirstRun") == nil {

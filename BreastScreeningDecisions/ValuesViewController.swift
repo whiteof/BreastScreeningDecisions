@@ -45,9 +45,6 @@ class ValuesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         // set values
         self.values = ApplicationDataModel.sharedInstance.getValuesSurveyData()
-        print(self.values)
-        
-        
         
         if(self.values.count == 0) {
             // remove separator

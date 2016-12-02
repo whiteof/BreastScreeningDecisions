@@ -20,16 +20,8 @@ class SyncHelper {
     static let sharedInstance = SyncHelper()
     
     private let userDefaults = UserDefaults.standard
-    private var needToSendRequest = false
     
     // Public functions
-    
-    func initialize() {
-        let userDefaultsValue = self.userDefaults.object(forKey: "NeedToSendRequest")
-        if(userDefaultsValue != nil) {
-            self.needToSendRequest = userDefaultsValue as! Bool
-        }
-    }
     
     func sendPostJsonRequest(url: String, body: String, completion: @escaping (_ result: Response) -> Void) {
         let semaphore = DispatchSemaphore(value: 0)
@@ -40,8 +32,10 @@ class SyncHelper {
         request.httpBody = postString.data(using: .utf8)
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             let resultObject = Response()
-            guard let data = data, error == nil else {                                                 // check for fundamental networking error
-                print("error=\(error)")
+            guard let data = data, error == nil else {                                                 // check for fundamental networking error)
+                resultObject.responseCode = 1009
+                resultObject.responseString = "Internet or server connection error"
+                completion(resultObject)
                 semaphore.signal()
                 return
             }
@@ -58,16 +52,6 @@ class SyncHelper {
         }
         task.resume()
         _ = semaphore.wait(timeout: .distantFuture)
-    }
-    
-    func setNeedToSendRequest(data: Bool) {
-        self.needToSendRequest = data
-        self.userDefaults.set(data, forKey: "NeedToSendRequest")
-        self.userDefaults.synchronize()
-    }
-    
-    func getNeedToSendRequest() -> Bool {
-        return self.needToSendRequest
     }
     
 }
