@@ -23,27 +23,17 @@ class SurveyTasks {
         
         
         var textChoices = [
-            NSLocalizedString("White", comment: ""),
-            NSLocalizedString("African American", comment: ""),
-            NSLocalizedString("Hispanic", comment: ""),
-            NSLocalizedString("Asian or Pacific Islander", comment: ""),
-            NSLocalizedString("American Indian or Alaskan Native", comment: ""),
-            NSLocalizedString("Don't Know", comment: "")
+            ORKTextChoice(text: "White", value: 1 as NSCoding & NSCopying & NSObjectProtocol),
+            ORKTextChoice(text: "African American", value: 2 as NSCoding & NSCopying & NSObjectProtocol),
+            ORKTextChoice(text: "Hispanic", value: 3 as NSCoding & NSCopying & NSObjectProtocol),
+            ORKTextChoice(text: "Asian or Pacific Islander", value: 4 as NSCoding & NSCopying & NSObjectProtocol),
+            ORKTextChoice(text: "American Indian or Alaskan Native", value: 4 as NSCoding & NSCopying & NSObjectProtocol),
+            ORKTextChoice(text: "Don't Know", value: 4 as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        var choices: [ORKTextChoice] = []
-        var i = 0
-        for textChoice in textChoices {
-            i += 1
-            choices.append(ORKTextChoice(text: textChoice, value: "choice_\(i)" as NSCoding & NSCopying & NSObjectProtocol))
-        }
-        var step = ORKFormStep(identifier: "question2", title: NSLocalizedString("What is your race/ethnicity?", comment: ""), text: nil)
-        step.isOptional = false
-        var format = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: choices)
-        var item = ORKFormItem(identifier: "item2", text: "", answerFormat: format)
-        step.formItems = [item]
+        var format: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices)
+        var step = ORKQuestionStep(identifier: "question2", title: "What is your race/ethnicity?", answer: format)
         steps += [step]
         
-        /*
         textChoices = [
             NSLocalizedString("7-11", comment: ""),
             NSLocalizedString("12-13", comment: ""),
@@ -233,8 +223,19 @@ class SurveyTasks {
         item = ORKFormItem(identifier: "item12", text: "", answerFormat: format)
         step.formItems = [item]
         steps += [step]
-        */
-        return ORKOrderedTask(identifier: "yourRiskSurveyTask", steps: steps)
+        
+        
+        let task = ORKNavigableOrderedTask(identifier: "followUpSurveyTask", steps: steps)
+        
+        // What is your race/ethnicity? -> Asian or Pacific Islander:
+        
+        var predicate = ORKResultPredicate.predicateForBooleanQuestionResult(with: ORKResultSelector(resultIdentifier: step1.identifier), expectedAnswer: false)
+        var pre = ORKResultPredicate.predicateForChoiceQuestionResult(with: ORKResultSelector.init(resultIdentifier: "question2"), expectedAnswer: <#T##String#>)
+        var rule = ORKPredicateStepNavigationRule.init(resultPredicates: [predicate], destinationStepIdentifiers: [completionStep.identifier], defaultStepIdentifier: step2.identifier, validateArrays: false)
+        task.setNavigationRule(rule, forTriggerStepIdentifier: step1.identifier)
+        
+        
+        return task
     }()
     
     static let valuesSurveyTask: ORKOrderedTask = {
