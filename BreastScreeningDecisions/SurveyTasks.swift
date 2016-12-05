@@ -33,6 +33,7 @@ class SurveyTasks {
         ]
         let format2: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices2)
         let step2 = ORKQuestionStep(identifier: "question2", title: "What is your race/ethnicity?", answer: format2)
+        step2.isOptional = false
         steps += [step2]
         
         // Question 2.1: What is your race/ethnicity?
@@ -44,11 +45,9 @@ class SurveyTasks {
             ORKTextChoice(text: "Other Pacific Islander", value: "11" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Other Asian-American", value: "12" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step2_1 = ORKFormStep(identifier: "question2_1", title: NSLocalizedString("Please select one your race/ethnicity:", comment: ""), text: nil)
+        let format2_1: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices2_1)
+        let step2_1 = ORKQuestionStep(identifier: "question2_1", title: "Please select one your race/ethnicity:", answer: format2_1)
         step2_1.isOptional = false
-        let format2_1 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices2_1)
-        let item2_1 = ORKFormItem(identifier: "item2_1", text: "", answerFormat: format2_1)
-        step2_1.formItems = [item2_1]
         steps += [step2_1]
         
         // Question 3: How old were you at your first menstrual period?
@@ -58,11 +57,9 @@ class SurveyTasks {
             ORKTextChoice(text: "14 or Older", value: ">=14" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "DoNotKnow" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step3 = ORKFormStep(identifier: "question3", title: NSLocalizedString("How old were you at your first menstrual period?", comment: ""), text: nil)
+        let format3: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices3)
+        let step3 = ORKQuestionStep(identifier: "question3", title: "How old were you at your first menstrual period?", answer: format3)
         step3.isOptional = false
-        let format3 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices3)
-        let item3 = ORKFormItem(identifier: "item3", text: "", answerFormat: format3)
-        step3.formItems = [item3]
         steps += [step3]
         
         // Question 4: Have you had any children?
@@ -72,6 +69,7 @@ class SurveyTasks {
         ]
         let format4: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices4)
         let step4 = ORKQuestionStep(identifier: "question4", title: "Have you had any children?", answer: format4)
+        step4.isOptional = false
         steps += [step4]
         
         // Question 4_1: How old were you when your 1st child was born?
@@ -82,11 +80,9 @@ class SurveyTasks {
             ORKTextChoice(text: "30 or Older", value: ">=30" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "DoNotKnow" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step4_1 = ORKFormStep(identifier: "question4_1", title: NSLocalizedString("How old were you when your 1st child was born?", comment: ""), text: nil)
+        let format4_1: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices4_1)
+        let step4_1 = ORKQuestionStep(identifier: "question4_1", title: "How old were you when your 1st child was born?", answer: format4_1)
         step4_1.isOptional = false
-        let format4_1 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices4_1)
-        let item4_1 = ORKFormItem(identifier: "item4_1", text: "", answerFormat: format4_1)
-        step4_1.formItems = [item4_1]
         steps += [step4_1]
 
         // Question 5: Have you ever had a breast biopsy?
@@ -97,6 +93,7 @@ class SurveyTasks {
         ]
         let format5: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices5)
         let step5 = ORKQuestionStep(identifier: "question5", title: "Have you ever had a breast biopsy?", answer: format5)
+        step5.isOptional = false
         steps += [step5]
 
         // Question 5_1: How many breast biopsies (positive or negative) have you had?
@@ -105,11 +102,9 @@ class SurveyTasks {
             ORKTextChoice(text: "More Than 1", value: ">1" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "DoNotKnow" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step5_1 = ORKFormStep(identifier: "question5_1", title: NSLocalizedString("How many breast biopsies (positive or negative) have you had?", comment: ""), text: nil)
+        let format5_1: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices5_1)
+        let step5_1 = ORKQuestionStep(identifier: "question5_1", title: "How many breast biopsies (positive or negative) have you had?", answer: format5_1)
         step5_1.isOptional = false
-        let format5_1 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices5_1)
-        let item5_1 = ORKFormItem(identifier: "item5_1", text: "", answerFormat: format5_1)
-        step5_1.formItems = [item5_1]
         steps += [step5_1]
         
         // Question 6: Have you ever been diagnosed with atypical ductal hyperplasia of the breast?
@@ -118,11 +113,9 @@ class SurveyTasks {
             ORKTextChoice(text: "No", value: "NO" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "UNKNOWN" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step6 = ORKFormStep(identifier: "question6", title: NSLocalizedString("Have you ever been diagnosed with atypical ductal hyperplasia of the breast?", comment: ""), text: nil)
+        let format6: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices6)
+        let step6 = ORKQuestionStep(identifier: "question6", title: "Have you ever been diagnosed with atypical ductal hyperplasia of the breast?", answer: format6)
         step6.isOptional = false
-        let format6 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices6)
-        let item6 = ORKFormItem(identifier: "item6", text: "", answerFormat: format6)
-        step6.formItems = [item6]
         steps += [step6]
         
         // Question 7: How many of your first-degree relatives (mother, sisters, daughters) have had breast cancer?
@@ -134,6 +127,7 @@ class SurveyTasks {
         ]
         let format7: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices7)
         let step7 = ORKQuestionStep(identifier: "question7", title: "How many of your first-degree relatives (mother, sisters, daughters) have had breast cancer?", answer: format7)
+        step7.isOptional = false
         steps += [step7]
 
         // Question 7_1: Were any of them under age 50 when they were diagnosed?
@@ -144,6 +138,7 @@ class SurveyTasks {
         ]
         let format7_1: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices7_1)
         let step7_1 = ORKQuestionStep(identifier: "question7_1", title: "Were any of them under age 50 when they were diagnosed?", answer: format7_1)
+        step7_1.isOptional = false
         steps += [step7_1]
         
         // Question 8: Have any of your first degree relatives (mother, sisters, daughters) had ovarian cancer?
@@ -152,11 +147,9 @@ class SurveyTasks {
             ORKTextChoice(text: "No", value: "NO" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "UNKNOWN" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step8 = ORKFormStep(identifier: "question8", title: NSLocalizedString("Have any of your first degree relatives (mother, sisters, daughters) had ovarian cancer?", comment: ""), text: nil)
+        let format8: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices8)
+        let step8 = ORKQuestionStep(identifier: "question8", title: "Have any of your first degree relatives (mother, sisters, daughters) had ovarian cancer?", answer: format8)
         step8.isOptional = false
-        let format8 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices8)
-        let item8 = ORKFormItem(identifier: "item8", text: "", answerFormat: format8)
-        step8.formItems = [item8]
         steps += [step8]
         
         // Question 9: Have you ever been diagnosed with breast cancer?
@@ -165,11 +158,9 @@ class SurveyTasks {
             ORKTextChoice(text: "No", value: "NO" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "UNKNOWN" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step9 = ORKFormStep(identifier: "question9", title: NSLocalizedString("Have you ever been diagnosed with breast cancer?", comment: ""), text: nil)
+        let format9: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices9)
+        let step9 = ORKQuestionStep(identifier: "question9", title: "Have you ever been diagnosed with breast cancer?", answer: format9)
         step9.isOptional = false
-        let format9 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices9)
-        let item9 = ORKFormItem(identifier: "item9", text: "", answerFormat: format9)
-        step9.formItems = [item9]
         steps += [step9]
         
         // Question 10: Have you ever been diagnosed with ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS)?
@@ -178,24 +169,20 @@ class SurveyTasks {
             ORKTextChoice(text: "No", value: "NO" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "UNKNOWN" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step10 = ORKFormStep(identifier: "question10", title: NSLocalizedString("Have you ever been diagnosed with ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS)?", comment: ""), text: nil)
+        let format10: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices10)
+        let step10 = ORKQuestionStep(identifier: "question10", title: "Have you ever been diagnosed with ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS)?", answer: format10)
         step10.isOptional = false
-        let format10 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices10)
-        let item10 = ORKFormItem(identifier: "item10", text: "", answerFormat: format10)
-        step10.formItems = [item10]
         steps += [step10]
-        
+
         // Question 11: Have you ever been told that you carry a genetic mutation for the BRCA1 or BRCA2 gene?
         let textChoices11 = [
             ORKTextChoice(text: "Yes", value: "YES" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "No", value: "NO" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "UNKNOWN" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step11 = ORKFormStep(identifier: "question11", title: NSLocalizedString("Have you ever been told that you carry a genetic mutation for the BRCA1 or BRCA2 gene?", comment: ""), text: nil)
+        let format11: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices11)
+        let step11 = ORKQuestionStep(identifier: "question11", title: "Have you ever been told that you carry a genetic mutation for the BRCA1 or BRCA2 gene?", answer: format11)
         step11.isOptional = false
-        let format11 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices11)
-        let item11 = ORKFormItem(identifier: "item11", text: "", answerFormat: format11)
-        step11.formItems = [item11]
         steps += [step11]
         
         // Question 12: Have you ever had radiation therapy to the chest for another medical condition?
@@ -204,14 +191,12 @@ class SurveyTasks {
             ORKTextChoice(text: "No", value: "NO" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "UNKNOWN" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step12 = ORKFormStep(identifier: "question12", title: NSLocalizedString("Have you ever had radiation therapy to the chest for another medical condition?", comment: ""), text: nil)
+        let format12: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices12)
+        let step12 = ORKQuestionStep(identifier: "question12", title: "Have you ever had radiation therapy to the chest for another medical condition?", answer: format12)
         step12.isOptional = false
-        let format12 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices12)
-        let item12 = ORKFormItem(identifier: "item12", text: "", answerFormat: format12)
-        step12.formItems = [item12]
         steps += [step12]
-        
-        let task = ORKNavigableOrderedTask(identifier: "followUpSurveyTask", steps: steps)
+
+        let task = ORKNavigableOrderedTask(identifier: "yourRiskSurveyTask", steps: steps)
         
         let predicate2 = ORKResultPredicate.predicateForChoiceQuestionResult(with: ORKResultSelector(resultIdentifier: step2.identifier), expectedAnswerValue: "ASIAN OR PACIFIC ISLANDER" as NSCoding & NSCopying & NSObjectProtocol)
         let rule2 = ORKPredicateStepNavigationRule.init(resultPredicates: [predicate2], destinationStepIdentifiers: [step2_1.identifier], defaultStepIdentifier: step3.identifier, validateArrays: false)

@@ -26,37 +26,9 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         
         // send request
         let urlStr = "http://140.251.10.20/get-risk/index.cfm"
-        let bodyDict = [
-            "age":40,
-            "ageFirstMenstrualPeriod":"7-11",
-            "ageFirstLiveBirth":"<20",
-            "anyChildren":"YES",
-            "anyfirstDegreeRelativesBreastCancerUnder50":"",
-            "everDiagnosedBRCA1BRCA2":"NO",
-            "everDiagnosedBreastCancer":"NO",
-            "everDiagnosedDCISLCIS":"NO",
-            "everHadBreastBiopsy":"NO",
-            "everHadHyperplasia":"NO",
-            "everHadRadiationTherapy":"NO",
-            "firstDegreeRelativesBreastCancer":"0",
-            "firstDegreeRelativesOvarian":"NO",
-            "howManyBreastBiopsy":"",
-            "race":"WHITE",
-            "raceAPI":"",
-            "raceProcessed":"WHITE",
-            "ageFirstLiveBirthProcessed":"<20",
-            "howManyBreastBiopsyProcessed":"NA"
-            ] as [String : Any]
-        // convert dict to json str
-        var jsonData: Data = Data()
-        do {
-            jsonData = try JSONSerialization.data(withJSONObject: bodyDict, options: JSONSerialization.WritingOptions.prettyPrinted)
-        } catch {
-            print("Faild json serialization.")
-        }
-        let bodyStr = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)
+        let bodyStr = ApplicationDataModel.sharedInstance.getYourRiskSurveyJson()
         // send request
-        SyncHelper.sharedInstance.sendPostJsonRequest(url: urlStr, body: bodyStr as! String, completion: {(result) -> Void in
+        SyncHelper.sharedInstance.sendPostJsonRequest(url: urlStr, body: bodyStr, completion: {(result) -> Void in
             if(result.responseCode == 200) {
                 self.isSyncProcessRunning = false
                 ApplicationDataModel.sharedInstance.setYourRiskSurveyResponse(data: result.responseString)

@@ -26,4 +26,19 @@ class ResearchKitHelper {
         }
     }
     
+    func getFormattedNumericAnswer(taskResult: ORKTaskResult, stepIdentifier: String) -> Int? {
+        let questionStepResult = taskResult.stepResult(forStepIdentifier: stepIdentifier)
+        if(questionStepResult != nil) {
+            let questionResult = questionStepResult?.firstResult as! ORKNumericQuestionResult
+            let answer = questionResult.answer
+            if(answer != nil) {
+                return answer as? Int
+            }else {
+                return nil
+            }
+        }else {
+            return nil
+        }
+    }
+    
 }

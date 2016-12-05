@@ -83,6 +83,55 @@ class ApplicationDataModel {
         return returnValue
     }
     
+    func getYourRiskSurveyJson() -> String {
+        var jsonStr = ""
+        let taskResult = self.getYourRiskTaskResult()
+        let objResearchKitHelper = ResearchKitHelper()
+        
+        var jsonDict = [String:Any]()
+        var answer: Any!
+        // step 1
+        answer = objResearchKitHelper.getFormattedNumericAnswer(taskResult: taskResult, stepIdentifier: "step1")
+        if(answer != nil) {
+            jsonDict["age"] = answer
+        }else {
+            jsonDict["age"] = ""
+        }
+        
+        let bodyDict = [
+            "age":40,
+            "ageFirstMenstrualPeriod":"7-11",
+            "ageFirstLiveBirth":"<20",
+            "anyChildren":"YES",
+            "anyfirstDegreeRelativesBreastCancerUnder50":"",
+            "everDiagnosedBRCA1BRCA2":"NO",
+            "everDiagnosedBreastCancer":"NO",
+            "everDiagnosedDCISLCIS":"NO",
+            "everHadBreastBiopsy":"NO",
+            "everHadHyperplasia":"NO",
+            "everHadRadiationTherapy":"NO",
+            "firstDegreeRelativesBreastCancer":"0",
+            "firstDegreeRelativesOvarian":"NO",
+            "howManyBreastBiopsy":"",
+            "race":"WHITE",
+            "raceAPI":"",
+            "raceProcessed":"WHITE",
+            "ageFirstLiveBirthProcessed":"<20",
+            "howManyBreastBiopsyProcessed":"NA"
+            ] as [String : Any]
+        // convert dict to json str
+        var jsonData: Data = Data()
+        do {
+            jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)
+        } catch {
+            print("Faild json serialization.")
+        }
+        jsonStr = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) as! String
+        print(jsonStr)
+        
+        return jsonStr
+    }
+    
     func setYourRiskSurveyResponse(data: String) {
         // set task result
         self.yourRiskSurveyResponse = self.convertJsonResponseToDictionary(text: data)

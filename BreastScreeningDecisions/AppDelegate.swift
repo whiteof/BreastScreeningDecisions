@@ -23,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //ApplicationDataModel.sharedInstance.removeUserData()
         // load saved data
         ApplicationDataModel.sharedInstance.initialize()
+        let test = ApplicationDataModel.sharedInstance.getYourRiskSurveyJson()
+        print(test)
+        
+        
         
         let standardDefaults = UserDefaults.standard
         if standardDefaults.object(forKey: "edu.cornell.weill.BreastScreeningDecisions.FirstRun") == nil {
