@@ -142,11 +142,8 @@ class SurveyTasks {
             ORKTextChoice(text: "No", value: "NO" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "Don't Know", value: "UNKNOWN" as NSCoding & NSCopying & NSObjectProtocol)
         ]
-        let step7_1 = ORKFormStep(identifier: "question7_1", title: NSLocalizedString("Were any of them under age 50 when they were diagnosed?", comment: ""), text: nil)
-        step7_1.isOptional = false
-        let format7_1 = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices7_1)
-        let item7_1 = ORKFormItem(identifier: "item7", text: "", answerFormat: format7_1)
-        step7_1.formItems = [item7_1]
+        let format7_1: ORKTextChoiceAnswerFormat = ORKAnswerFormat.choiceAnswerFormat(with: .singleChoice, textChoices: textChoices7_1)
+        let step7_1 = ORKQuestionStep(identifier: "question7_1", title: "Were any of them under age 50 when they were diagnosed?", answer: format7_1)
         steps += [step7_1]
         
         // Question 8: Have any of your first degree relatives (mother, sisters, daughters) had ovarian cancer?
@@ -162,7 +159,7 @@ class SurveyTasks {
         step8.formItems = [item8]
         steps += [step8]
         
-        // Question 9: Have any of your first degree relatives (mother, sisters, daughters) had ovarian cancer?
+        // Question 9: Have you ever been diagnosed with breast cancer?
         let textChoices9 = [
             ORKTextChoice(text: "Yes", value: "YES" as NSCoding & NSCopying & NSObjectProtocol),
             ORKTextChoice(text: "No", value: "NO" as NSCoding & NSCopying & NSObjectProtocol),
@@ -229,12 +226,10 @@ class SurveyTasks {
         task.setNavigationRule(rule5, forTriggerStepIdentifier: step5.identifier)
 
         let predicate7_1 = ORKResultPredicate.predicateForChoiceQuestionResult(with: ORKResultSelector(resultIdentifier: step7.identifier), expectedAnswerValue: "1" as NSCoding & NSCopying & NSObjectProtocol)
-        let rule7_1 = ORKPredicateStepNavigationRule.init(resultPredicates: [predicate7_1], destinationStepIdentifiers: [step7_1.identifier], defaultStepIdentifier: step8.identifier, validateArrays: false)
-        task.setNavigationRule(rule7_1, forTriggerStepIdentifier: step7.identifier)
-
         let predicate7_2 = ORKResultPredicate.predicateForChoiceQuestionResult(with: ORKResultSelector(resultIdentifier: step7.identifier), expectedAnswerValue: "MORE THAN 1" as NSCoding & NSCopying & NSObjectProtocol)
-        let rule7_2 = ORKPredicateStepNavigationRule.init(resultPredicates: [predicate7_2], destinationStepIdentifiers: [step7_1.identifier], defaultStepIdentifier: step8.identifier, validateArrays: false)
-        task.setNavigationRule(rule7_2, forTriggerStepIdentifier: step7.identifier)
+        let predicate7 = NSCompoundPredicate.init(orPredicateWithSubpredicates: [predicate7_1, predicate7_2])
+        let rule7 = ORKPredicateStepNavigationRule(resultPredicates: [predicate7], destinationStepIdentifiers: [step7_1.identifier], defaultStepIdentifier: step8.identifier, validateArrays: false)
+        task.setNavigationRule(rule7, forTriggerStepIdentifier: step7.identifier)
         
         return task
     }()
