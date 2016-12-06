@@ -90,12 +90,19 @@ class ApplicationDataModel {
         
         var jsonDict = [String:Any]()
         var answer: Any!
-        // step 1
-        answer = objResearchKitHelper.getFormattedNumericAnswer(taskResult: taskResult, stepIdentifier: "step1")
+        // Question 1: How Old Are You?
+        answer = objResearchKitHelper.getFormattedNumericAnswer(taskResult: taskResult, stepIdentifier: "question1")
         if(answer != nil) {
             jsonDict["age"] = answer
         }else {
             jsonDict["age"] = ""
+        }
+        // Question 2: What is your race/ethnicity?
+        answer = objResearchKitHelper.getFormattedNumericAnswer(taskResult: taskResult, stepIdentifier: "question2")
+        if(answer != nil) {
+            jsonDict["race"] = answer
+        }else {
+            jsonDict["race"] = ""
         }
         
         let bodyDict = [
@@ -127,7 +134,6 @@ class ApplicationDataModel {
             print("Faild json serialization.")
         }
         jsonStr = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue) as! String
-        print(jsonStr)
         
         return jsonStr
     }
