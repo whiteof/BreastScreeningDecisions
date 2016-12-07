@@ -41,4 +41,19 @@ class ResearchKitHelper {
         }
     }
     
+    func getFormattedTextChoiceAnswer(taskResult: ORKTaskResult, stepIdentifier: String) -> String? {
+        let questionStepResult = taskResult.stepResult(forStepIdentifier: stepIdentifier)
+        if(questionStepResult != nil) {
+            let questionResult = questionStepResult?.firstResult as! ORKChoiceQuestionResult
+            let answer = questionResult.choiceAnswers?.first
+            if(answer != nil) {
+                return answer as? String
+            }else {
+                return nil
+            }
+        }else {
+            return nil
+        }
+    }
+    
 }

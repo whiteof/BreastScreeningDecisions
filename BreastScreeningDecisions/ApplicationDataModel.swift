@@ -98,13 +98,128 @@ class ApplicationDataModel {
             jsonDict["age"] = ""
         }
         // Question 2: What is your race/ethnicity?
-        answer = objResearchKitHelper.getFormattedNumericAnswer(taskResult: taskResult, stepIdentifier: "question2")
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question2")
         if(answer != nil) {
-            jsonDict["race"] = answer
+            let race = answer as! String
+            jsonDict["race"] = race
+            if(race == "ASIAN OR PACIFIC ISLANDER") {
+                // Question 2.1: What is your race/ethnicity?
+                answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question2_1")
+                jsonDict["raceAPI"] = answer
+                jsonDict["raceProcessed"] = answer
+            }else {
+                jsonDict["raceAPI"] = ""
+                jsonDict["raceProcessed"] = race
+            }
         }else {
             jsonDict["race"] = ""
+            jsonDict["raceAPI"] = ""
+            jsonDict["raceProcessed"] = ""
         }
-        
+        // Question 3: How old were you at your first menstrual period?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question3")
+        if(answer != nil) {
+            jsonDict["ageFirstMenstrualPeriod"] = answer
+        }else {
+            jsonDict["ageFirstMenstrualPeriod"] = ""
+        }
+        // Question 4: Have you had any children?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question4")
+        if(answer != nil) {
+            let anyChildren = answer as! String
+            jsonDict["anyChildren"] = anyChildren
+            if(anyChildren == "YES") {
+                // Question 4_1: How old were you when your 1st child was born?
+                answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question4_1")
+                jsonDict["ageFirstLiveBirth"] = answer as! String
+                jsonDict["ageFirstLiveBirthProcessed"] = answer as! String
+            }else {
+                jsonDict["ageFirstLiveBirth"] = ""
+                jsonDict["ageFirstLiveBirthProcessed"] = "NO BIRTHS"
+            }
+        }else {
+            jsonDict["anyChildren"] = ""
+            jsonDict["ageFirstLiveBirth"] = ""
+            jsonDict["ageFirstLiveBirthProcessed"] = ""
+        }
+        // Question 5: Have you ever had a breast biopsy?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question5")
+        if(answer != nil) {
+            let everHadBreastBiopsy = answer as! String
+            jsonDict["everHadBreastBiopsy"] = everHadBreastBiopsy
+            if(everHadBreastBiopsy == "YES") {
+                // Question 5_1: How many breast biopsies (positive or negative) have you had?
+                answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question5_1")
+                jsonDict["howManyBreastBiopsy"] = answer as! String
+                jsonDict["howManyBreastBiopsyProcessed"] = answer as! String
+            }else {
+                jsonDict["howManyBreastBiopsy"] = ""
+                jsonDict["howManyBreastBiopsyProcessed"] = "NA"
+            }
+        }else {
+            jsonDict["everHadBreastBiopsy"] = ""
+            jsonDict["howManyBreastBiopsy"] = ""
+            jsonDict["howManyBreastBiopsyProcessed"] = ""
+        }
+        // Question 6: Have you ever been diagnosed with atypical ductal hyperplasia of the breast?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question6")
+        if(answer != nil) {
+            jsonDict["everHadHyperplasia"] = answer as! String
+        }else {
+            jsonDict["everHadHyperplasia"] = ""
+        }
+        // Question 7: How many of your first-degree relatives (mother, sisters, daughters) have had breast cancer?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question7")
+        if(answer != nil) {
+            let firstDegreeRelativesBreastCancer = answer as! String
+            jsonDict["firstDegreeRelativesBreastCancer"] = firstDegreeRelativesBreastCancer
+            if(firstDegreeRelativesBreastCancer == "1" || firstDegreeRelativesBreastCancer == "MORE THAN 1") {
+                // Question 7_1: Were any of them under age 50 when they were diagnosed?
+                answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question7_1")
+                jsonDict["anyfirstDegreeRelativesBreastCancerUnder50"] = answer as! String
+            }else {
+                jsonDict["anyfirstDegreeRelativesBreastCancerUnder50"] = ""
+            }
+        }else {
+            jsonDict["firstDegreeRelativesBreastCancer"] = ""
+            jsonDict["anyfirstDegreeRelativesBreastCancerUnder50"] = ""
+        }
+        // Question 8: Have any of your first degree relatives (mother, sisters, daughters) had ovarian cancer?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question8")
+        if(answer != nil) {
+            jsonDict["firstDegreeRelativesOvarian"] = answer as! String
+        }else {
+            jsonDict["firstDegreeRelativesOvarian"] = ""
+        }
+        // Question 9: Have you ever been diagnosed with breast cancer?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question9")
+        if(answer != nil) {
+            jsonDict["everDiagnosedBreastCancer"] = answer as! String
+        }else {
+            jsonDict["everDiagnosedBreastCancer"] = ""
+        }
+        // Question 10: Have you ever been diagnosed with ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS)?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question10")
+        if(answer != nil) {
+            jsonDict["everDiagnosedDCISLCIS"] = answer as! String
+        }else {
+            jsonDict["everDiagnosedDCISLCIS"] = ""
+        }
+        // Question 11: Have you ever been told that you carry a genetic mutation for the BRCA1 or BRCA2 gene?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question11")
+        if(answer != nil) {
+            jsonDict["everDiagnosedBRCA1BRCA2"] = answer as! String
+        }else {
+            jsonDict["everDiagnosedBRCA1BRCA2"] = ""
+        }
+        // Question 12: Have you ever had radiation therapy to the chest for another medical condition?
+        answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question12")
+        if(answer != nil) {
+            jsonDict["everHadRadiationTherapy"] = answer as! String
+        }else {
+            jsonDict["everHadRadiationTherapy"] = ""
+        }
+        /*
         let bodyDict = [
             "age":40,
             "ageFirstMenstrualPeriod":"7-11",
@@ -127,6 +242,7 @@ class ApplicationDataModel {
             "howManyBreastBiopsyProcessed":"NA"
             ] as [String : Any]
         // convert dict to json str
+ */
         var jsonData: Data = Data()
         do {
             jsonData = try JSONSerialization.data(withJSONObject: jsonDict, options: JSONSerialization.WritingOptions.prettyPrinted)

@@ -29,6 +29,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         let bodyStr = ApplicationDataModel.sharedInstance.getYourRiskSurveyJson()
         // send request
         SyncHelper.sharedInstance.sendPostJsonRequest(url: urlStr, body: bodyStr, completion: {(result) -> Void in
+            
             if(result.responseCode == 200) {
                 self.isSyncProcessRunning = false
                 ApplicationDataModel.sharedInstance.setYourRiskSurveyResponse(data: result.responseString)
@@ -106,18 +107,21 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
                     }
                 }
             }else {
-                
-                self.startSurveyButton.isHidden = true
-                // set button title
-                self.startSurveyButton.setTitle("Next", for: UIControlState.normal)
-                // change button width
-                for constraint in self.startSurveyButton.constraints {
-                    if(constraint.firstAttribute == NSLayoutAttribute.width) {
-                        constraint.constant = 100.0
+                if(self.validateYourRiskSurvey().count == 0) {
+                    self.startSurveyButton.isHidden = true
+                    // set button title
+                    self.startSurveyButton.setTitle("Next", for: UIControlState.normal)
+                    // change button width
+                    for constraint in self.startSurveyButton.constraints {
+                        if(constraint.firstAttribute == NSLayoutAttribute.width) {
+                            constraint.constant = 100.0
+                        }
                     }
-                }
-                if(!ApplicationDataModel.sharedInstance.isYourRiskSurveyResponseReceived()) {
-                    self.runSyncProcess()
+                    if(!ApplicationDataModel.sharedInstance.isYourRiskSurveyResponseReceived()) {
+                        self.runSyncProcess()
+                    }
+                }else {
+                    self.startSurveyButton.isHidden = true
                 }
             }
         }
@@ -170,7 +174,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
                 // check if response successfully received
                 if(ApplicationDataModel.sharedInstance.isYourRiskSurveyResponseReceived()) {
                     let riskResponse = ApplicationDataModel.sharedInstance.getYourRiskSurveyResponse()
-                    chart = self.buildChart(percent: Int(riskResponse["avgrisk5yearperc"]!*10), chartWidth: cell.cellContentView.frame.width)
+                    chart = self.buildChart(percent: Int(riskResponse["absrisk5yearperc"]!*10), chartWidth: cell.cellContentView.frame.width)
                 }else {
                     chart = self.buildChart(percent: 0, chartWidth: cell.cellContentView.frame.width)
                 }
@@ -212,7 +216,14 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
                 }
                 // add content
                 cell.cellContentView.addSubview(info)
-                if(ApplicationDataModel.sharedInstance.isYourRiskSurveyResponseReceived()) {
+                // check if valid
+                var hasErrors = false
+                if(ApplicationDataModel.sharedInstance.getYourRiskSurveyCompleted()) {
+                    if(self.validateYourRiskSurvey().count > 0) {
+                        hasErrors = true
+                    }
+                }
+                if(ApplicationDataModel.sharedInstance.isYourRiskSurveyResponseReceived() || hasErrors == true) {
                     // add reset values button
                     let buttonX = (cell.cellContentView.frame.width / 2) - 70.0
                     var buttonY = infoHeight + 10.0
@@ -282,8 +293,13 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
                 headerLabel.text = "Your Decisions"
                 headerLabel.font = UIFont(name: "Georgia", size: 30.0)
             }else {
-                headerLabel.text = "?"
-                headerLabel.font = UIFont(name: "Georgia", size: 60.0)
+                if(self.validateYourRiskSurvey().count == 0) {
+                    headerLabel.text = "?"
+                    headerLabel.font = UIFont(name: "Georgia", size: 60.0)
+                }else {
+                    headerLabel.text = "Your Risk - Higher Than Average"
+                    headerLabel.font = UIFont(name: "Georgia", size: 30.0)
+                }
             }
         }else {
             headerLabel.text = "You are at low to average risk of breast cancer"
@@ -462,16 +478,60 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
                 currentY = currentY + label3.frame.height - 10.0
             }else {
                 // RESPONCE HAS NOT BEEN RECEIVED
-                currentY = currentY + 40.0
-                let label1 = UILabel()
-                label1.textAlignment = NSTextAlignment.center
-                label1.numberOfLines = 0
-                label1.text = "Thanks for completing the survey! Unfortunately, we have not received your results because of internet connection error. Please, try check late."
-                label1.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
-                label1.frame = CGRect(x: 20.0, y: currentY, width: frameWidth-40.0, height: label1.getLabelHeight(byWidth: frameWidth-40.0))
-                label1.textColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1.0)
-                returnView.addSubview(label1)
-                currentY = currentY + label1.frame.height
+                if(self.validateYourRiskSurvey().count == 0) {
+                    currentY = currentY + 40.0
+                    let label1 = UILabel()
+                    label1.textAlignment = NSTextAlignment.center
+                    label1.numberOfLines = 0
+                    label1.text = "Thanks for completing the survey! Unfortunately, we have not received your results because of internet connection error. Please, try check late."
+                    label1.font = UIFont(name:"HelveticaNeue-Light", size: 18.0)
+                    label1.frame = CGRect(x: 20.0, y: currentY, width: frameWidth-40.0, height: label1.getLabelHeight(byWidth: frameWidth-40.0))
+                    label1.textColor = UIColor(red: 160/255, green: 160/255, blue: 160/255, alpha: 1.0)
+                    returnView.addSubview(label1)
+                    currentY = currentY + label1.frame.height
+                }else {
+                    // label 2
+                    let label1 = UILabel()
+                    label1.textAlignment = NSTextAlignment.left
+                    label1.numberOfLines = 0
+                    let errorArray = self.validateYourRiskSurvey()
+                    label1.text = errorArray.joined(separator: " ")
+                    label1.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
+                    label1.frame = CGRect(x: 0.0, y: currentY, width: frameWidth, height: label1.getLabelHeight(byWidth: frameWidth))
+                    label1.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                    returnView.addSubview(label1)
+                    currentY = currentY + label1.frame.height + 20.0
+                    // label 2
+                    let label2 = UILabel()
+                    label2.textAlignment = NSTextAlignment.left
+                    label2.numberOfLines = 0
+                    label2.text = "Breast ScreeningDecisions is designed for women at low to average risk of breast cancer. Based on the answers you've provided, your risk of breast cancer may be higher than average. If this is correct, then annual mammograms are recommended for you. In some women, additional screening may be indicated."
+                    label2.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
+                    label2.frame = CGRect(x: 0.0, y: currentY, width: frameWidth, height: label2.getLabelHeight(byWidth: frameWidth))
+                    label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                    returnView.addSubview(label2)
+                    currentY = currentY + label2.frame.height + 20.0
+                    // label 3
+                    let label3 = UILabel()
+                    label3.textAlignment = NSTextAlignment.left
+                    label3.numberOfLines = 0
+                    label3.text = "Instead of using this tool to make a decision about screening mammography, you should talk to your doctor about your medical history and family history of breast cancer."
+                    label3.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
+                    label3.frame = CGRect(x: 0.0, y: currentY, width: frameWidth, height: label3.getLabelHeight(byWidth: frameWidth))
+                    label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                    returnView.addSubview(label3)
+                    currentY = currentY + label3.frame.height + 20.0
+                    // label 4
+                    let label4 = UILabel()
+                    label4.textAlignment = NSTextAlignment.left
+                    label4.numberOfLines = 0
+                    label4.text = "If this is incorrect, you can change your answers by pressing button below."
+                    label4.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
+                    label4.frame = CGRect(x: 0.0, y: currentY, width: frameWidth, height: label4.getLabelHeight(byWidth: frameWidth))
+                    label4.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                    returnView.addSubview(label4)
+                    currentY = currentY + label4.frame.height + 20.0
+                }
             }
 
         }
@@ -503,6 +563,85 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         present(taskViewController, animated: true, completion: nil)
     }
     
+    func validateYourRiskSurvey() -> [String] {
+        let errorMessage = [
+            "hyperPlasia": "According to the information you provided, you were previously diagnosed with atypical ductal hyperplasia of the breast.",
+            "hereditaryOver50": "According to the information you provided, you have a mother, sister or daughter who was diagnosed with breast cancer before age 50.",
+            "general": "According to the information you provided, your risk of developing breast cancer may be higher than average. Annual mammograms are recommended for women like you.",
+            "hereditaryOvarian": "According to the information you provided, you have a mother, sister or daughter who was diagnosed with ovarian cancer.",
+            "previousBreastCancer": "According to the information you provided, you were previously diagnosed with breast cancer.",
+            "DCISLCIS": "According to the information you provided, you were diagnosed with ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS) of the breast.",
+            "BRCA1BRCA2": "According to the information you provided, you carry a genetic mutation for the BRCA1 or BRCA2 gene.",
+            "radiationTherapy": "According to the information you provided, you previously had radiation therapy to the chest for another medical condition.",
+            "hereditaryOver50No": "Based on this information, your risk of developing breast cancer in the next 5 years is 2%, and your lifetime risk of developing breast cancer is 18.1%. This may be higher than the average risk for women of your age and ethnicity. If this is correct, then annual mammograms are recommended for you. In some women, additional screening may be indicated."
+        ]
+        var error: [String] = []
+        let objResearchKitHelper = ResearchKitHelper()
+        var answer: String!
+        
+        if(ApplicationDataModel.sharedInstance.getYourRiskSurveyCompleted()) {
+            let taskResult = ApplicationDataModel.sharedInstance.getYourRiskTaskResult()
+            
+            // Question 6: Have you ever been diagnosed with atypical ductal hyperplasia of the breast?
+            answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question6")
+            if(answer != nil) {
+                if(answer == "YES") {
+                    error.append(errorMessage["hyperPlasia"]!)
+                }
+            }
+            // Question 7: How many of your first-degree relatives (mother, sisters, daughters) have had breast cancer?
+            answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question7")
+            if(answer != nil) {
+                if(answer == "1") {
+                    answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question7_1")
+                    if(answer != nil) {
+                        if(answer == "YES") {
+                            error.append(errorMessage["hereditaryOver50"]!)
+                        }else {
+                            error.append(errorMessage["hereditaryOver50No"]!)
+                        }
+                    }
+                }
+            }
+            // Question 8: Have any of your first degree relatives (mother, sisters, daughters) had ovarian cancer?
+            answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question8")
+            if(answer != nil) {
+                if(answer == "YES") {
+                    error.append(errorMessage["hereditaryOvarian"]!)
+                }
+            }
+            // Question 9: Have you ever been diagnosed with breast cancer?
+            answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question9")
+            if(answer != nil) {
+                if(answer == "YES") {
+                    error.append(errorMessage["previousBreastCancer"]!)
+                }
+            }
+            // Question 10: Have you ever been diagnosed with ductal carcinoma in situ (DCIS) or lobular carcinoma in situ (LCIS)?
+            answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question10")
+            if(answer != nil) {
+                if(answer == "YES") {
+                    error.append(errorMessage["DCISLCIS"]!)
+                }
+            }
+            // Question 11: Have you ever been told that you carry a genetic mutation for the BRCA1 or BRCA2 gene?
+            answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question11")
+            if(answer != nil) {
+                if(answer == "YES") {
+                    error.append(errorMessage["BRCA1BRCA2"]!)
+                }
+            }
+            // Question 12: Have you ever had radiation therapy to the chest for another medical condition?
+            answer = objResearchKitHelper.getFormattedTextChoiceAnswer(taskResult: taskResult, stepIdentifier: "question12")
+            if(answer != nil) {
+                if(answer == "YES") {
+                    error.append(errorMessage["radiationTherapy"]!)
+                }
+            }
+        }
+        return error
+    }
+    
 }
 
 extension YourRiskViewController: ORKTaskViewControllerDelegate {
@@ -514,19 +653,31 @@ extension YourRiskViewController: ORKTaskViewControllerDelegate {
             // save result
             ApplicationDataModel.sharedInstance.setYourRiskSurveyTaskResult(data: taskViewController.result)
             ApplicationDataModel.sharedInstance.resetYourRiskSurveyResponse()
-            // update UI
-            self.isSyncProcessRunning = true
-            self.tableView.reloadData()
-            self.startSurveyButton.isHidden = true
-            // Disable tab bars
-            let tabs = self.tabBarController?.tabBar.items
-            let screeningTab = tabs![1]
-            screeningTab.isEnabled = false
-            // UI
-            taskViewController.dismiss(animated: true, completion: {() -> Void in
-                self.runSyncProcess()
-            })
-            
+            // check if survey answeres match low to average risk level
+            if(self.validateYourRiskSurvey().count == 0) {
+                // update UI
+                self.isSyncProcessRunning = true
+                self.tableView.reloadData()
+                self.startSurveyButton.isHidden = true
+                // Disable tab bars
+                let tabs = self.tabBarController?.tabBar.items
+                let screeningTab = tabs![1]
+                screeningTab.isEnabled = false
+                taskViewController.dismiss(animated: true, completion: {() -> Void in
+                    self.runSyncProcess()
+                })
+            }else {
+                // update UI
+                self.tableView.reloadData()
+                self.startSurveyButton.isHidden = true
+                // Disable tab bars
+                let tabs = self.tabBarController?.tabBar.items
+                let screeningTab = tabs![1]
+                screeningTab.isEnabled = false
+                let valuesTab = tabs![2]
+                valuesTab.isEnabled = false
+                taskViewController.dismiss(animated: true, completion: nil)
+            }
         default:
             print("Not completed!")
             taskViewController.dismiss(animated: true, completion: nil)
