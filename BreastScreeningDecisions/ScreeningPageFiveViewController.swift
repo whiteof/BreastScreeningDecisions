@@ -106,6 +106,7 @@ class ScreeningPageFiveViewController: UIViewController, UITableViewDelegate, UI
     func buildHeader(frameWidth: CGFloat) -> UIView {
         let returnView = UIView()
         var currentY: CGFloat = 20.0
+        let response = ApplicationDataModel.sharedInstance.getYourRiskSurveyResponse()
         
         // add header
         let label1 = UILabel()
@@ -135,7 +136,7 @@ class ScreeningPageFiveViewController: UIViewController, UITableViewDelegate, UI
         let label3 = UILabel()
         label3.textAlignment = NSTextAlignment.left
         label3.numberOfLines = 0
-        label3.text = "Your chance of developing breast cancer in the next 5 years is about 0.8%."
+        label3.text = "Your chance of developing breast cancer in the next 5 years is about \(Float(response["absrisk5yearperc"]!))%."
         label3.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
         label3.frame = CGRect(x: 90.0, y: currentY, width: (frameWidth - 70.0), height: label3.getLabelHeight(byWidth: (frameWidth - 70.0)))
         label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
@@ -152,7 +153,7 @@ class ScreeningPageFiveViewController: UIViewController, UITableViewDelegate, UI
         let label4 = UILabel()
         label4.textAlignment = NSTextAlignment.left
         label4.numberOfLines = 0
-        label4.text = "This means that out of 1,000 women like you, 8 of them will develop breast cancer in the next 5 years and 992 will not."
+        label4.text = "This means that out of 1,000 women like you, \(Int(response["absrisk5yearperc"]!*10)) of them will develop breast cancer in the next 5 years and \(1000-Int(response["absrisk5yearperc"]!*10)) will not."
         label4.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
         label4.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label4.getLabelHeight(byWidth: frameWidth)+20.0)
         label4.layer.addBorder(edge: .top, color: UIColor(red: 225/255, green: 225/255, blue: 225/255, alpha: 1.0), thickness: 0.5)
