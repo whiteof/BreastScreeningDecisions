@@ -21,6 +21,7 @@
 		A83C47431DDBAFFE009D0EF1 /* YourRiskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */; };
 		A89411F81DE38DB2000EAF69 /* CALayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89411F71DE38DB2000EAF69 /* CALayer.swift */; };
 		A89411FA1DE61003000EAF69 /* ValuesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A89411F91DE61003000EAF69 /* ValuesTableViewCell.swift */; };
+		A8A008A51DFF4FF200E60BFE /* summary.pdf in Resources */ = {isa = PBXBuildFile; fileRef = A8A008A41DFF4FF200E60BFE /* summary.pdf */; };
 		A8B7F1A91DD668E30022ED0B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8B7F1A81DD668E30022ED0B /* AppDelegate.swift */; };
 		A8B7F1AE1DD668E30022ED0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A8B7F1AC1DD668E30022ED0B /* Main.storyboard */; };
 		A8B7F1B01DD668E30022ED0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A8B7F1AF1DD668E30022ED0B /* Assets.xcassets */; };
@@ -82,6 +83,7 @@
 		A83C47421DDBAFFD009D0EF1 /* YourRiskViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YourRiskViewController.swift; sourceTree = "<group>"; };
 		A89411F71DE38DB2000EAF69 /* CALayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CALayer.swift; sourceTree = "<group>"; };
 		A89411F91DE61003000EAF69 /* ValuesTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ValuesTableViewCell.swift; sourceTree = "<group>"; };
+		A8A008A41DFF4FF200E60BFE /* summary.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = summary.pdf; sourceTree = "<group>"; };
 		A8B7F1A51DD668E30022ED0B /* BreastScreeningDecisions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BreastScreeningDecisions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A8B7F1A81DD668E30022ED0B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A8B7F1AD1DD668E30022ED0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -152,6 +154,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A8A008A31DFF4FDB00E60BFE /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				A8A008A41DFF4FF200E60BFE /* summary.pdf */,
+			);
+			name = assets;
+			sourceTree = "<group>";
+		};
 		A8B7F19C1DD668E30022ED0B = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +202,7 @@
 				A8B7F1AF1DD668E30022ED0B /* Assets.xcassets */,
 				A8B7F1B11DD668E30022ED0B /* LaunchScreen.storyboard */,
 				A8B7F1B41DD668E30022ED0B /* Info.plist */,
+				A8A008A31DFF4FDB00E60BFE /* assets */,
 			);
 			path = BreastScreeningDecisions;
 			sourceTree = "<group>";
@@ -441,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A8B7F1B31DD668E30022ED0B /* LaunchScreen.storyboard in Resources */,
+				A8A008A51DFF4FF200E60BFE /* summary.pdf in Resources */,
 				A8B7F1B01DD668E30022ED0B /* Assets.xcassets in Resources */,
 				A8B7F1AE1DD668E30022ED0B /* Main.storyboard in Resources */,
 			);
