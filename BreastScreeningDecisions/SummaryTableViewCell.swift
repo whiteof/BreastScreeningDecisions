@@ -8,13 +8,14 @@
 
 import UIKit
 
-class SummaryTableViewCell: UITableViewCell {
+class SummaryTableViewCell: UITableViewCell, UIWebViewDelegate {
 
     @IBOutlet weak var cellContentView: UIView!
     @IBOutlet weak var cellContentViewHeight: NSLayoutConstraint!
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var emailTopInsent: NSLayoutConstraint!
     @IBOutlet weak var sendButton: UIButton!
+    @IBOutlet weak var webView: UIWebView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,6 +26,13 @@ class SummaryTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        self.cellContentViewHeight.constant = 800.0
+        let url = Bundle.main.url(forResource: "summary", withExtension: "pdf")
+        let request = URLRequest(url: url!)
+        self.webView.loadRequest(request)
     }
 
 }

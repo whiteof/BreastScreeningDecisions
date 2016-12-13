@@ -63,6 +63,7 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
             }
         }
         if(indexPath.row == 0) {
+            //cell.webView.isHidden = true
             // build header
             let info = self.buildHeader(frameWidth: (cell.cellContentView.frame.width - 40.0))
             // get view height
@@ -85,30 +86,34 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
             // set cell color
             cell.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1.0)
             // build view
-            let info = self.buildFooter(frameWidth: (cell.cellContentView.frame.width - 40.0))
+            /*
+            let footer = self.buildFooter(frameWidth: cell.cellContentView.frame.width - 40.0)
             // get view height
-            var infoHeight:CGFloat = 0.0
-            for constraint in info.constraints {
+            var footerHeight:CGFloat = 0.0
+            for constraint in footer.constraints {
                 if(constraint.firstAttribute == NSLayoutAttribute.height) {
-                    infoHeight = constraint.constant
+                    footerHeight = constraint.constant
                 }
             }
-            
+ */
+
+            /*
             cell.emailField.isHidden = false
             cell.sendButton.isHidden = false
             cell.sendButton.layer.cornerRadius = 6.0
             cell.sendButton.backgroundColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
             cell.sendButton.setTitleColor(UIColor.white, for: .normal)
             cell.emailTopInsent.constant = infoHeight
+             */
             
             // set container height by content
-            cell.cellContentViewHeight.constant = infoHeight + 100.0
+            cell.cellContentViewHeight.constant = 800.0
             // add content
-            cell.cellContentView.addSubview(info)
+            //cell.cellContentView.addSubview(footer)
             // set chart relational constraints
-            let constraintCenterX = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0)
-            let constraintY = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0)
-            NSLayoutConstraint.activate([constraintCenterX, constraintY])
+            //let constraintCenterX = NSLayoutConstraint(item: footer, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0)
+            //let constraintY = NSLayoutConstraint(item: footer, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0)
+            //NSLayoutConstraint.activate([constraintCenterX, constraintY])
             
         }
         return cell
@@ -165,8 +170,23 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
     
     func buildFooter(frameWidth: CGFloat) -> UIView {
         let returnView = UIView()
-        var currentY: CGFloat = 20.0
+        var currentY: CGFloat = 0.0
         
+        
+        // create web view
+        //let webView = UIWebView(frame: CGRect(x: 0.0, y: currentY, width: frameWidth, height: 800.0))
+        
+        //let path = NSURL(fileURLWithPath: Bundle.main.path(forResource: "summary", ofType: "pdf")!)
+        //let url = Bundle.main.url(forResource: "test", withExtension: "html")
+        //let request = URLRequest(url: url!)
+        //webView.scalesPageToFit = true
+        //webView.isHidden = false
+        //cell.webView.loadRequest(request)
+        //returnView.addSubview(webView)
+        currentY = currentY + 800.0
+        
+        
+        /*
         // add label1
         let label1 = UILabel()
         label1.textAlignment = NSTextAlignment.left
@@ -188,6 +208,7 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
         label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
         returnView.addSubview(label2)
         currentY = currentY + label2.frame.height + 20.0
+        */
         
         let parentConstraintWidth = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: frameWidth)
         let parentConstraintHeight = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: currentY)
