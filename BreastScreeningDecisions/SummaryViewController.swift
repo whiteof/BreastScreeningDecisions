@@ -1,138 +1,121 @@
 //
-//  SummaryViewController.swift
+//  SummaryTwoViewController.swift
 //  BreastScreeningDecisions
 //
-//  Created by Victor Yurkin on 11/17/16.
+//  Created by Victor Yurkin on 12/13/16.
 //  Copyright © 2016 Weill Cornell Medicine. All rights reserved.
 //
 
 import UIKit
 import ResearchKit
 
-class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class SummaryViewController: UIViewController, UIWebViewDelegate, UIScrollViewDelegate {
+
+    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet weak var loader: UIActivityIndicatorView!
+    @IBOutlet weak var headerHeight: NSLayoutConstraint!
+    @IBOutlet weak var headerView: UIView!
     
-    @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var nextButton: UIButton!
+    var zooming = false
+    var maxHeaderHeight: CGFloat = 100.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // set status bar white color
-        UIApplication.shared.statusBarStyle = UIStatusBarStyle.lightContent
+        let pdfUrl = Bundle.main.url(forResource: "summary", withExtension: "pdf")!
+        let pdf = CGPDFDocument(pdfUrl as CFURL)!
+        let pageCount = pdf.numberOfPages
         
-        // remove insent
-        self.tableView.tableHeaderView = UIView.init(frame: CGRect.init(x: 0.0, y: 0.0, width: self.tableView.bounds.size.width, height: 0.01))
-        
-        self.tableView.estimatedRowHeight = self.tableView.rowHeight
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(SummaryViewController.handleTap(_:))))
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-    override func viewDidLayoutSubviews() {
-        self.tableView.reloadData()
-    }
-    
-    // MARK: - Table view data source
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 2
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SummaryCell", for: indexPath) as! SummaryTableViewCell
-        cell.cellContentView.translatesAutoresizingMaskIntoConstraints = false
-        // remove content
-        for view in cell.cellContentView.subviews {
-            if(view.tag != 1) {
-                view.removeFromSuperview()
-            }else {
-                view.isHidden = true
-            }
-        }
-        if(indexPath.row == 0) {
-            //cell.webView.isHidden = true
-            // build header
-            let info = self.buildHeader(frameWidth: (cell.cellContentView.frame.width - 40.0))
-            // get view height
-            var infoHeight:CGFloat = 0.0
-            for constraint in info.constraints {
-                if(constraint.firstAttribute == NSLayoutAttribute.height) {
-                    infoHeight = constraint.constant
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filePathString = dir.appendingPathComponent("summary.pdf").path
+        if (!FileManager.default.fileExists(atPath: filePathString)) {
+            UIGraphicsBeginPDFContextToFile(filePathString, CGRect.zero, nil)
+            for index in 1...pageCount {
+                let page = pdf.page(at: index)!
+                let pageBox = CGPDFPage.getBoxRect(page)
+                let pageFrame = pageBox(CGPDFBox.mediaBox)
+                UIGraphicsBeginPDFPageWithInfo(pageFrame, nil)
+                let ctx = UIGraphicsGetCurrentContext()!
+                ctx.saveGState()
+                ctx.scaleBy(x: 1, y: -1)
+                ctx.translateBy(x: 0, y: -pageFrame.size.height)
+                ctx.drawPDFPage(page)
+                ctx.restoreGState()
+                // add markers
+                if(index == 2) {
+                    let image1 = UIImage(named: "Marker")!
+                    image1.draw(in: CGRect(x: 52.0, y: 112.0, width: 11.0, height: 11.0))
+                    let image2 = UIImage(named: "Marker")!
+                    image2.draw(in: CGRect(x: 252.0, y: 112.0, width: 11.0, height: 11.0))
                 }
+                
             }
-            // set container height by content
-            cell.cellContentViewHeight.constant = infoHeight
-            // add content
-            cell.cellContentView.addSubview(info)
-            // set chart relational constraints
-            let constraintCenterX = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0)
-            let constraintCenterY = NSLayoutConstraint(item: info, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0)
-            NSLayoutConstraint.activate([constraintCenterX, constraintCenterY])
-            
-        }else {
-            // set cell color
-            cell.backgroundColor = UIColor(red: 239/255, green: 239/255, blue: 244/255, alpha: 1.0)
-            // build view
-            /*
-            let footer = self.buildFooter(frameWidth: cell.cellContentView.frame.width - 40.0)
-            // get view height
-            var footerHeight:CGFloat = 0.0
-            for constraint in footer.constraints {
-                if(constraint.firstAttribute == NSLayoutAttribute.height) {
-                    footerHeight = constraint.constant
-                }
-            }
- */
-
-            /*
-            cell.emailField.isHidden = false
-            cell.sendButton.isHidden = false
-            cell.sendButton.layer.cornerRadius = 6.0
-            cell.sendButton.backgroundColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
-            cell.sendButton.setTitleColor(UIColor.white, for: .normal)
-            cell.emailTopInsent.constant = infoHeight
-             */
-            
-            // set container height by content
-            cell.cellContentViewHeight.constant = 800.0
-            // add content
-            //cell.cellContentView.addSubview(footer)
-            // set chart relational constraints
-            //let constraintCenterX = NSLayoutConstraint(item: footer, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerX, multiplier: 1.0, constant: 0)
-            //let constraintY = NSLayoutConstraint(item: footer, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0)
-            //NSLayoutConstraint.activate([constraintCenterX, constraintY])
-            
+            UIGraphicsEndPDFContext()
         }
-        return cell
-    }
-    
-    func buildHeader(frameWidth: CGFloat) -> UIView {
-        let returnView = UIView()
-        var currentY: CGFloat = 20.0
+        print("**********************")
+        print(filePathString)
+        print("**********************")
+        //print(file.absoluteString)
         
-        // add header
-        let label1 = UILabel()
-        label1.textAlignment = NSTextAlignment.left
-        label1.numberOfLines = 0
-        label1.text = "Your summary"
-        label1.font = UIFont(name:"HelveticaNeue-Bold", size: 18.0)
-        label1.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label1.getLabelHeight(byWidth: frameWidth))
-        label1.textColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
-        returnView.addSubview(label1)
-        currentY = currentY + label1.frame.height + 10.0
+        
+        
+        
+/*
+        // generate PDF document based on answers
+        // Get existing Pdf reference
+        let pdf = CGPDFDocument()
+        
+        // Get page count of pdf, so we can loop through pages and draw them accordingly
+        let pageCount = pdf!.numberOfPages;
+        
+        // Write to file
+        UIGraphicsBeginPDFContextToFile(path, CGRect.zero, nil)
+        
+        // Write to data
+        //var data = NSMutableData()
+        //UIGraphicsBeginPDFContextToData(data, CGRectZero, nil)
+        
+        for index in 1...pageCount {
+            let page = pdf!.page(at: index)
+            //let pageFrame = CGPDFPageGetBoxRect(page, kCGPDFMediaBox)
+            //let pageFrame = CGPDFPageGetBoxRect(page!, kCGPDFContextMediaBox)
+            let pageFrame = CGPDFPageGetBoxRect
+            
+            UIGraphicsBeginPDFPageWithInfo(pageFrame, nil)
+            
+            var ctx = UIGraphicsGetCurrentContext()
+            
+            // Draw existing page
+            CGContextSaveGState(ctx);
+            CGContextScaleCTM(ctx, 1, -1);
+            CGContextTranslateCTM(ctx, 0, -pageFrame.size.height);
+            CGContextDrawPDFPage(ctx, page);
+            CGContextRestoreGState(ctx);
+            
+            // Draw image on top of page
+            var image = UIImage(named: "signature3")
+            image?.drawInRect(CGRectMake(100, 100, 100, 100))
+            
+            // Draw red box on top of page
+            //UIColor.redColor().set()
+            //UIRectFill(CGRectMake(20, 20, 100, 100));
+        }
+        
+        
+        UIGraphicsEndPDFContext()
+        */
+        
+        // Do any additional setup after loading the view.
+        let url = Bundle.main.url(forResource: "summary", withExtension: "pdf")
+        let request = URLRequest(url: url!)
+        self.loader.startAnimating()
+        self.webView.loadRequest(request)
+        
+        self.webView.scrollView.delegate = self
+     
+        // add content to header view
+        let width = self.headerView.frame.width-40.0
+        var currentY: CGFloat = 0.0
         // add label2
         let tempHeightLabel = UILabel()
         tempHeightLabel.numberOfLines = 0
@@ -146,9 +129,9 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
             ["Breast Screening Decisions.": UIFont(name:"HelveticaNeue-Bold", size: 16.0)!]
             ]
         )
-        label2.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: tempHeightLabel.getLabelHeight(byWidth: frameWidth))
+        label2.frame = CGRect(x: 20.0, y: currentY, width: width, height: tempHeightLabel.getLabelHeight(byWidth: width))
         label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        returnView.addSubview(label2)
+        self.headerView.addSubview(label2)
         currentY = currentY + label2.frame.height + 10.0
         // add label3
         let label3 = UILabel()
@@ -156,65 +139,64 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
         label3.numberOfLines = 0
         label3.text = "We hope this tool has provided an opportunity to learn about your breast cancer risk and the benefits and harms of breast cancer screening for women like you."
         label3.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
-        label3.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label3.getLabelHeight(byWidth: frameWidth))
+        label3.frame = CGRect(x: 20.0, y: currentY, width: width, height: label3.getLabelHeight(byWidth: width))
         label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        returnView.addSubview(label3)
-        currentY = currentY + label3.frame.height + 20.0
+        self.headerView.addSubview(label3)
+        currentY = currentY + label3.frame.height + 10.0
         
-        let parentConstraintWidth = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: frameWidth)
-        let parentConstraintHeight = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: currentY)
-        NSLayoutConstraint.activate([parentConstraintWidth, parentConstraintHeight])
-        
-        return returnView
+        self.headerHeight.constant = currentY
+        self.maxHeaderHeight = currentY
     }
     
-    func buildFooter(frameWidth: CGFloat) -> UIView {
-        let returnView = UIView()
-        var currentY: CGFloat = 0.0
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func webViewDidStartLoad(_ webView: UIWebView) {
+        self.loader.isHidden = false
+        self.loader.startAnimating()
+    }
+    
+    func webViewDidFinishLoad(_ webView: UIWebView) {
+        self.loader.stopAnimating()
+        self.loader.isHidden = true
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if(!self.zooming) {
+            if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < self.maxHeaderHeight) {
+                self.headerHeight.constant = self.maxHeaderHeight - scrollView.contentOffset.y
+            }
+            if (scrollView.contentOffset.y > self.maxHeaderHeight) {
+                self.headerHeight.constant = 0.0
+            }
+            if (scrollView.contentOffset.y < 0.1) {
+                self.headerHeight.constant = self.maxHeaderHeight
+            }
+        }
+    }
+    
+    func scrollViewWillBeginZooming(_ scrollView: UIScrollView, with view: UIView?) {
+        self.zooming = true
+    }
+    
+    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+        self.zooming = false
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.3, animations: {
+            if (scrollView.contentOffset.y > 0 && scrollView.contentOffset.y < self.maxHeaderHeight) {
+                self.headerHeight.constant = self.maxHeaderHeight - scrollView.contentOffset.y
+            }
+            if (scrollView.contentOffset.y > self.maxHeaderHeight) {
+                self.headerHeight.constant = 0.0
+            }
+            if (scrollView.contentOffset.y < 0.1) {
+                self.headerHeight.constant = self.maxHeaderHeight
+            }
+            self.view.layoutIfNeeded()
+        }, completion: nil)
         
-        
-        // create web view
-        //let webView = UIWebView(frame: CGRect(x: 0.0, y: currentY, width: frameWidth, height: 800.0))
-        
-        //let path = NSURL(fileURLWithPath: Bundle.main.path(forResource: "summary", ofType: "pdf")!)
-        //let url = Bundle.main.url(forResource: "test", withExtension: "html")
-        //let request = URLRequest(url: url!)
-        //webView.scalesPageToFit = true
-        //webView.isHidden = false
-        //cell.webView.loadRequest(request)
-        //returnView.addSubview(webView)
-        currentY = currentY + 800.0
-        
-        
-        /*
-        // add label1
-        let label1 = UILabel()
-        label1.textAlignment = NSTextAlignment.left
-        label1.numberOfLines = 0
-        label1.text = "You can keep a copy of this information to save for your records. We encourage you to print it and share with your doctor at your next visit."
-        label1.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
-        label1.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label1.getLabelHeight(byWidth: frameWidth))
-        label1.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        returnView.addSubview(label1)
-        currentY = currentY + label1.frame.height + 10.0
-        
-        // add label2
-        let label2 = UILabel()
-        label2.textAlignment = NSTextAlignment.left
-        label2.numberOfLines = 0
-        label2.text = "Enter email address and press \"Send\" button to get your summary:"
-        label2.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
-        label2.frame = CGRect(x: 20.0, y: currentY, width: frameWidth, height: label2.getLabelHeight(byWidth: frameWidth))
-        label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        returnView.addSubview(label2)
-        currentY = currentY + label2.frame.height + 20.0
-        */
-        
-        let parentConstraintWidth = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: frameWidth)
-        let parentConstraintHeight = NSLayoutConstraint(item: returnView, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: currentY)
-        NSLayoutConstraint.activate([parentConstraintWidth, parentConstraintHeight])
-        
-        return returnView
     }
     
     @IBAction func resetAppAction(_ sender: Any) {
@@ -231,22 +213,20 @@ class SummaryViewController: UIViewController, UITableViewDelegate, UITableViewD
         present(confirmAlert, animated: true, completion: nil)
     }
     
+    @IBAction func printAction(_ sender: Any) {
+        let url = self.webView.request?.url
+        let pic = UIPrintInteractionController.shared
+        let printInfo : UIPrintInfo = UIPrintInfo(dictionary: nil)
+        printInfo.outputType = UIPrintInfoOutputType.general
+        printInfo.jobName = (url?.absoluteString)!
+        pic.printInfo = printInfo
+        pic.printFormatter = self.webView.viewPrintFormatter()
+        pic.present(animated: true, completionHandler: nil)
+    }
+    
     @IBAction func unwindToSummary(_ segue: UIStoryboardSegue) {
     }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
-    }
-    
-    @IBAction func sendEmailAction(_ sender: Any) {
-        self.view.endEditing(true)
-    }
-    
-    func handleTap(_ sender:UITapGestureRecognizer){
-        self.view.endEditing(true)
-    }
-    
+
 }
 
 extension SummaryViewController: ORKPasscodeDelegate {
