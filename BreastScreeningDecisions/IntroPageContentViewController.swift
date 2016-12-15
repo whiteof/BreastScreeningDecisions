@@ -25,7 +25,7 @@ class IntroPageContentViewController: UIViewController {
                 _ = true
             }
             DispatchQueue.main.async {
-                self.parentViewHeightConst.constant = self.headerLabel.getLabelHeightByWidth() + self.contentLabel.getLabelHeightByWidth() +  50.0
+                self.parentViewHeightConst.constant = self.headerLabel.getLabelHeightByWidth() + self.contentLabel.getLabelHeightByWidth() +  70.0
             }
         }
     }

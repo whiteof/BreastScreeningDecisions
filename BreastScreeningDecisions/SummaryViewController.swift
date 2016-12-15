@@ -18,46 +18,54 @@ class SummaryViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     
     var zooming = false
     var maxHeaderHeight: CGFloat = 100.0
+    var firstLoad = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.webView.scrollView.delegate = self
-     
-        // add content to header view
-        let width = self.headerView.frame.width-40.0
-        var currentY: CGFloat = 0.0
-        // add label2
-        let tempHeightLabel = UILabel()
-        tempHeightLabel.numberOfLines = 0
-        tempHeightLabel.text = "You have completed all sections of Breast ScreeningDecisions."
-        tempHeightLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
-        let label2 = UILabel()
-        label2.textAlignment = NSTextAlignment.left
-        label2.numberOfLines = 0
-        label2.attributedText = UILabel.generateFormattedText(content: [
-            ["You have completed all sections of ": UIFont(name:"HelveticaNeue-Light", size: 16.0)!],
-            ["Breast Screening Decisions.": UIFont(name:"HelveticaNeue-Bold", size: 16.0)!]
-            ]
-        )
-        label2.frame = CGRect(x: 20.0, y: currentY, width: width, height: tempHeightLabel.getLabelHeight(byWidth: width))
-        label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        self.headerView.addSubview(label2)
-        currentY = currentY + label2.frame.height + 10.0
-        // add label3
-        let label3 = UILabel()
-        label3.textAlignment = NSTextAlignment.left
-        label3.numberOfLines = 0
-        label3.text = "We hope this tool has provided an opportunity to learn about your breast cancer risk and the benefits and harms of breast cancer screening for women like you."
-        label3.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
-        label3.frame = CGRect(x: 20.0, y: currentY, width: width, height: label3.getLabelHeight(byWidth: width))
-        label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-        self.headerView.addSubview(label3)
-        currentY = currentY + label3.frame.height + 10.0
         
-        self.headerHeight.constant = currentY
-        self.maxHeaderHeight = currentY
+    }
+    
+    override func viewDidLayoutSubviews() {
         
+        if(self.firstLoad) {
+            // add content to header view
+            let width = self.headerView.frame.width-40.0
+            var currentY: CGFloat = 0.0
+            // add label2
+            let tempHeightLabel = UILabel()
+            tempHeightLabel.numberOfLines = 0
+            tempHeightLabel.text = "You have completed all sections of Breast ScreeningDecisions."
+            tempHeightLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 16.0)
+            let label2 = UILabel()
+            label2.textAlignment = NSTextAlignment.left
+            label2.numberOfLines = 0
+            label2.attributedText = UILabel.generateFormattedText(content: [
+                ["You have completed all sections of ": UIFont(name:"HelveticaNeue-Light", size: 16.0)!],
+                ["Breast Screening Decisions.": UIFont(name:"HelveticaNeue-Bold", size: 16.0)!]
+                ]
+            )
+            label2.frame = CGRect(x: 20.0, y: currentY, width: width, height: tempHeightLabel.getLabelHeight(byWidth: width))
+            label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+            self.headerView.addSubview(label2)
+            currentY = currentY + label2.frame.height + 10.0
+            // add label3
+            let label3 = UILabel()
+            label3.textAlignment = NSTextAlignment.left
+            label3.numberOfLines = 0
+            label3.text = "We hope this tool has provided an opportunity to learn about your breast cancer risk and the benefits and harms of breast cancer screening for women like you."
+            label3.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
+            label3.frame = CGRect(x: 20.0, y: currentY, width: width, height: label3.getLabelHeight(byWidth: width))
+            label3.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+            self.headerView.addSubview(label3)
+            currentY = currentY + label3.frame.height + 10.0
+            
+            self.headerHeight.constant = currentY
+            self.maxHeaderHeight = currentY
+            
+            self.firstLoad = false
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
