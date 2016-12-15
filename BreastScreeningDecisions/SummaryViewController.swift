@@ -41,12 +41,32 @@ class SummaryViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
                 ctx.translateBy(x: 0, y: -pageFrame.size.height)
                 ctx.drawPDFPage(page)
                 ctx.restoreGState()
+                if(index == 1) {
+                    let pdfLabel = UILabel()
+                    pdfLabel.textAlignment = NSTextAlignment.left
+                    pdfLabel.numberOfLines = 1
+                    pdfLabel.font = UIFont(name:"HelveticaNeue", size: 11.0)
+                    pdfLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                    
+                    pdfLabel.text = "0.8%."
+                    pdfLabel.drawText(in: CGRect(x: 350.0, y: 109.5, width: 50.0, height: 20.0))
+
+                    pdfLabel.text = "8"
+                    pdfLabel.drawText(in: CGRect(x: 265.8, y: 131.6, width: 50.0, height: 20.0))
+                    
+                    pdfLabel.text = "992"
+                    pdfLabel.drawText(in: CGRect(x: 41.0, y: 146.0, width: 50.0, height: 20.0))
+                }
                 // add markers
                 if(index == 2) {
-                    let image1 = UIImage(named: "Marker")!
-                    image1.draw(in: CGRect(x: 52.0, y: 112.0, width: 11.0, height: 11.0))
-                    let image2 = UIImage(named: "Marker")!
-                    image2.draw(in: CGRect(x: 252.0, y: 112.0, width: 11.0, height: 11.0))
+                    let values = ApplicationDataModel.sharedInstance.getValuesSurveyData()
+                    var valuesY:CGFloat = 112.0
+                    for value in values {
+                        let x = CGFloat(((514.0-52.0)*value)+52.0)
+                        let image = UIImage(named: "Marker")!
+                        image.draw(in: CGRect(x: x, y: valuesY, width: 11.0, height: 11.0))
+                        valuesY = valuesY + 47.1
+                    }
                 }
                 
             }
@@ -56,58 +76,11 @@ class SummaryViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         print(filePathString)
         print("**********************")
         //print(file.absoluteString)
-        
-        
-        
-        
-/*
-        // generate PDF document based on answers
-        // Get existing Pdf reference
-        let pdf = CGPDFDocument()
-        
-        // Get page count of pdf, so we can loop through pages and draw them accordingly
-        let pageCount = pdf!.numberOfPages;
-        
-        // Write to file
-        UIGraphicsBeginPDFContextToFile(path, CGRect.zero, nil)
-        
-        // Write to data
-        //var data = NSMutableData()
-        //UIGraphicsBeginPDFContextToData(data, CGRectZero, nil)
-        
-        for index in 1...pageCount {
-            let page = pdf!.page(at: index)
-            //let pageFrame = CGPDFPageGetBoxRect(page, kCGPDFMediaBox)
-            //let pageFrame = CGPDFPageGetBoxRect(page!, kCGPDFContextMediaBox)
-            let pageFrame = CGPDFPageGetBoxRect
-            
-            UIGraphicsBeginPDFPageWithInfo(pageFrame, nil)
-            
-            var ctx = UIGraphicsGetCurrentContext()
-            
-            // Draw existing page
-            CGContextSaveGState(ctx);
-            CGContextScaleCTM(ctx, 1, -1);
-            CGContextTranslateCTM(ctx, 0, -pageFrame.size.height);
-            CGContextDrawPDFPage(ctx, page);
-            CGContextRestoreGState(ctx);
-            
-            // Draw image on top of page
-            var image = UIImage(named: "signature3")
-            image?.drawInRect(CGRectMake(100, 100, 100, 100))
-            
-            // Draw red box on top of page
-            //UIColor.redColor().set()
-            //UIRectFill(CGRectMake(20, 20, 100, 100));
-        }
-        
-        
-        UIGraphicsEndPDFContext()
-        */
-        
+      
         // Do any additional setup after loading the view.
-        let url = Bundle.main.url(forResource: "summary", withExtension: "pdf")
-        let request = URLRequest(url: url!)
+        //let url = Bundle.main.url(forResource: "summary", withExtension: "pdf")
+        let url = dir.appendingPathComponent("summary.pdf")
+        let request = URLRequest(url: url)
         self.loader.startAnimating()
         self.webView.loadRequest(request)
         
