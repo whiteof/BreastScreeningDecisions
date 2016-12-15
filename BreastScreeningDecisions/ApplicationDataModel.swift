@@ -352,8 +352,17 @@ class ApplicationDataModel {
         self.userDefaults.removeObject(forKey: "YourRiskSurveyResponse")
         self.userDefaults.removeObject(forKey: "ValuesTaskResult")
         self.userDefaults.synchronize()
-        // remove tasks to run
-        //SyncHelper.sharedInstance.removeTasksToRun()
+        // Delete PDF file if exists
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filePathString = dir.appendingPathComponent("summary.pdf").path
+        if (FileManager.default.fileExists(atPath: filePathString)) {
+            let fileManager = FileManager()
+            do {
+                try fileManager.removeItem(atPath: filePathString)
+            }catch {
+                print("Error removing file!")
+            }
+        }
     }
     
 }

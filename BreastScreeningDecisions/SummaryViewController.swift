@@ -22,68 +22,6 @@ class SummaryViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let pdfUrl = Bundle.main.url(forResource: "summary", withExtension: "pdf")!
-        let pdf = CGPDFDocument(pdfUrl as CFURL)!
-        let pageCount = pdf.numberOfPages
-        
-        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let filePathString = dir.appendingPathComponent("summary.pdf").path
-        if (!FileManager.default.fileExists(atPath: filePathString)) {
-            UIGraphicsBeginPDFContextToFile(filePathString, CGRect.zero, nil)
-            for index in 1...pageCount {
-                let page = pdf.page(at: index)!
-                let pageBox = CGPDFPage.getBoxRect(page)
-                let pageFrame = pageBox(CGPDFBox.mediaBox)
-                UIGraphicsBeginPDFPageWithInfo(pageFrame, nil)
-                let ctx = UIGraphicsGetCurrentContext()!
-                ctx.saveGState()
-                ctx.scaleBy(x: 1, y: -1)
-                ctx.translateBy(x: 0, y: -pageFrame.size.height)
-                ctx.drawPDFPage(page)
-                ctx.restoreGState()
-                if(index == 1) {
-                    let pdfLabel = UILabel()
-                    pdfLabel.textAlignment = NSTextAlignment.left
-                    pdfLabel.numberOfLines = 1
-                    pdfLabel.font = UIFont(name:"HelveticaNeue", size: 11.0)
-                    pdfLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
-                    
-                    pdfLabel.text = "0.8%."
-                    pdfLabel.drawText(in: CGRect(x: 350.0, y: 109.5, width: 50.0, height: 20.0))
-
-                    pdfLabel.text = "8"
-                    pdfLabel.drawText(in: CGRect(x: 265.8, y: 131.6, width: 50.0, height: 20.0))
-                    
-                    pdfLabel.text = "992"
-                    pdfLabel.drawText(in: CGRect(x: 41.0, y: 146.0, width: 50.0, height: 20.0))
-                }
-                // add markers
-                if(index == 2) {
-                    let values = ApplicationDataModel.sharedInstance.getValuesSurveyData()
-                    var valuesY:CGFloat = 112.0
-                    for value in values {
-                        let x = CGFloat(((514.0-52.0)*value)+52.0)
-                        let image = UIImage(named: "Marker")!
-                        image.draw(in: CGRect(x: x, y: valuesY, width: 11.0, height: 11.0))
-                        valuesY = valuesY + 47.1
-                    }
-                }
-                
-            }
-            UIGraphicsEndPDFContext()
-        }
-        print("**********************")
-        print(filePathString)
-        print("**********************")
-        //print(file.absoluteString)
-      
-        // Do any additional setup after loading the view.
-        //let url = Bundle.main.url(forResource: "summary", withExtension: "pdf")
-        let url = dir.appendingPathComponent("summary.pdf")
-        let request = URLRequest(url: url)
-        self.loader.startAnimating()
-        self.webView.loadRequest(request)
-        
         self.webView.scrollView.delegate = self
      
         // add content to header view
@@ -119,6 +57,33 @@ class SummaryViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         
         self.headerHeight.constant = currentY
         self.maxHeaderHeight = currentY
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let url = dir.appendingPathComponent("summary.pdf")
+        
+        // check if PDF loaded to UIWebView
+        if(self.webView.request?.url?.absoluteURL == nil) {
+            // Create PDF. If file exists, function does nothing.
+            self.generatePdf()
+            // load PDF to UIWebView
+            let request = URLRequest(url: url)
+            self.webView.loadRequest(request)
+        }
+        
+        // check if summary.pdf file doesn't exists
+        let filePathString = dir.appendingPathComponent("summary.pdf").path
+        if (!FileManager.default.fileExists(atPath: filePathString)) {
+            // create PDF
+            self.generatePdf()
+            // load PDF to UIWebView
+            let request = URLRequest(url: url)
+            self.webView.loadRequest(request)
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -126,13 +91,71 @@ class SummaryViewController: UIViewController, UIWebViewDelegate, UIScrollViewDe
         // Dispose of any resources that can be recreated.
     }
     
+    func generatePdf() {
+        let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+        let filePathString = dir.appendingPathComponent("summary.pdf").path
+        if (!FileManager.default.fileExists(atPath: filePathString)) {
+            
+            let pdfUrl = Bundle.main.url(forResource: "summary", withExtension: "pdf")!
+            let pdf = CGPDFDocument(pdfUrl as CFURL)!
+            let pageCount = pdf.numberOfPages
+            
+            UIGraphicsBeginPDFContextToFile(filePathString, CGRect.zero, nil)
+            for index in 1...pageCount {
+                let page = pdf.page(at: index)!
+                let pageBox = CGPDFPage.getBoxRect(page)
+                let pageFrame = pageBox(CGPDFBox.mediaBox)
+                UIGraphicsBeginPDFPageWithInfo(pageFrame, nil)
+                let ctx = UIGraphicsGetCurrentContext()!
+                ctx.saveGState()
+                ctx.scaleBy(x: 1, y: -1)
+                ctx.translateBy(x: 0, y: -pageFrame.size.height)
+                ctx.drawPDFPage(page)
+                ctx.restoreGState()
+                if(index == 1) {
+                    let riskResponse = ApplicationDataModel.sharedInstance.getYourRiskSurveyResponse()
+                    
+                    let pdfLabel = UILabel()
+                    pdfLabel.textAlignment = NSTextAlignment.left
+                    pdfLabel.numberOfLines = 1
+                    pdfLabel.font = UIFont(name:"HelveticaNeue", size: 11.0)
+                    pdfLabel.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
+                    
+                    pdfLabel.text = "\(riskResponse["absrisk5yearperc"]!)%."
+                    pdfLabel.drawText(in: CGRect(x: 350.0, y: 109.5, width: 50.0, height: 20.0))
+                    
+                    pdfLabel.textAlignment = NSTextAlignment.center
+                    pdfLabel.text = "\(Int(riskResponse["absrisk5yearperc"]!*10))"
+                    pdfLabel.drawText(in: CGRect(x: 258.3, y: 131.6, width: 20.0, height: 20.0))
+                    
+                    pdfLabel.textAlignment = NSTextAlignment.left
+                    pdfLabel.text = "\(1000-Int(riskResponse["absrisk5yearperc"]!*10))"
+                    pdfLabel.drawText(in: CGRect(x: 41.0, y: 146.0, width: 50.0, height: 20.0))
+                }
+                // add markers
+                if(index == 2) {
+                    let values = ApplicationDataModel.sharedInstance.getValuesSurveyData()
+                    var valuesY:CGFloat = 112.0
+                    for value in values {
+                        let x = CGFloat(((514.0-52.0)*value)+52.0)
+                        let image = UIImage(named: "Marker")!
+                        image.draw(in: CGRect(x: x, y: valuesY, width: 11.0, height: 11.0))
+                        valuesY = valuesY + 47.1
+                    }
+                }
+                
+            }
+            UIGraphicsEndPDFContext()
+        }
+    }
+    
     func webViewDidStartLoad(_ webView: UIWebView) {
         self.loader.isHidden = false
-        self.loader.startAnimating()
+        //self.loader.startAnimating()
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        self.loader.stopAnimating()
+        //self.loader.stopAnimating()
         self.loader.isHidden = true
     }
     

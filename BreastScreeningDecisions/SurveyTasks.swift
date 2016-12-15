@@ -230,7 +230,7 @@ class SurveyTasks {
         
         // Step 1
         var step = ORKFormStep.init(identifier: "step1", title: "I'm willing to do anything to detect breast cancer as early as possible.", text: nil)
-        var stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 1, defaultValue: 0, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
+        var stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 0, defaultValue: -1, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
         var item = ORKFormItem.init(identifier: "item1", text: "", answerFormat: stepAnswerFormat)
         step.formItems = [item]
         step.isOptional = false
@@ -238,60 +238,60 @@ class SurveyTasks {
         
         // Step 2
         step = ORKFormStep.init(identifier: "step2", title: "Screening mammograms are painful and inconvenient.", text: nil)
-        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 1, defaultValue: 0, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
+        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 0, defaultValue: -1, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
         item = ORKFormItem.init(identifier: "item2", text: "", answerFormat: stepAnswerFormat)
         step.formItems = [item]
         step.isOptional = false
         steps += [step]
-
+        
         // Step 3
         step = ORKFormStep.init(identifier: "step3", title: "I only want to have mammograms if I am at high risk for breast cancer.", text: nil)
-        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 1, defaultValue: 0, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
+        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 0, defaultValue: -1, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
         item = ORKFormItem.init(identifier: "item3", text: "", answerFormat: stepAnswerFormat)
         step.formItems = [item]
         step.isOptional = false
         steps += [step]
-
+        
         // Step 4
         step = ORKFormStep.init(identifier: "step4", title: "I want my doctor to tell me when to have mammograms.", text: nil)
-        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 1, defaultValue: 0, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
+        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 0, defaultValue: -1, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
         item = ORKFormItem.init(identifier: "item4", text: "", answerFormat: stepAnswerFormat)
         step.formItems = [item]
         step.isOptional = false
         steps += [step]
-
+        
         // Step 5
         step = ORKFormStep.init(identifier: "step5", title: "I have enough information to make a decision about screening mammograms.", text: nil)
-        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 1, defaultValue: 0, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
+        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 0, defaultValue: -1, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
         item = ORKFormItem.init(identifier: "item5", text: "", answerFormat: stepAnswerFormat)
         step.formItems = [item]
         step.isOptional = false
         steps += [step]
-
+        
         // Step 6
         step = ORKFormStep.init(identifier: "step6", title: "Making a decision about when to start and how often to have mammograms is stressful.", text: nil)
-        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 1, defaultValue: 0, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
+        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 0, defaultValue: -1, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
         item = ORKFormItem.init(identifier: "item6", text: "", answerFormat: stepAnswerFormat)
         step.formItems = [item]
         step.isOptional = false
         steps += [step]
-
+        
         // Step 7
         step = ORKFormStep.init(identifier: "step7", title: "How worried are you about getting breast cancer?", text: nil)
-        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 1, defaultValue: 0, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
+        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 0, defaultValue: -1, step: 1, vertical: false, maximumValueDescription: "Extremely\nWorried", minimumValueDescription: "Not At All\nWorried")
         item = ORKFormItem.init(identifier: "item7", text: "", answerFormat: stepAnswerFormat)
         step.formItems = [item]
         step.isOptional = false
         steps += [step]
-
+        
         // Step 8
         step = ORKFormStep.init(identifier: "step8", title: "How concerned are you about the possible harms of screening mammograms?", text: nil)
-        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 1, defaultValue: 0, step: 1, vertical: false, maximumValueDescription: "Strongly\nDisagree", minimumValueDescription: "Strongly\nAgree")
+        stepAnswerFormat = ORKAnswerFormat.scale(withMaximumValue: 10, minimumValue: 0, defaultValue: -1, step: 1, vertical: false, maximumValueDescription: "Extremely\nConcerned", minimumValueDescription: "Not At All\nConcerned")
         item = ORKFormItem.init(identifier: "item8", text: "", answerFormat: stepAnswerFormat)
         step.formItems = [item]
         step.isOptional = false
         steps += [step]
-
+        
         return ORKOrderedTask(identifier: "valuesSurveyTask", steps: steps)
     }()
     

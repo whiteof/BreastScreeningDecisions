@@ -153,6 +153,16 @@ class ValuesViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 let constraintCenterY = NSLayoutConstraint(item: footer, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: cell.cellContentView, attribute: NSLayoutAttribute.centerY, multiplier: 1.0, constant: 0)
                 NSLayoutConstraint.activate([constraintCenterX, constraintCenterY])
             }else {
+                // change descriptions
+                if(indexPath.row == 7) {
+                    cell.minDescriptionLabel.text = "Not At All Worried"
+                    cell.maxDescriptionLabel.text = "Extremely Worried"
+                }
+                if(indexPath.row == 8) {
+                    cell.minDescriptionLabel.text = "Not At All Concerned"
+                    cell.maxDescriptionLabel.text = "Extremely Concerned"
+                }
+                
                 if(indexPath.row == 9) {
                     // hide static content
                     for view in cell.cellContentView.subviews {
@@ -282,6 +292,19 @@ extension ValuesViewController: ORKTaskViewControllerDelegate {
             self.values = ApplicationDataModel.sharedInstance.getValuesSurveyData()
             self.nextButton.setTitle("Next", for: UIControlState.normal)
             self.tableView.reloadData()
+            
+            // Delete PDF file if exists
+            let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let filePathString = dir.appendingPathComponent("summary.pdf").path
+            if (FileManager.default.fileExists(atPath: filePathString)) {
+                let fileManager = FileManager()
+                do {
+                    try fileManager.removeItem(atPath: filePathString)
+                }catch {
+                    print("Error removing file!")
+                }
+            }
+            
         default:
             print("Not completed!")
         }

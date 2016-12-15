@@ -327,7 +327,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             let label1 = UILabel()
             label1.textAlignment = NSTextAlignment.left
             label1.numberOfLines = 0
-            label1.text = "In the next 5 years, 992 will not get breast cancer"
+            label1.text = "In the next 5 years, \(1000-percent) will not get breast cancer"
             label1.font = UIFont(name:"HelveticaNeue-Light", size: 14.0)
             label1.frame = CGRect(x: 20.0, y: currentY, width: chartWidth-20.0, height: label1.getLabelHeight(byWidth: chartWidth-20.0))
             label1.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
@@ -341,7 +341,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             let label2 = UILabel()
             label2.textAlignment = NSTextAlignment.left
             label2.numberOfLines = 0
-            label2.text = "In the next 5 years, 8 will get breast cancer"
+            label2.text = "In the next 5 years, \(percent) will get breast cancer"
             label2.font = UIFont(name:"HelveticaNeue-Light", size: 14.0)
             label2.frame = CGRect(x: 20.0, y: currentY, width: chartWidth-20.0, height: label2.getLabelHeight(byWidth: chartWidth-20.0))
             label2.textColor = UIColor(red: 185/255, green: 29/255, blue: 107/255, alpha: 1.0)
@@ -391,6 +391,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
         let returnView = UIView()
         var currentY: CGFloat = 0.0
         if(riskPercent > 0) {
+            let riskResponse = ApplicationDataModel.sharedInstance.getYourRiskSurveyResponse()
             // SURVEY COMPLETED
             // add label1
             let label1 = UILabel()
@@ -406,7 +407,7 @@ class YourRiskViewController: UIViewController, UITableViewDelegate, UITableView
             let label2 = UILabel()
             label2.textAlignment = NSTextAlignment.left
             label2.numberOfLines = 0
-            label2.text = "Based on your responses, your chance of developing breast cancer in the next 5 years is 0.8%. That means that out of 1000 women like you, 8 of them will develop breast cancer in the next 5 years."
+            label2.text = "Based on your responses, your chance of developing breast cancer in the next 5 years is \(riskResponse["absrisk5yearperc"]!)%. That means that out of 1000 women like you, \(Int(riskResponse["absrisk5yearperc"]!*10)) of them will develop breast cancer in the next 5 years."
             label2.font = UIFont(name:"HelveticaNeue-Light", size: 16.0)
             label2.frame = CGRect(x: 0, y: currentY, width: frameWidth, height: label2.getLabelHeight(byWidth: frameWidth))
             label2.textColor = UIColor(red: 85/255, green: 85/255, blue: 85/255, alpha: 1.0)
@@ -676,7 +677,21 @@ extension YourRiskViewController: ORKTaskViewControllerDelegate {
                 screeningTab.isEnabled = false
                 let valuesTab = tabs![2]
                 valuesTab.isEnabled = false
+                let summaryTab = tabs![3]
+                summaryTab.isEnabled = false
                 taskViewController.dismiss(animated: true, completion: nil)
+            }
+            
+            // Delete PDF file if exists
+            let dir = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+            let filePathString = dir.appendingPathComponent("summary.pdf").path
+            if (FileManager.default.fileExists(atPath: filePathString)) {
+                let fileManager = FileManager()
+                do {
+                    try fileManager.removeItem(atPath: filePathString)
+                }catch {
+                    print("Error removing file!")
+                }
             }
         default:
             print("Not completed!")

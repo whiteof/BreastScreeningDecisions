@@ -14,6 +14,8 @@ class ValuesTableViewCell: UITableViewCell {
     @IBOutlet weak var cellContentViewHeight: NSLayoutConstraint!
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var minDescriptionLabel: UILabel!
+    @IBOutlet weak var maxDescriptionLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
